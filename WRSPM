@@ -1,0 +1,41 @@
+William, Mian, Luis, Isra, Sean
+
+CSC 325 Capstone Project Proposal: Online Banking Application
+
+Our project proposal will be an online banking applicaiton where the user will log into the system and be able to view their accounts and make any 
+deposits, withdrawals or transfers needed and once all actions are completed get a log (or a receipt) of what was done. 
+We will create a database with 15-20 users with their information (name, address, account number, balances, etc.) 
+If the user does not have an account then they will be given the option to create one and input all the information needed and that information 
+will be added to the database and stored. The code will be created using Java, our database will be created in Java using SQL, our UI will be created 
+in Figma and we will host the application on Firebase.
+
+WRSPM Analysis:
+
+WORLD
+
+Users have access to the internet and suitable devices (smartphones, cellphones, etc.)
+
+Application should be able to adapt to changing economic conditions and user needs.
+
+REQUIREMENTS
+
+User friendly interface for easy navigation and interaction.
+
+Accounts for different users with unique balances in each account and personal information.
+
+User should be able to log into their account, make any deposits, withdrawals or transfers to their account.
+
+SPECIFICATIONS
+
+User authentication and secure data storage (database), if user does not have an account they can create one and 
+the information they give will be stored in the database.
+
+Provide a transaction history log for users to track their financial activities.
+
+Ensure UI is accessible to everyone and doesn’t look too complicated to use.
+
+PROGRAM/MACHINE
+
+Developing the application using Java and its frameworks, using a SQL database to store user information and Figma for UI.
+
+We will host the application on Firebase with sufficient resources.
