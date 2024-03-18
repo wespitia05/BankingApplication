@@ -30,6 +30,7 @@
                   <Font name="Kefa Regular" size="18.0" />
                </font>
             </Label>
+            <Button fx:id="employeeLogin" layoutX="83.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleEmployeeLoginButton" prefHeight="26.0" prefWidth="131.0" text="Employee Login" />
          </children></AnchorPane>
     <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>

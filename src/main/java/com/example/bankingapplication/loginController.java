@@ -15,6 +15,8 @@ public class loginController {
     private Button loginButton;
     @FXML
     private Button createAcctButton;
+    @FXML
+    private Button employeeLoginButton;
     public void initialize () {
         System.out.println ("Initialize called");
 
@@ -23,6 +25,12 @@ public class loginController {
         System.out.println ("handleLoginButton called");
     }
 
+    public void handleEmployeeLoginButton () throws IOException {
+        System.out.println ("handleEmployeeLogin called");
+
+        main m = new main();
+        m.changeScene("employeeLogin.fxml");
+    }
     public void handleCreateAcctButton () throws IOException {
         System.out.println ("handleCreateButton called");
 

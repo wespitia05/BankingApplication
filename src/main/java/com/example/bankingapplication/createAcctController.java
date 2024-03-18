@@ -19,6 +19,6 @@ public class createAcctController {
     private Button nextButton;
 
     public void handleNextButton () {
-        System.out.println ("handleNewButton called");
+        System.out.println ("handleNextButton called");
     }
 }
