@@ -85,6 +85,11 @@
                   <Font name="Kefa Regular" size="14.0" />
                </font>
             </Button>
+            <Label fx:id="goBackOption" layoutX="122.0" layoutY="356.0" onMouseClicked="#handleOnMouseClicked" text="Go Back" underline="true">
+               <font>
+                  <Font name="Kefa Regular" size="14.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
    </items>
 </SplitPane>

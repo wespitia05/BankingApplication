@@ -13,7 +13,6 @@ public class main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stg = stage;
-        stage.setResizable(false);
         FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("CSC 325 - Capstone Project");
