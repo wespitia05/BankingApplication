@@ -1,10 +1,14 @@
 package com.example.bankingapplication;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -24,8 +28,38 @@ public class createAcctController {
     @FXML
     private Label goBackOption;
 
-    public void handleNextButton () {
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String zipCode;
+    private String dob;
+
+    public void setUserInformation(String firstName, String lastName, String address, String zipCode, String dob) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.dob = dob;
+    }
+
+    public void handleNextButton () throws IOException {
         System.out.println ("handleNextButton called");
+        // Get user input
+        firstName = firstNameTextField.getText();
+        lastName = lastNameTextField.getText();
+        address = addressTextField.getText();
+        zipCode = zipCodeTextField.getText();
+        dob = dobTextField.getText();
+        // Set user information
+        setUserInformation(firstName, lastName, address, zipCode, dob);
+        // Proceed to the next screen and pass user information
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("createAcct2.fxml"));
+        Parent root = loader.load();
+        createAcct2Controller controller = loader.getController();
+        controller.setUserData(firstName, lastName, address, zipCode, dob);
+        // Proceed to the next screen
+        Stage stage = (Stage) nextButton.getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
 
     public void handleOnMouseClicked (MouseEvent event) throws IOException {
