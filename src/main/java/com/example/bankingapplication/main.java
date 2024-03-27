@@ -1,5 +1,7 @@
 package com.example.bankingapplication;
 
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.auth.FirebaseAuth;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,8 +12,13 @@ import java.io.IOException;
 
 public class main extends Application {
     private static Stage stg;
+    private static Firestore fstore;
+    public static FirebaseAuth fauth;
+    private final FirestoreContext contxtFirebase = new FirestoreContext();
     @Override
     public void start(Stage stage) throws IOException {
+        fstore = contxtFirebase.firebase();
+        fauth = FirebaseAuth.getInstance();
         stg = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

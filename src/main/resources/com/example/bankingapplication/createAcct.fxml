@@ -42,7 +42,7 @@
                         <Font name="Kefa Regular" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="firstNameTextField">
+                  <TextField fx:id="firstNameTextField" promptText="Enter First Name">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -52,29 +52,25 @@
                         <Font name="Kefa Regular" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="lastNameTextField" />
+                  <TextField fx:id="lastNameTextField" promptText="Enter Last Name" />
                   <Label text="Address">
                      <font>
                         <Font name="Kefa Regular" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="addressTextField" />
+                  <TextField fx:id="addressTextField" promptText="Enter Address" />
                   <Label text="Zip Code">
                      <font>
                         <Font name="Kefa Regular" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="zipCodeTextField" />
+                  <TextField fx:id="zipCodeTextField" promptText="Enter Zip Code" />
                   <Label text="Date of Birth">
                      <font>
                         <Font name="Kefa Regular" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="dobTextField" promptText="mm/dd/yy">
-                     <font>
-                        <Font name="Kefa Regular" size="14.0" />
-                     </font>
-                  </TextField>
+                  <TextField fx:id="dobTextField" promptText="mm/dd/yy" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
