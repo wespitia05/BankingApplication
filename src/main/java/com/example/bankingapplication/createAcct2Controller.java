@@ -37,6 +37,22 @@ public class createAcct2Controller {
     public void handleCreateAcctButton () {
         System.out.println ("handleCreateAcctButton called");
 
+        String username = createUsernameTextField.getText();
+        String password = createPasswordTextField.getText();
+        String confirmPassword = confirmPasswordTextField.getText();
+
+        // Check if passwords match
+        if (!password.equals(confirmPassword)) {
+            // Passwords don't match, handle accordingly (show error message, etc.)
+            System.out.println("Passwords do not match");
+            return;
+        }
+
+        // Add user data to Firebase database
+        main.addDataToDB(firstName, lastName, address, zipCode, dob, username, password);
+
+        // Inform user that account has been created (optional)
+        System.out.println("Account created successfully");
     }
 
     public void handleOnMouseClicked (MouseEvent event) throws IOException {
