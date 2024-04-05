@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
+import static com.example.bankingapplication.main.addDataToDB;
 
 
 public class createAcct2Controller {
@@ -69,7 +70,7 @@ public class createAcct2Controller {
             System.out.println("Invalid input please try again.");
             return;
         }
-        main.addDataToDB(firstName, lastName, address, zipCode, dob, username, password);
+        addDataToDB(firstName, lastName, address, zipCode, dob, username, password);
         System.out.println("Account created successfully");
     }
 

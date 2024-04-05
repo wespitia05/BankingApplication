@@ -39,6 +39,12 @@ public class main extends Application {
         //addDataToDB("Jack", "Sparrow", "1 Black Pearl Ave", "79405", "05/06/79", "sparrowj", "rum79");
         //addDataToDB("Joe", "Santagato", "55 Basement Ave", "11256", "04/18/91", "santagatoj", "basement91");
         //addDataToDB("Mickey", "Mouse", "123 Disney Ave", "11111", "01/01/39", "mousem", "minnie39");
+
+        //addEmployeeDataToDB("Scott", "Mescudi", "23 Rager Ave", "83758", "10/07/88", "cudik", "rager88", 9607);
+        //addEmployeeDataToDB("Kanye", "West", "47 Fantasy Ave", "30495", "05/26/85", "westk", "yeezy85", 4069);
+        //addEmployeeDataToDB("Slim", "Shady", "8 Mile Rd", "45832", "02/14/83", "shadys", "eminem83", 1203);
+        //addEmployeeDataToDB("Travis", "Scott", "67 Utopia Blvd", "49558", "03/15/89", "scottt", "laflame89", 4390);
+        //addEmployeeDataToDB("Metro", "Boomin", "45 Heros Ave", "45903", "11/20/90", "boominm", "heroesvillains90", 3467);
     }
 
     public static void addDataToDB(String firstName, String lastName, String address,
@@ -56,6 +62,35 @@ public class main extends Application {
         data.put("Date of Birth", dob);
         data.put("Username", username);
         data.put("Password", password);
+
+        // Add data to document
+        ApiFuture<WriteResult> future = docRef.set(data, SetOptions.merge());
+
+        try {
+            // Wait for the result
+            WriteResult result = future.get();
+            System.out.println("Data added/updated at: " + result.getUpdateTime());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addEmployeeDataToDB(String firstName, String lastName, String address,
+                                   String zipCode, String dob, String username, String password, int emplloyeeID) {
+
+        // Create document reference
+        DocumentReference docRef = main.fstore.collection("employeeinfo").document(UUID.randomUUID().toString());
+
+        // Create data object
+        Map<String, Object> data = new HashMap<>();
+        data.put("First Name", firstName);
+        data.put("Last Name", lastName);
+        data.put("Address", address);
+        data.put("Zip Code", zipCode);
+        data.put("Date of Birth", dob);
+        data.put("Username", username);
+        data.put("Password", password);
+        data.put("Employee ID", emplloyeeID);
 
         // Add data to document
         ApiFuture<WriteResult> future = docRef.set(data, SetOptions.merge());
