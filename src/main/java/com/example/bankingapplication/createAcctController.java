@@ -44,20 +44,20 @@ public class createAcctController {
 
     public void handleNextButton () throws IOException {
         System.out.println ("handleNextButton called");
-        // Get user input
+
         firstName = firstNameTextField.getText();
         lastName = lastNameTextField.getText();
         address = addressTextField.getText();
         zipCode = zipCodeTextField.getText();
         dob = dobTextField.getText();
-        // Set user information
+
         setUserInformation(firstName, lastName, address, zipCode, dob);
-        // Proceed to the next screen and pass user information
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("createAcct2.fxml"));
         Parent root = loader.load();
         createAcct2Controller controller = loader.getController();
         controller.setUserData(firstName, lastName, address, zipCode, dob);
-        // Proceed to the next screen
+
         Stage stage = (Stage) nextButton.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
