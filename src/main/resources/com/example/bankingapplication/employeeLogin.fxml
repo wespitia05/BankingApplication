@@ -40,15 +40,15 @@
                 </Label>
             <TextField fx:id="employeeIDTextField" layoutX="90.0" layoutY="190.0" prefHeight="46.0" prefWidth="267.0" promptText="Employee ID">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font></TextField>
                 <TextField fx:id="employeeUsernameTextField" layoutX="90.0" layoutY="260.0" prefHeight="46.0" prefWidth="267.0" promptText="Username">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font></TextField>
                 <TextField fx:id="employeePasswordTextField" layoutX="90.0" layoutY="330.0" prefHeight="46.0" prefWidth="267.0" promptText="Password">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font></TextField>
                 <Button fx:id="employeeLoginButton" layoutX="139.0" layoutY="414.0" mnemonicParsing="false" onAction="#handleEmployeeLoginButton" prefHeight="49.0" prefWidth="167.0" text="Log In">
                     <font>

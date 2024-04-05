@@ -30,39 +30,40 @@
                  <Font name="Kefa Regular" size="24.0" />
               </font>
            </Label>
+            <Button fx:id="employeeLoginButton" layoutX="124.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleEmployeeLoginButton" prefHeight="49.0" prefWidth="181.0" text="Employee Login">
+               <font>
+                  <Font name="Kefa Regular" size="20.0" />
+               </font>
+            </Button>
         </children></AnchorPane>
     <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <Label layoutX="33.0" layoutY="66.0" text="Please log in to access your account.">
+            <Label layoutX="83.0" layoutY="100.0" text="Please log in to access your account.">
                <font>
-                  <Font name="Kefa Regular" size="14.0" />
+                  <Font name="Kefa Regular" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="33.0" layoutY="113.0" text="Username">
+            <TextField fx:id="usernameTextField" layoutX="100.0" layoutY="174.0" prefHeight="46.0" prefWidth="267.0" promptText="Username">
                <font>
-                  <Font name="Kefa Regular" size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="usernameTextField" layoutX="33.0" layoutY="136.0" prefHeight="26.0" prefWidth="229.0" />
-            <Label layoutX="33.0" layoutY="180.0" text="Password">
+                  <Font size="18.0" />
+               </font></TextField>
+            <TextField fx:id="passwordTextField" layoutX="100.0" layoutY="254.0" prefHeight="46.0" prefWidth="267.0" promptText="Password">
                <font>
-                  <Font name="Kefa Regular" size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="passwordTextField" layoutX="33.0" layoutY="203.0" prefHeight="26.0" prefWidth="229.0" />
-            <Button fx:id="loginButton" layoutX="101.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleLoginButton" prefHeight="25.0" prefWidth="91.0" text="Log In">
+                  <Font size="18.0" />
+               </font></TextField>
+            <Button fx:id="loginButton" layoutX="145.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleLoginButton" prefHeight="49.0" prefWidth="167.0" text="Log In">
                <font>
-                  <Font name="Kefa Regular" size="14.0" />
+                  <Font name="Kefa Regular" size="20.0" />
                </font>
             </Button>
-            <Label layoutX="139.0" layoutY="297.0" text="Or">
+            <Label layoutX="217.0" layoutY="415.0" text="Or">
                <font>
-                  <Font name="Kefa Regular" size="14.0" />
+                  <Font name="Kefa Regular" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="createAcctButton" layoutX="90.0" layoutY="328.0" mnemonicParsing="false" onAction="#handleCreateAcctButton" text="Create Account">
+            <Button fx:id="createAcctButton" layoutX="145.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleCreateAcctButton" prefHeight="49.0" prefWidth="167.0" text="Create Account">
                <font>
-                  <Font name="Kefa Regular" size="14.0" />
+                  <Font name="Kefa Regular" size="20.0" />
                </font>
             </Button>
          </children></AnchorPane>
