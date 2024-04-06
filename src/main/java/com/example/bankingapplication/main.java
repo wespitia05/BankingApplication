@@ -34,8 +34,7 @@ public class main extends Application {
         stage.setScene(scene);
         stage.show();
 
-
-        ///Hey its Mian
+        //Branch test 1 is it working
 
         //addDataToDB("John", "Wick", "23 Dog Ave", "45674", "12/25/86", "wickj", "dog86");
         //addDataToDB("Jason", "Bourne", "45 Memory Ave", "23145", "04/14/85", "bournej", "identity85");
