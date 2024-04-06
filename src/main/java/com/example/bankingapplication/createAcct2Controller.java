@@ -38,7 +38,7 @@ public class createAcct2Controller {
         this.dob = dob;
     }
 
-    public void handleCreateAcctButton () {
+    public void handleCreateAcctButton () throws IOException {
         System.out.println ("handleCreateAcctButton called");
 
         String username = createUsernameTextField.getText();
@@ -76,6 +76,8 @@ public class createAcct2Controller {
         }
         addDataToDB(firstName, lastName, address, zipCode, dob, username, password);
         System.out.println("Account created successfully");
+        main m = new main();
+        m.changeScene("userHomePage.fxml");
     }
 
     private boolean usernameExists(String username) {

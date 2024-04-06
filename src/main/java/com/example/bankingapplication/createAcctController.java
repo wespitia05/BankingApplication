@@ -58,8 +58,8 @@ public class createAcctController {
         createAcct2Controller controller = loader.getController();
         controller.setUserData(firstName, lastName, address, zipCode, dob);
 
-        Stage stage = (Stage) nextButton.getScene().getWindow();
-        stage.setScene(new Scene(root));
+        main m = new main();
+        m.changeScene("createAcct2.fxml");
     }
 
     public void handleOnMouseClicked (MouseEvent event) throws IOException {
