@@ -5,11 +5,11 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QuerySnapshot;
+import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -25,9 +25,13 @@ public class loginController {
     private Button createAcctButton;
     @FXML
     private Button employeeLoginButton;
+    @FXML
+    private Button showPasswordButton;
+    @FXML
+    private Label showPassword;
+    private boolean passwordVisible = false;
     public void initialize () {
         System.out.println ("Initialize called");
-
     }
     public void handleLoginButton () throws IOException {
         System.out.println ("handleLoginButton called");
@@ -86,6 +90,26 @@ public class loginController {
         }
         else {
             System.out.println ("Invalid input please try again.");
+        }
+    }
+
+    public void showPasswordKeyTyped (KeyEvent event) {
+        if (passwordVisible) {
+            showPassword.setText(passwordTextField.getText());
+        }
+    }
+
+    public void showPasswordButton() {
+        System.out.println("showPasswordButton called");
+        if (!passwordVisible) {
+            showPassword.setText(passwordTextField.getText());
+            showPassword.setVisible(true);
+            showPasswordButton.setText("Hide Password");
+            passwordVisible = true;
+        } else {
+            showPassword.setVisible(false);
+            showPasswordButton.setText("Show Password");
+            passwordVisible = false;
         }
     }
 
