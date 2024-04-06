@@ -23,7 +23,7 @@ public class employeeLoginController {
 
     // Add mian's branch
 
-    public void handleEmployeeLoginButton () {
+    public void handleEmployeeLoginButton () throws IOException {
         System.out.println("handleEmployeeLoginButton called");
 
         int employeeID = Integer.parseInt(employeeIDTextField.getText());
@@ -35,6 +35,7 @@ public class employeeLoginController {
 
         ApiFuture<QuerySnapshot> future = employeesRef.whereEqualTo("Employee ID", employeeID).get();
         QuerySnapshot querySnapshot = null;
+
         try {
             querySnapshot = future.get();
         } catch (InterruptedException e) {
@@ -48,11 +49,10 @@ public class employeeLoginController {
                 String storedPassword = document.getString("Password");
 
                 if (storedUsername.equals(employeeUsername) && storedPassword.equals(employeePassword)) {
-                    // Credentials match, allow login
                     System.out.println("Login successful");
-                    // Add code to navigate to the next screen or perform further actions
+                    main m = new main();
+                    m.changeScene("employeeHomePage.fxml");
                 } else if (!storedUsername.equals(employeeUsername)) {
-                    // Credentials do not match, show error message
                     System.out.println ("Username Incorrect");
                     incorrectUsernameAlert();
                 }
