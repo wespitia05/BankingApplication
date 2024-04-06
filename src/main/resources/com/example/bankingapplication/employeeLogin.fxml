@@ -10,6 +10,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.PasswordField?>
 <SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.employeeLoginController">
     <items>
         <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -33,23 +34,23 @@
             </children></AnchorPane>
         <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
             <children>
-                <Label layoutX="65.0" layoutY="126.0" prefHeight="31.0" prefWidth="335.0" text="Please log in to access your account.">
+                <Label layoutX="65.0" layoutY="86.0" prefHeight="31.0" prefWidth="335.0" text="Please log in to access your account.">
                     <font>
                         <Font name="Kefa Regular" size="20.0" />
                     </font>
                 </Label>
-            <TextField fx:id="employeeIDTextField" layoutX="90.0" layoutY="190.0" prefHeight="46.0" prefWidth="267.0" promptText="Employee ID">
+            <TextField fx:id="employeeIDTextField" layoutX="90.0" layoutY="150.0" prefHeight="46.0" prefWidth="267.0" promptText="Employee ID">
                <font>
                   <Font size="18.0" />
                </font></TextField>
-                <TextField fx:id="employeeUsernameTextField" layoutX="90.0" layoutY="260.0" prefHeight="46.0" prefWidth="267.0" promptText="Username">
+                <TextField fx:id="employeeUsernameTextField" layoutX="90.0" layoutY="220.0" prefHeight="46.0" prefWidth="267.0" promptText="Username">
                <font>
                   <Font size="18.0" />
                </font></TextField>
-                <TextField fx:id="employeePasswordTextField" layoutX="90.0" layoutY="330.0" prefHeight="46.0" prefWidth="267.0" promptText="Password">
+                <PasswordField fx:id="employeePasswordTextField" layoutX="90.0" layoutY="290.0" onKeyTyped="#showPasswordKeyTyped" prefHeight="46.0" prefWidth="267.0" promptText="Password">
                <font>
                   <Font size="18.0" />
-               </font></TextField>
+               </font></PasswordField>
                 <Button fx:id="employeeLoginButton" layoutX="139.0" layoutY="414.0" mnemonicParsing="false" onAction="#handleEmployeeLoginButton" prefHeight="49.0" prefWidth="167.0" text="Log In">
                     <font>
                         <Font name="Kefa Regular" size="20.0" />
@@ -60,6 +61,8 @@
                   <Font name="Kefa Regular" size="20.0" />
                </font>
             </Label>
+            <Button fx:id="showPasswordButton" layoutX="90.0" layoutY="360.0" mnemonicParsing="false" onAction="#showPasswordButton" text="Show Password" />
+            <Label fx:id="showPassword" layoutX="90.0" layoutY="340.0" />
             </children></AnchorPane>
     </items>
 </SplitPane>

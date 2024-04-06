@@ -4,6 +4,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -15,13 +16,16 @@ public class employeeLoginController {
     @FXML
     private TextField employeeUsernameTextField;
     @FXML
-    private TextField employeePasswordTextField;
+    private PasswordField employeePasswordTextField;
     @FXML
     private Button employeeLoginButton;
     @FXML
     private Label EmployeeGoBackOption;
-
-    // Add mian's branch
+    @FXML
+    private Label showPassword;
+    @FXML
+    private Button showPasswordButton;
+    private boolean passwordVisible = false;
 
     public void handleEmployeeLoginButton () throws IOException {
         System.out.println("handleEmployeeLoginButton called");
@@ -102,6 +106,26 @@ public class employeeLoginController {
         }
         else {
             System.out.println ("Invalid input please try again.");
+        }
+    }
+
+    public void showPasswordKeyTyped (KeyEvent event) {
+        if (passwordVisible) {
+            showPassword.setText(employeePasswordTextField.getText());
+        }
+    }
+
+    public void showPasswordButton() {
+        System.out.println("showPasswordButton called");
+        if (!passwordVisible) {
+            showPassword.setText(employeePasswordTextField.getText());
+            showPassword.setVisible(true);
+            showPasswordButton.setText("Hide Password");
+            passwordVisible = true;
+        } else {
+            showPassword.setVisible(false);
+            showPasswordButton.setText("Show Password");
+            passwordVisible = false;
         }
     }
 
