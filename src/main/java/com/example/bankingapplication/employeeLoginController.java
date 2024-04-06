@@ -1,14 +1,13 @@
 package com.example.bankingapplication;
 
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.Firestore;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class employeeLoginController {
     @FXML
@@ -32,7 +31,76 @@ public class employeeLoginController {
         Firestore db = main.fstore;
         CollectionReference employeesRef = db.collection("employeeinfo");
 
+        ApiFuture<QuerySnapshot> future = employeesRef.whereEqualTo("Employee ID", employeeID).get();
+        QuerySnapshot querySnapshot = null;
+        try {
+            querySnapshot = future.get();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+            if (!querySnapshot.isEmpty()) {
+                DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                String storedUsername = document.getString("Username");
+                String storedPassword = document.getString("Password");
 
+                if (storedUsername.equals(employeeUsername) && storedPassword.equals(employeePassword)) {
+                    // Credentials match, allow login
+                    System.out.println("Login successful");
+                    // Add code to navigate to the next screen or perform further actions
+                } else if (!storedUsername.equals(employeeUsername)) {
+                    // Credentials do not match, show error message
+                    System.out.println ("Username Incorrect");
+                    incorrectUsernameAlert();
+                }
+                else {
+                    System.out.println ("Password Incorrect");
+                    incorrectPasswordAlert();
+                }
+            } else {
+                System.out.println ("Employee ID Incorrect");
+                incorrectEmployeeIDAlert();
+            }
+    }
+
+    public void incorrectEmployeeIDAlert () {
+        Alert alert = new Alert (Alert.AlertType.WARNING);
+        alert.setTitle("Incorrect Employee ID");
+        alert.setContentText("Sorry! Employee ID not found. Please try again.");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            System.out.println ("User acknowledged incorrect input.");
+        }
+        else {
+            System.out.println ("Invalid input please try again.");
+        }
+    }
+
+    public void incorrectUsernameAlert () {
+        Alert alert = new Alert (Alert.AlertType.WARNING);
+        alert.setTitle("Incorrect Username");
+        alert.setContentText("Sorry! Username not found. Please try again.");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            System.out.println ("User acknowledged incorrect input.");
+        }
+        else {
+            System.out.println ("Invalid input please try again.");
+        }
+    }
+
+    public void incorrectPasswordAlert () {
+        Alert alert = new Alert (Alert.AlertType.WARNING);
+        alert.setTitle("Incorrect Password");
+        alert.setContentText("Sorry! Incorrect Password. Please try again.");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            System.out.println ("User acknowledged incorrect input.");
+        }
+        else {
+            System.out.println ("Invalid input please try again.");
+        }
     }
 
     public void handleOnMouseClick (MouseEvent event) throws IOException {

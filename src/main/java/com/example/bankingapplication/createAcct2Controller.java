@@ -53,7 +53,9 @@ public class createAcct2Controller {
             if (alert.getResult() == ButtonType.OK) {
                 System.out.println ("User acknowledged incorrect input.");
             }
-            System.out.println ("Invalid input please try again.");
+            else {
+                System.out.println ("Invalid input please try again.");
+            }
             System.out.println("Passwords do not match");
             return;
         }
@@ -67,7 +69,9 @@ public class createAcct2Controller {
             if (alert.getResult() == ButtonType.OK) {
                 System.out.println("User acknowledged incorrect input.");
             }
-            System.out.println("Invalid input please try again.");
+            else {
+                System.out.println("Invalid input please try again.");
+            }
             return;
         }
         addDataToDB(firstName, lastName, address, zipCode, dob, username, password);
