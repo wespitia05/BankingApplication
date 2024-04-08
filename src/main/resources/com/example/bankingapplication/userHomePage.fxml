@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.AmbientLight?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.bankingapplication.userHomePageController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.userHomePageController">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <AnchorPane layoutY="-7.0" prefHeight="469.0" prefWidth="600.0">
+               <children>
+                  <Pane layoutX="178.0" layoutY="7.0" prefHeight="142.0" prefWidth="422.0" style="-fx-background-color: linear-gradient(to left bottom, #021634, #2d1946, #581149, #7e003c, #981022);">
+                     <children>
+                        <Text layoutX="55.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome " wrappingWidth="134.10943603515625">
+                           <font>
+                              <Font name="Bell MT" size="26.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="63.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fience made simple,easy to bank" wrappingWidth="230.607421875">
+                           <font>
+                              <Font name="Arial Narrow" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="incomeField" layoutX="6.0" layoutY="71.0" prefHeight="51.0" prefWidth="116.0" promptText="Total income" />
+                        <TextArea fx:id="expenseField" layoutX="146.0" layoutY="71.0" prefHeight="51.0" prefWidth="116.0" promptText="Total expense" />
+                        <TextArea fx:id="savingsField" layoutX="294.0" layoutY="71.0" prefHeight="51.0" prefWidth="116.0" promptText="Totle savings" />
+                        <Label fx:id="userName" layoutX="172.0" layoutY="7.0" prefHeight="25.0" prefWidth="61.0" text="User" textFill="#2659e7">
+                           <font>
+                              <Font name="Bell MT Bold" size="26.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+            <Pane prefHeight="463.0" prefWidth="177.0">
+               <children>
+                  <AmbientLight color="CHARTREUSE" layoutX="22.0" layoutY="22.0" lightOn="true" />
+                  <ImageView fitHeight="62.0" fitWidth="189.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../../../../richa/OneDrive/Pictures/imagesforProject/unityBank.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="dashBoard" layoutX="39.0" layoutY="82.0" onMouseClicked="#dashBoardOnMouseClicked" text="Dash Board" />
+                  <Label fx:id="myCard" layoutX="39.0" layoutY="108.0" onMouseClicked="#myCardOnMouseClicked" text="My Card" />
+                  <Label fx:id="transaction" layoutX="39.0" layoutY="136.0" onMouseClicked="#transcationOnMouseClicked" text="Transcation" />
+                  <Label fx:id="payment" layoutX="39.0" layoutY="168.0" onMouseClicked="#paymentOnMouseClicked" text="Payment" />
+                  <Label fx:id="reports" layoutX="39.0" layoutY="197.0" onMouseClicked="#reportsOnMouseClicked" text="Reports" />
+                  <Label fx:id="setting" layoutX="39.0" layoutY="224.0" onMouseClicked="#settingsOnMouseClicked" text="Setting" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>
