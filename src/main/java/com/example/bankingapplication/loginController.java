@@ -31,6 +31,7 @@ public class loginController {
     private Label showPassword;
     private boolean passwordVisible = false;
     // testing for branch
+    // branch test for mian worked
     public void initialize () {
         System.out.println ("Initialize called");
     }
