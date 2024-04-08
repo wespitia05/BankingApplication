@@ -30,6 +30,7 @@ public class loginController {
     @FXML
     private Label showPassword;
     private boolean passwordVisible = false;
+    // testing for branch
     public void initialize () {
         System.out.println ("Initialize called");
     }
@@ -100,13 +101,14 @@ public class loginController {
     }
 
     public void showPasswordButton() {
-        System.out.println("showPasswordButton called");
         if (!passwordVisible) {
+            System.out.println("showPasswordButton called");
             showPassword.setText(passwordTextField.getText());
             showPassword.setVisible(true);
             showPasswordButton.setText("Hide Password");
             passwordVisible = true;
         } else {
+            System.out.println("hidePasswordButton called");
             showPassword.setVisible(false);
             showPasswordButton.setText("Show Password");
             passwordVisible = false;

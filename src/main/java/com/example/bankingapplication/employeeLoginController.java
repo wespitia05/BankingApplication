@@ -116,13 +116,14 @@ public class employeeLoginController {
     }
 
     public void showPasswordButton() {
-        System.out.println("showPasswordButton called");
         if (!passwordVisible) {
+            System.out.println("showPasswordButton called");
             showPassword.setText(employeePasswordTextField.getText());
             showPassword.setVisible(true);
             showPasswordButton.setText("Hide Password");
             passwordVisible = true;
         } else {
+            System.out.println("hidePasswordButton called");
             showPassword.setVisible(false);
             showPasswordButton.setText("Show Password");
             passwordVisible = false;
