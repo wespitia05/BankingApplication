@@ -2,6 +2,7 @@ package com.example.bankingapplication;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +12,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.EventObject;
+
+import static com.example.bankingapplication.main.stg;
 
 public class createAcctController {
     @FXML
@@ -33,6 +37,7 @@ public class createAcctController {
     private String address;
     private String zipCode;
     private String dob;
+    private Object event;
 
     public void setUserInformation(String firstName, String lastName, String address, String zipCode, String dob) {
         this.firstName = firstName;
@@ -57,9 +62,7 @@ public class createAcctController {
         Parent root = loader.load();
         createAcct2Controller controller = loader.getController();
         controller.setUserData(firstName, lastName, address, zipCode, dob);
-
-        main m = new main();
-        m.changeScene("createAcct2.fxml");
+        stg.getScene().setRoot(root);
     }
 
     public void handleOnMouseClicked (MouseEvent event) throws IOException {

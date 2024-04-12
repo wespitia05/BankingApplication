@@ -4,15 +4,18 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QuerySnapshot;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
 import static com.example.bankingapplication.main.addDataToDB;
+import static com.example.bankingapplication.main.stg;
 
 
-public class createAcct2Controller {
+public class createAcct2Controller extends createAcctController {
     @FXML
     private TextField createUsernameTextField;
     @FXML
@@ -76,8 +79,9 @@ public class createAcct2Controller {
         }
         addDataToDB(firstName, lastName, address, zipCode, dob, username, password);
         System.out.println("Account created successfully");
-        main m = new main();
-        m.changeScene("userHomePage.fxml");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("createAcct2.fxml"));
+        Parent root = loader.load();
+        stg.getScene().setRoot(root);
     }
 
     private boolean usernameExists(String username) {
@@ -99,7 +103,8 @@ public class createAcct2Controller {
     public void handleOnMouseClicked (MouseEvent event) throws IOException {
         System.out.println ("handleOnMouseClicked");
 
-        main m = new main();
-        m.changeScene("createAcct.fxml");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("createAcct.fxml"));
+        Parent root = loader.load();
+        stg.getScene().setRoot(root);
     }
 }
