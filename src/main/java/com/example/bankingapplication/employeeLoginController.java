@@ -3,12 +3,16 @@ package com.example.bankingapplication;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
+
+import static com.example.bankingapplication.main.stg;
 
 public class employeeLoginController {
     @FXML
@@ -133,7 +137,8 @@ public class employeeLoginController {
     public void handleOnMouseClick (MouseEvent event) throws IOException {
         System.out.println ("handleOnMouseClick called");
 
-        main m = new main();
-        m.changeScene("login.fxml");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        Parent root = loader.load();
+        stg.getScene().setRoot(root);
     }
 }

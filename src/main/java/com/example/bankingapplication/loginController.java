@@ -8,11 +8,15 @@ import com.google.cloud.firestore.QuerySnapshot;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
+
+import static com.example.bankingapplication.main.stg;
 
 public class loginController {
     @FXML
@@ -119,13 +123,15 @@ public class loginController {
     public void handleEmployeeLoginButton () throws IOException {
         System.out.println ("handleEmployeeLogin called");
 
-        main m = new main();
-        m.changeScene("employeeLogin.fxml");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("employeeLogin.fxml"));
+        Parent root = loader.load();
+        stg.getScene().setRoot(root);
     }
     public void handleCreateAcctButton () throws IOException {
         System.out.println ("handleCreateButton called");
 
-        main m = new main();
-        m.changeScene("createAcct.fxml");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("createAcct.fxml"));
+        Parent root = loader.load();
+        stg.getScene().setRoot(root);
     }
 }

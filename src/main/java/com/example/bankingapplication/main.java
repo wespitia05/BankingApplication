@@ -19,7 +19,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public class main extends Application {
-    private static Stage stg;
+    static Stage stg;
     static Firestore fstore;
     public static FirebaseAuth fauth;
     private final FirestoreContext contxtFirebase = new FirestoreContext();
@@ -33,7 +33,6 @@ public class main extends Application {
         stage.setTitle("CSC 325 - Capstone Project");
         stage.setScene(scene);
         stage.show();
-
         //Branch test 1 is it working
 
         //addDataToDB("John", "Wick", "23 Dog Ave", "45674", "12/25/86", "wickj", "dog86");
@@ -78,7 +77,7 @@ public class main extends Application {
     }
 
     public static void addEmployeeDataToDB(String firstName, String lastName, String address,
-                                   String zipCode, String dob, String username, String password, int emplloyeeID) {
+                                   String zipCode, String dob, String username, String password, int employeeID) {
 
         // Create document reference
         DocumentReference docRef = main.fstore.collection("employeeinfo").document(UUID.randomUUID().toString());
@@ -92,7 +91,7 @@ public class main extends Application {
         data.put("Date of Birth", dob);
         data.put("Username", username);
         data.put("Password", password);
-        data.put("Employee ID", emplloyeeID);
+        data.put("Employee ID", employeeID);
 
         // Add data to document
         ApiFuture<WriteResult> future = docRef.set(data, SetOptions.merge());
