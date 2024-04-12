@@ -35,11 +35,11 @@ public class main extends Application {
         stage.show();
         //Branch test 1 is it working
 
-        //addDataToDB("John", "Wick", "23 Dog Ave", "45674", "12/25/86", "wickj", "dog86");
-        //addDataToDB("Jason", "Bourne", "45 Memory Ave", "23145", "04/14/85", "bournej", "identity85");
-        //addDataToDB("Jack", "Sparrow", "1 Black Pearl Ave", "79405", "05/06/79", "sparrowj", "rum79");
-        //addDataToDB("Joe", "Santagato", "55 Basement Ave", "11256", "04/18/91", "santagatoj", "basement91");
-        //addDataToDB("Mickey", "Mouse", "123 Disney Ave", "11111", "01/01/39", "mousem", "minnie39");
+        //addDataToDB("John", "Wick", "23 Dog Ave", "45674", "12/25/86", "wickj", "dog86", "5000", "6000");
+        //addDataToDB("Jason", "Bourne", "45 Memory Ave", "23145", "04/14/85", "bournej", "identity85", "4500", "2300");
+        //addDataToDB("Jack", "Sparrow", "1 Black Pearl Ave", "79405", "05/06/79", "sparrowj", "rum79", "1250", "1000");
+        //addDataToDB("Joe", "Santagato", "55 Basement Ave", "11256", "04/18/91", "santagatoj", "basement91", "3000", "1700");
+        //addDataToDB("Mickey", "Mouse", "123 Disney Ave", "11111", "01/01/39", "mousem", "minnie39", "7690", "5680");
 
         //addEmployeeDataToDB("Scott", "Mescudi", "23 Rager Ave", "83758", "10/07/88", "cudik", "rager88", 9607);
         //addEmployeeDataToDB("Kanye", "West", "47 Fantasy Ave", "30495", "05/26/85", "westk", "yeezy85", 4069);
@@ -49,7 +49,8 @@ public class main extends Application {
     }
 
     public static void addDataToDB(String firstName, String lastName, String address,
-                                   String zipCode, String dob, String username, String password) {
+                                   String zipCode, String dob, String username, String password,
+                                   String checking, String savings) {
 
         // Create document reference
         DocumentReference docRef = main.fstore.collection("userinfo").document(UUID.randomUUID().toString());
@@ -63,6 +64,8 @@ public class main extends Application {
         data.put("Date of Birth", dob);
         data.put("Username", username);
         data.put("Password", password);
+        data.put("Checking", checking);
+        data.put("Savings", savings);
 
         // Add data to document
         ApiFuture<WriteResult> future = docRef.set(data, SetOptions.merge());

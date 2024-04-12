@@ -47,6 +47,8 @@ public class createAcct2Controller extends createAcctController {
         String username = createUsernameTextField.getText();
         String password = createPasswordTextField.getText();
         String confirmPassword = confirmPasswordTextField.getText();
+        String checking = "0";
+        String savings = "0";
 
         if (!password.equals(confirmPassword)) {
             Alert alert = new Alert (Alert.AlertType.WARNING);
@@ -77,7 +79,7 @@ public class createAcct2Controller extends createAcctController {
             }
             return;
         }
-        addDataToDB(firstName, lastName, address, zipCode, dob, username, password);
+        addDataToDB(firstName, lastName, address, zipCode, dob, username, password, checking, savings);
         System.out.println("Account created successfully");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("createAcct2.fxml"));
         Parent root = loader.load();
