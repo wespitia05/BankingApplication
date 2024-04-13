@@ -16,7 +16,7 @@ import static com.example.bankingapplication.main.stg;
 
 public class employeeLoginController {
     @FXML
-    private TextField employeeIDTextField;
+    public TextField employeeIDTextField;
     @FXML
     private TextField employeeUsernameTextField;
     @FXML
@@ -57,9 +57,12 @@ public class employeeLoginController {
                 String storedPassword = document.getString("Password");
 
                 if (storedUsername.equals(employeeUsername) && storedPassword.equals(employeePassword)) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("employeeHomePage.fxml"));
+                    Parent root = loader.load();
+                    employeeHomePageController controller = loader.getController();
+                    controller.setEmployeeName(document.getString("First Name"), document.getString("Last Name"));
                     System.out.println("Login successful");
-                    main m = new main();
-                    m.changeScene("employeeHomePage.fxml");
+                    stg.getScene().setRoot(root);
                 } else if (!storedUsername.equals(employeeUsername)) {
                     System.out.println ("Username Incorrect");
                     incorrectUsernameAlert();
