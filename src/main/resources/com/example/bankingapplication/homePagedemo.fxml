@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" fx:controller="com.example.bankingapplication.homePagedemo" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.homePageController">
    <left>
       <AnchorPane prefHeight="600.0" prefWidth="115.0" BorderPane.alignment="CENTER">
          <children>
@@ -48,7 +48,7 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <HBox prefHeight="102.0" prefWidth="457.0">
+                  <HBox prefHeight="102.0" prefWidth="457.0" stylesheets="@Stylesheet.css">
                      <VBox.margin>
                         <Insets left="15.0" right="15.0" />
                      </VBox.margin>
@@ -90,7 +90,7 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                            <children>
-                              <TextField alignment="CENTER" layoutX="17.0" layoutY="21.0" opacity="0.0" prefHeight="69.0" prefWidth="111.0" promptText="Savings">
+                              <TextField alignment="CENTER" layoutX="17.0" layoutY="21.0" opacity="0.0" prefHeight="69.0" prefWidth="111.0" promptText="Savings" styleClass="color_card" stylesheets="@Stylesheet.css">
                                  <font>
                                     <Font size="8.0" />
                                  </font>
@@ -108,10 +108,10 @@
             <Separator halignment="RIGHT" layoutX="539.0" layoutY="262.0" prefWidth="150.0" />
             <HBox layoutX="514.0" prefHeight="253.0" prefWidth="200.0">
                <children>
-                  <PieChart prefHeight="206.0" prefWidth="200.0" />
+                  <PieChart fx:id="pieChart" title="Pie Chart" />
                </children>
             </HBox>
-            <HBox layoutX="20.0" layoutY="200.0" prefHeight="164.0" prefWidth="302.0">
+            <HBox layoutX="8.0" layoutY="198.0" prefHeight="164.0" prefWidth="302.0">
                <children>
                   <Label text="Wallet">
                      <HBox.margin>
@@ -141,7 +141,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <VBox layoutX="350.0" layoutY="216.0" prefHeight="96.0" prefWidth="149.0">
+            <VBox layoutX="339.0" layoutY="217.0" prefHeight="96.0" prefWidth="149.0">
                <children>
                   <AnchorPane prefHeight="96.0" prefWidth="150.0">
                      <children>
@@ -153,8 +153,8 @@
                   </AnchorPane>
                </children>
             </VBox>
-            <Separator layoutX="499.0" layoutY="322.0" orientation="VERTICAL" prefHeight="200.0" />
-            <VBox layoutX="508.0" layoutY="268.0" prefHeight="327.0" prefWidth="190.0" styleClass="pane_quicktransfer" stylesheets="@Stylesheet.css">
+            <Separator layoutX="496.0" layoutY="322.0" orientation="VERTICAL" prefHeight="200.0" />
+            <VBox layoutX="505.0" layoutY="269.0" prefHeight="327.0" prefWidth="190.0" styleClass="pane_quicktransfer" stylesheets="@Stylesheet.css">
                <children>
                   <AnchorPane prefHeight="320.0" prefWidth="188.0">
                      <children>
