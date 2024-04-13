@@ -58,7 +58,7 @@
                               <Insets left="15.0" top="15.0" />
                            </padding>
                            <children>
-                              <TextField alignment="CENTER" layoutX="14.0" layoutY="19.0" opacity="0.02" prefHeight="69.0" prefWidth="111.0" promptText="Monthly Income">
+                              <TextField fx:id="income_TF" alignment="CENTER" layoutX="14.0" layoutY="19.0" opacity="0.02" prefHeight="69.0" prefWidth="111.0" promptText="Monthly Income">
                                  <font>
                                     <Font size="8.0" />
                                  </font>
@@ -74,7 +74,7 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                            <children>
-                              <TextField alignment="CENTER" layoutX="20.0" layoutY="23.0" opacity="0.0" prefHeight="69.0" prefWidth="111.0" promptText="Expenses">
+                              <TextField fx:id="expenses_TF" alignment="CENTER" layoutX="20.0" layoutY="23.0" opacity="0.0" prefHeight="69.0" prefWidth="111.0" promptText="Expenses">
                                  <font>
                                     <Font size="8.0" />
                                  </font>
@@ -90,7 +90,7 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                            <children>
-                              <TextField alignment="CENTER" layoutX="17.0" layoutY="21.0" opacity="0.0" prefHeight="69.0" prefWidth="111.0" promptText="Savings" styleClass="color_card" stylesheets="@Stylesheet.css">
+                              <TextField fx:id="savings_TF" alignment="CENTER" layoutX="17.0" layoutY="21.0" opacity="0.0" prefHeight="69.0" prefWidth="111.0" promptText="Savings" styleClass="color_card" stylesheets="@Stylesheet.css">
                                  <font>
                                     <Font size="8.0" />
                                  </font>
@@ -147,8 +147,8 @@
                      <children>
                         <Label layoutX="16.0" layoutY="5.0" text="Balance" />
                         <Label layoutX="14.0" layoutY="48.0" text="Currency" />
-                        <TextField layoutX="1.0" layoutY="23.0" promptText="balance" stylesheets="@Stylesheet.css" />
-                        <TextField layoutY="69.0" promptText="currency" stylesheets="@Stylesheet.css" />
+                        <TextField fx:id="balance_TF" layoutX="1.0" layoutY="23.0" promptText="balance" stylesheets="@Stylesheet.css" />
+                        <TextField fx:id="currency_TF" layoutY="69.0" promptText="currency" stylesheets="@Stylesheet.css" />
                      </children>
                   </AnchorPane>
                </children>
@@ -163,7 +163,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="4.0" layoutY="57.0" prefHeight="26.0" prefWidth="142.0" promptText="Add acount number" />
+                        <TextField fx:id="addAccountNum_TF" layoutX="4.0" layoutY="57.0" prefHeight="26.0" prefWidth="142.0" promptText="Add acount number" />
                         <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="149.0" layoutY="63.0" prefHeight="23.0" prefWidth="26.0" styleClass="circle_lbl" stylesheets="@Stylesheet.css">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -172,12 +172,12 @@
                               <FontAwesomeIconView glyphName="ARROW_RIGHT" />
                            </graphic>
                         </Label>
-                        <TextField alignment="CENTER_RIGHT" layoutX="4.0" layoutY="128.0" promptText="Debit" />
-                        <TextField alignment="TOP_LEFT" layoutX="9.0" layoutY="173.0" prefHeight="69.0" prefWidth="144.0" promptText="Enter Amount" />
+                        <TextField fx:id="debit_TF" alignment="CENTER_RIGHT" layoutX="4.0" layoutY="128.0" promptText="Debit" />
+                        <TextField fx:id="enterAmount_TF" alignment="TOP_LEFT" layoutX="9.0" layoutY="173.0" prefHeight="69.0" prefWidth="144.0" promptText="Enter Amount" />
                         <Circle fill="#061f36" layoutX="14.0" layoutY="114.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
                         <Circle fill="#4f99df" layoutX="27.0" layoutY="114.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Button layoutX="9.0" layoutY="267.0" mnemonicParsing="false" text="Save" />
-                        <Button layoutX="83.0" layoutY="268.0" mnemonicParsing="false" text="Save as Draft" />
+                        <Button fx:id="save_btn" layoutX="9.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleSave_btn" text="Save" />
+                        <Button fx:id="saveDraft_btn" layoutX="83.0" layoutY="268.0" mnemonicParsing="false" onAction="#handleDraft_btn" text="Save as Draft" />
                      </children>
                   </AnchorPane>
                </children>
