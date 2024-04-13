@@ -106,9 +106,9 @@
                </children>
             </VBox>
             <Separator halignment="RIGHT" layoutX="539.0" layoutY="262.0" prefWidth="150.0" />
-            <HBox layoutX="514.0" prefHeight="253.0" prefWidth="200.0">
+            <HBox layoutX="519.0" prefHeight="254.0" prefWidth="200.0">
                <children>
-                  <PieChart fx:id="pieChart" title="Pie Chart" />
+                  <PieChart fx:id="pieChart" prefHeight="254.0" prefWidth="153.0" title="Pie Chart" />
                </children>
             </HBox>
             <HBox layoutX="8.0" layoutY="198.0" prefHeight="164.0" prefWidth="302.0">
