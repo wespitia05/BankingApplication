@@ -81,7 +81,7 @@ public class createAcct2Controller extends createAcctController {
         }
         addDataToDB(firstName, lastName, address, zipCode, dob, username, password, checking, savings);
         System.out.println("Account created successfully");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("createAcct2.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
         Parent root = loader.load();
         stg.getScene().setRoot(root);
     }

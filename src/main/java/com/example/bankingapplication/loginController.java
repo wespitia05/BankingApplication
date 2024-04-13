@@ -61,8 +61,9 @@ public class loginController {
             String storedPassword = document.getString("Password");
             if (storedPassword.equals(password)) {
                 System.out.println("Login successful");
-                main m = new main();
-                m.changeScene("userHomePage.fxml");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
+                Parent root = loader.load();
+                stg.getScene().setRoot(root);
             } else {
                 System.out.println("Password Incorrect");
                 incorrectPasswordAlert();
