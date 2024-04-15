@@ -14,4 +14,5 @@ module com.example.bankingapplication {
     requires com.google.auth;
     opens com.example.bankingapplication to javafx.fxml;
     exports com.example.bankingapplication;
+
 }
