@@ -36,6 +36,7 @@ public class loginController {
     private boolean passwordVisible = false;
     // testing for branch
     // branch test for mian worked
+    // luis branch test
     public void initialize () {
         System.out.println ("Initialize called");
     }
