@@ -76,7 +76,7 @@ public class employeeLoginController {
                 incorrectEmployeeIDAlert();
             }
     }
-
+    // sean's first test
     public void incorrectEmployeeIDAlert () {
         Alert alert = new Alert (Alert.AlertType.WARNING);
         alert.setTitle("Incorrect Employee ID");
