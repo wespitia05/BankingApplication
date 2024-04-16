@@ -6,10 +6,15 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
@@ -124,8 +129,100 @@ public class employeeHomePageController extends employeeLoginController {
         }
     }
 
-    public void handleEditCustomerButton () {
-        System.out.println ("handleEditCustomerButton called");
+    public void handleEditCustomerButton() {
+        System.out.println("handleEditCustomerButton called");
+        userInfo selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            System.out.println("No user selected for editing.");
+            return;
+        }
+
+        Dialog<userInfo> dialog = new Dialog<>();
+        dialog.setTitle("Edit Customer");
+        dialog.setHeaderText("Edit the selected customer's details");
+
+        ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField firstNameField = new TextField(selectedUser.getFirstName());
+        TextField lastNameField = new TextField(selectedUser.getLastName());
+        TextField usernameField = new TextField(selectedUser.getUsername());
+        TextField dobField = new TextField(selectedUser.getDob());
+        TextField passwordField = new TextField(selectedUser.getPassword());
+        TextField checkingField = new TextField(selectedUser.getChecking());
+        TextField savingsField = new TextField(selectedUser.getSavings());
+        // Add fields for other userInfo properties as needed
+
+        grid.add(new Label("First Name:"), 0, 0);
+        grid.add(firstNameField, 1, 0);
+        grid.add(new Label("Last Name:"), 0, 1);
+        grid.add(lastNameField, 1, 1);
+        grid.add(new Label("Date of Birth:"), 0, 2);
+        grid.add(dobField, 1, 2);
+        grid.add(new Label("Username:"),0,3);
+        grid.add(usernameField,1,3);
+        grid.add(new Label("Password:"),0,4);
+        grid.add(passwordField,1,4);
+        grid.add(new Label("Checking:"),0,5);
+        grid.add(checkingField,1,5);
+        grid.add(new Label("Username:"),0,6);
+        grid.add(savingsField,1,6);
+        // Add other fields to the grid
+
+        dialog.getDialogPane().setContent(grid);
+        Platform.runLater(firstNameField::requestFocus);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == saveButtonType) {
+                return new userInfo(firstNameField.getText(),  // First Name
+                        lastNameField.getText(),   // Last Name
+                        dobField.getText(),        // Date of Birth
+                        usernameField.getText(),   // Username
+                        passwordField.getText(),   // Password
+                        checkingField.getText(),   // Checking Account Balance
+                        savingsField.getText(),    // Savings Account Balance
+                        selectedUser.getId() );
+            }
+            return null;
+        });
+
+        Optional<userInfo> result = dialog.showAndWait();
+
+        result.ifPresent(newUserInfo -> {
+            updateCustomerTV(newUserInfo);
+            updateCustomerInFirestore(newUserInfo);
+        });
+    }
+
+    private void updateCustomerTV(userInfo updatedUser) {
+        int index = userInfoTV.getItems().indexOf(userInfoTV.getSelectionModel().getSelectedItem());
+        if (index >= 0) {
+            userInfoTV.getItems().set(index, updatedUser);
+            System.out.println ("Update table view successful");
+        }
+    }
+
+    private void updateCustomerInFirestore(userInfo updatedUser) {
+        Firestore db = main.fstore;
+        DocumentReference docRef = db.collection("userinfo").document(updatedUser.getId());
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("First Name", updatedUser.getFirstName());
+        updates.put("Last Name", updatedUser.getLastName());
+        updates.put("Date of Birth", updatedUser.getDob());
+        updates.put("Username", updatedUser.getUsername());
+        updates.put("Password", updatedUser.getPassword());
+        updates.put("Checking", updatedUser.getChecking());
+        updates.put("Savings", updatedUser.getSavings());
+
+        docRef.update(updates).addListener(() -> {
+            System.out.println("Update successful");
+        }, Executors.newSingleThreadExecutor());
     }
 
     public void handleDeleteCustomerButton() {
