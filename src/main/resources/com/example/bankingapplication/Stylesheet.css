@@ -20,6 +20,15 @@
     -fx-effect: dropshadow(gaussian, #FFFFFF, 10, 0.5, 0, 0); /* Reflection effect */
 }
 
+/*Pane for my card*/
+
+.myCard_pane {
+    -fx-background-color:  #FFFFFF; /* Light blue and white gradient */
+    -fx-border-color: #C1C1C1;
+    -fx-background-radius: 0px 0px 30px 30px;
+    -fx-border-radius: 0px 0px 30px 30px;
+    -fx-effect: dropshadow(gaussian, #FFFFFF, 10, 0.5, 0, 0); /* Reflection effect */
+}
 
 
 
@@ -61,3 +70,4 @@
     -fx-background-radius: 100%;
 
 }
+

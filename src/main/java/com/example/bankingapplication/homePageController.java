@@ -46,6 +46,7 @@ public class homePageController {
     @FXML
     public void initialize() {
         // Initialization code
+        generatePieChart();
     }
 
     @FXML
@@ -73,6 +74,14 @@ public class homePageController {
         // Set the pie chart data
         pieChart.setData(expenses);
         pieChart.setTitle("Expense Report");
+
+        //enabel legend
+        pieChart.setLegendVisible(true);
+        //customize label color font
+        pieChart.getData().forEach(data->
+                data.getNode().setStyle("-fx-font-weight: bold; -fx-font-size: 12pt;"));
+
+        //put all the design parts into the css file.
     }
 
 }
