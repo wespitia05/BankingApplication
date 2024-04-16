@@ -6,10 +6,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
@@ -117,7 +114,8 @@ public class employeeHomePageController extends employeeLoginController {
                         document.getString("Username"),
                         document.getString("Password"),
                         document.getString("Checking"),
-                        document.getString("Savings")
+                        document.getString("Savings"),
+                        document.getId()
                 ));
             }
             userInfoTV.setItems(data);
@@ -130,8 +128,45 @@ public class employeeHomePageController extends employeeLoginController {
         System.out.println ("handleEditCustomerButton called");
     }
 
-    public void handleDeleteCustomerButton () {
-        System.out.println ("handleDeleteCustomerButton called");
+    public void handleDeleteCustomerButton() {
+        System.out.println("handleDeleteCustomerButton called");
+
+        userInfo selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Removal");
+            alert.setContentText("Are you sure you want to remove " + selectedUser.getFirstName() + " " + selectedUser.getLastName() + " " +
+                    "from the table view and database?");
+            alert.showAndWait();
+                if (alert.getResult() == ButtonType.OK) {
+                    deleteCustomerFromFirestore(selectedUser.getId());
+                    userInfoTV.getItems().remove(selectedUser);
+                    System.out.println("Removed: " + selectedUser.getFirstName() + " " + selectedUser.getLastName());
+                }
+                else {
+                    System.out.println("No user selected.");
+                }
+        }
+    }
+
+
+    private void deleteCustomerFromFirestore(String id) {
+        if (id == null || id.isEmpty()) {
+            System.out.println("Invalid document ID");
+            return;
+        }
+
+        Firestore db = main.fstore;
+        DocumentReference docRef = db.collection("userinfo").document(id);
+        ApiFuture<WriteResult> future = docRef.delete();
+        future.addListener(() -> {
+            try {
+                WriteResult result = future.get();
+                System.out.println("Delete successful: " + result.getUpdateTime());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
     }
 
     public void handleStartTransactionButton () {
