@@ -8,7 +8,9 @@ public class userInfo {
     String password;
     String checking;
     String savings;
-    public userInfo(String firstName, String lastName, String dob, String username, String password, String checking, String savings) {
+    String id;
+
+    public userInfo(String firstName, String lastName, String dob, String username, String password, String checking, String savings, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
@@ -16,6 +18,7 @@ public class userInfo {
         this.password = password;
         this.checking = checking;
         this.savings = savings;
+        this.id = id;
     }
     public String getFirstName() {
         return firstName;
@@ -73,4 +76,11 @@ public class userInfo {
         this.savings = savings;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
