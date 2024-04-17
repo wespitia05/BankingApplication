@@ -45,6 +45,8 @@ public class employeeHomePageController extends employeeLoginController {
     private Button deleteCustomerButton;
     @FXML
     private Button startTransactionButton;
+    @FXML
+    private Button viewCustomerButton;
 
     public void initialize () {
         System.out.println("initialize called");
@@ -120,7 +122,9 @@ public class employeeHomePageController extends employeeLoginController {
                         document.getString("Password"),
                         document.getString("Checking"),
                         document.getString("Savings"),
-                        document.getId()
+                        document.getId(),
+                        document.getString("Address"),
+                        document.getString("Zip Code")
                 ));
             }
             userInfoTV.setItems(data);
@@ -156,22 +160,28 @@ public class employeeHomePageController extends employeeLoginController {
         TextField passwordField = new TextField(selectedUser.getPassword());
         TextField checkingField = new TextField(selectedUser.getChecking());
         TextField savingsField = new TextField(selectedUser.getSavings());
+        TextField addressField = new TextField(selectedUser.getAddress());
+        TextField zipCodeField = new TextField(selectedUser.getZipCode());
         // Add fields for other userInfo properties as needed
 
         grid.add(new Label("First Name:"), 0, 0);
         grid.add(firstNameField, 1, 0);
         grid.add(new Label("Last Name:"), 0, 1);
         grid.add(lastNameField, 1, 1);
-        grid.add(new Label("Date of Birth:"), 0, 2);
-        grid.add(dobField, 1, 2);
-        grid.add(new Label("Username:"),0,3);
-        grid.add(usernameField,1,3);
-        grid.add(new Label("Password:"),0,4);
-        grid.add(passwordField,1,4);
-        grid.add(new Label("Checking:"),0,5);
-        grid.add(checkingField,1,5);
-        grid.add(new Label("Username:"),0,6);
-        grid.add(savingsField,1,6);
+        grid.add(new Label("Address:"),0,2);
+        grid.add(addressField,1,2);
+        grid.add(new Label("Zip Code:"),0,3);
+        grid.add(zipCodeField,1,3);
+        grid.add(new Label("Date of Birth:"), 0, 4);
+        grid.add(dobField, 1, 4);
+        grid.add(new Label("Username:"),0,5);
+        grid.add(usernameField,1,5);
+        grid.add(new Label("Password:"),0,6);
+        grid.add(passwordField,1,6);
+        grid.add(new Label("Checking:"),0,7);
+        grid.add(checkingField,1,7);
+        grid.add(new Label("Username:"),0,8);
+        grid.add(savingsField,1,8);
         // Add other fields to the grid
 
         dialog.getDialogPane().setContent(grid);
@@ -179,14 +189,17 @@ public class employeeHomePageController extends employeeLoginController {
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveButtonType) {
-                return new userInfo(firstNameField.getText(),  // First Name
+                return new userInfo(
+                        firstNameField.getText(),  // First Name
                         lastNameField.getText(),   // Last Name
                         dobField.getText(),        // Date of Birth
                         usernameField.getText(),   // Username
                         passwordField.getText(),   // Password
                         checkingField.getText(),   // Checking Account Balance
                         savingsField.getText(),    // Savings Account Balance
-                        selectedUser.getId() );
+                        addressField.getText(),
+                        zipCodeField.getText(),
+                        selectedUser.getId());
             }
             return null;
         });
@@ -198,6 +211,7 @@ public class employeeHomePageController extends employeeLoginController {
             updateCustomerInFirestore(newUserInfo);
         });
     }
+    // merge test
 
     private void updateCustomerTV(userInfo updatedUser) {
         int index = userInfoTV.getItems().indexOf(userInfoTV.getSelectionModel().getSelectedItem());
@@ -264,6 +278,73 @@ public class employeeHomePageController extends employeeLoginController {
                 e.printStackTrace();
             }
         }, Executors.newSingleThreadExecutor());
+    }
+
+    public void handleViewCustomerButton () {
+        System.out.println ("handleViewCustomerButton called");
+
+        userInfo selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            System.out.println("No user selected for editing.");
+            return;
+        }
+
+        Dialog<userInfo> dialog = new Dialog<>();
+        dialog.setTitle("Customer Information");
+        dialog.setHeaderText("Displaying customer information below");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        Label firstName = new Label(selectedUser.getFirstName());
+        Label lastName = new Label(selectedUser.getLastName());
+        Label address = new Label(selectedUser.getAddress());
+        Label zipCode = new Label(selectedUser.getZipCode());
+        Label dob = new Label(selectedUser.getDob());
+        Label username = new Label(selectedUser.getUsername());
+        Label password = new Label(selectedUser.getPassword());
+        Label checking = new Label(selectedUser.getChecking());
+        Label savings = new Label(selectedUser.getSavings());
+
+        grid.add(new Label("First Name:"), 0, 0);
+        grid.add(firstName, 1, 0);
+        grid.add(new Label("Last Name:"), 0, 1);
+        grid.add(lastName, 1, 1);
+        grid.add(new Label("Address:"),0,2);
+        grid.add(address,1,2);
+        grid.add(new Label("Zip Code:"),0,3);
+        grid.add(zipCode,1,3);
+        grid.add(new Label("Date of Birth:"), 0, 4);
+        grid.add(dob, 1, 4);
+        grid.add(new Label("Username:"),0,5);
+        grid.add(username,1,5);
+        grid.add(new Label("Password:"),0,6);
+        grid.add(password,1,6);
+        grid.add(new Label("Checking:"),0,7);
+        grid.add(checking,1,7);
+        grid.add(new Label("Username:"),0,8);
+        grid.add(savings,1,8);
+
+        dialog.getDialogPane().setContent(grid);
+
+        ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        ButtonType editButton = new ButtonType("Edit", ButtonBar.ButtonData.OTHER);
+        ButtonType exitButton = new ButtonType("Exit", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        dialog.getDialogPane().getButtonTypes().addAll(okButton, editButton, exitButton);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == editButton) {
+                handleEditCustomerButton();
+            } else if (dialogButton == exitButton) {
+                dialog.close();
+            }
+            return null;
+        });
+
+        dialog.showAndWait();
     }
 
     public void handleStartTransactionButton () {
