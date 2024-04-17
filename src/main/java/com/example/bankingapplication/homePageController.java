@@ -2,8 +2,10 @@ package com.example.bankingapplication;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
@@ -18,6 +20,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class homePageController {
 
@@ -50,6 +54,70 @@ public class homePageController {
     }
 
     @FXML
+    private void handledashBoard_btn(ActionEvent event) throws IOException {
+        System.out.println("Dashboard clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
+        Parent root = loader.load();
+
+        // Create a new scene
+        Scene scene = new Scene(root);
+
+        // Get the stage information
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the new scene on the stage
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
+    private void handlemyCard_btn(ActionEvent event) throws IOException {
+        System.out.println("My Cards clicked");
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("myCards.fxml"));
+        Parent root = loader.load();
+
+        // Create a new scene
+        Scene scene = new Scene(root);
+
+        // Get the stage information
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the new scene on the stage
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
+    private void handletranaction_btn(ActionEvent event) {
+        System.out.println("Transactions clicked");
+    }
+
+    @FXML
+    private void handlepayment_btn(ActionEvent event) {
+        System.out.println("Payments clicked");
+    }
+
+    @FXML
+    private void handlereports_btn(ActionEvent event) {
+        System.out.println("Reports clicked");
+    }
+
+    @FXML
+    private void handleprofile_btn(ActionEvent event) {
+        System.out.println("Profiles clicked");
+    }
+
+    @FXML
+    private void handlesettings_btn(ActionEvent event) {
+        System.out.println("Settings clicked");
+    }
+
+    @FXML
     private void handleSave_btn() {
         // Handle save button action
     }
@@ -62,26 +130,7 @@ public class homePageController {
     //expense report for pie chart
     // Method to generate and display the pie chart
     public void generatePieChart() {
-        // Sample expense data
-        ObservableList<PieChart.Data> expenses = FXCollections.observableArrayList(
-                new PieChart.Data("Food", 500),
-                new PieChart.Data("Rent", 1000),
-                new PieChart.Data("Transportation", 300),
-                new PieChart.Data("Entertainment", 200),
-                new PieChart.Data("Utilities", 400)
-        );
 
-        // Set the pie chart data
-        pieChart.setData(expenses);
-        pieChart.setTitle("Expense Report");
-
-        //enabel legend
-        pieChart.setLegendVisible(true);
-        //customize label color font
-        pieChart.getData().forEach(data->
-                data.getNode().setStyle("-fx-font-weight: bold; -fx-font-size: 12pt;"));
-
-        //put all the design parts into the css file.
     }
 
 }
