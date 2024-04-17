@@ -19,27 +19,59 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.homePageController">
    <left>
-      <AnchorPane prefHeight="600.0" prefWidth="102.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="600.0" prefWidth="102.0" styleClass="sidebar" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="-4.0" layoutY="100.0" prefHeight="200.0" prefWidth="36.0" />
-            <FontAwesomeIconView glyphName="LIST_UL" layoutX="8.0" layoutY="164.0" size="17" styleClass="sidebar_opt" text="" wrappingWidth="17.0" />
-            <FontAwesomeIconView fill="#2b49b3" glyphName="HOME" layoutX="7.0" layoutY="136.0" size="20" styleClass="sidebar_opt" text="" wrappingWidth="18.571428298950195" />
-            <FontAwesomeIconView glyphName="MONEY" layoutX="7.0" layoutY="188.0" size="17" styleClass="sidebar_opt" text="" />
-            <FontAwesomeIconView glyphName="GEAR" layoutX="8.0" layoutY="242.0" size="17" styleClass="sidebar_opt" text="" />
-            <Separator layoutX="10.0" layoutY="211.0" prefHeight="11.0" prefWidth="13.0" />
             <Circle fill="WHITE" layoutX="34.0" layoutY="568.0" radius="18.0" stroke="#c1c1c1" strokeType="INSIDE" />
-            <Label layoutX="35.0" layoutY="121.0" text="Home" />
-            <Text fill="#5daff2" layoutX="9.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNITY BANK">
+            <Text fill="#5daff2" layoutX="3.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNITY BANK">
                <font>
-                  <Font name="Baskerville Old Face" size="14.0" />
+                  <Font name="Baskerville Old Face" size="16.0" />
                </font>
             </Text>
-            <FontAwesomeIconView fill="#5daff2" glyphName="BANK" layoutX="3.0" layoutY="29.0" size="16" />
+            <FontAwesomeIconView fill="#5daff2" glyphName="BANK" layoutX="4.0" layoutY="36.0" size="16" />
+            <VBox layoutX="-13.0" layoutY="90.0" prefHeight="302.0" prefWidth="134.0" spacing="10" style="-fx-padding: 10px;" stylesheets="@Stylesheet.css">
+               <children>
+                  <Button style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Dashboard">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="HOME" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="My Cards">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
+                     </graphic>
+                  </Button>
+                  <Button style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Transactions">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Payments">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="MONEY" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Reports">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="FILE" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Profiles">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="USER" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Settings">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="GEAR" size="16" />
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane prefHeight="600.0" prefWidth="683.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="600.0" prefWidth="666.0" BorderPane.alignment="CENTER">
          <children>
             <VBox layoutX="30.0" layoutY="-2.0" prefHeight="195.0" prefWidth="488.0" styleClass="pane" stylesheets="@Stylesheet.css" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="196.0">
                <children>
@@ -105,13 +137,13 @@
                   </HBox>
                </children>
             </VBox>
-            <Separator halignment="RIGHT" layoutX="539.0" layoutY="262.0" prefWidth="150.0" />
+            <Separator halignment="RIGHT" layoutX="520.0" layoutY="258.0" prefWidth="150.0" />
             <HBox layoutX="525.0" layoutY="9.0" prefHeight="231.0" prefWidth="180.0">
                <children>
-                  <PieChart fx:id="pieChart" minHeight="100.0" minWidth="0.0" prefHeight="231.0" prefWidth="165.0" title="Pie Chart" legendVisible="true" />
+                  <PieChart fx:id="pieChart" legendVisible="true" minHeight="100.0" minWidth="0.0" prefHeight="231.0" prefWidth="165.0" title="Pie Chart" />
                </children>
             </HBox>
-            <HBox layoutX="8.0" layoutY="198.0" prefHeight="164.0" prefWidth="302.0">
+            <HBox layoutX="15.0" layoutY="198.0" prefHeight="164.0" prefWidth="302.0">
                <children>
                   <Label text="Wallet">
                      <HBox.margin>
@@ -141,7 +173,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <VBox layoutX="339.0" layoutY="217.0" prefHeight="96.0" prefWidth="149.0">
+            <VBox layoutX="332.0" layoutY="217.0" prefHeight="96.0" prefWidth="149.0">
                <children>
                   <AnchorPane prefHeight="96.0" prefWidth="150.0">
                      <children>
@@ -153,8 +185,8 @@
                   </AnchorPane>
                </children>
             </VBox>
-            <Separator layoutX="496.0" layoutY="322.0" orientation="VERTICAL" prefHeight="200.0" />
-            <VBox layoutX="505.0" layoutY="269.0" prefHeight="327.0" prefWidth="190.0" styleClass="pane_quicktransfer" stylesheets="@Stylesheet.css">
+            <Separator layoutX="479.0" layoutY="329.0" orientation="VERTICAL" prefHeight="200.0" />
+            <VBox layoutX="491.0" layoutY="270.0" prefHeight="327.0" prefWidth="190.0" styleClass="pane_quicktransfer" stylesheets="@Stylesheet.css">
                <children>
                   <AnchorPane prefHeight="320.0" prefWidth="188.0">
                      <children>
