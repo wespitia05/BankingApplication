@@ -5,7 +5,14 @@ package com.example.bankingapplication;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class addAccountController {
 
@@ -17,13 +24,40 @@ public class addAccountController {
     private TextField accountNum;
 
     @FXML
-    private void handledashBoard_btn(ActionEvent event) {
+    private void handledashBoard_btn(ActionEvent event) throws IOException {
         System.out.println("Dashboard clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
+        Parent root = loader.load();
+
+        // Create a new scene
+        Scene scene = new Scene(root);
+
+        // Get the stage information
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the new scene on the stage
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
-    private void handlemyCard_btn(ActionEvent event) {
+    private void handlemyCard_btn(ActionEvent event) throws IOException {
         System.out.println("My Cards clicked");
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("myCards.fxml"));
+        Parent root = loader.load();
+
+        // Create a new scene
+        Scene scene = new Scene(root);
+
+        // Get the stage information
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the new scene on the stage
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
