@@ -54,21 +54,8 @@ public class homePageController {
     }
 
     @FXML
-    private void handledashBoard_btn(ActionEvent event) throws IOException {
-        System.out.println("Dashboard clicked");
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
-        Parent root = loader.load();
-
-        // Create a new scene
-        Scene scene = new Scene(root);
-
-        // Get the stage information
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        // Set the new scene on the stage
-        stage.setScene(scene);
-        stage.show();
+    private void handledashBoard_btn() {
+        System.out.println("Stop Clicking me, you are on my page");
 
     }
 

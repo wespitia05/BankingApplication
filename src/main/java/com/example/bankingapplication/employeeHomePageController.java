@@ -216,6 +216,9 @@ public class employeeHomePageController extends employeeLoginController {
     // williams branch test 1
     // lets see if it works
 
+
+    //it works lets try pushing it
+
     private void updateCustomerTV(userInfo updatedUser) {
         int index = userInfoTV.getItems().indexOf(userInfoTV.getSelectionModel().getSelectedItem());
         if (index >= 0) {
