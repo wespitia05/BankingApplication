@@ -9,8 +9,11 @@ public class userInfo {
     String checking;
     String savings;
     String id;
+    String address;
+    String zipCode;
 
-    public userInfo(String firstName, String lastName, String dob, String username, String password, String checking, String savings, String id) {
+    public userInfo(String firstName, String lastName, String dob, String username, String password,
+                    String checking, String savings, String id, String address, String zipCode) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
@@ -19,6 +22,8 @@ public class userInfo {
         this.checking = checking;
         this.savings = savings;
         this.id = id;
+        this.address = address;
+        this.zipCode = zipCode;
     }
     public String getFirstName() {
         return firstName;
@@ -82,5 +87,21 @@ public class userInfo {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 }
