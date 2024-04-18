@@ -1,62 +1,44 @@
 package com.example.bankingapplication;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+///this controller takes you to another scene in which you can add another account
+
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class homePageController {
-
-    //btn = button--- // TF = text Field
-    @FXML
-    private Button save_btn;
-    @FXML
-    private Button saveDraft_btn;
-    @FXML
-    private TextField addAccountNum_TF;
-    @FXML
-    private PieChart pieChart;
-    @FXML
-    private TextField income_TF;
-    @FXML
-    private TextField expenses_TF;
-    @FXML
-    private TextField savings_TF;
-    @FXML
-    private TextField balance_TF;
-    @FXML
-    private TextField currency_TF;
-    @FXML
-    private TextField debit_TF;
+public class addAccountController {
 
     @FXML
-    public void initialize() {
-        // Initialization code
-        generatePieChart();
-    }
+    private TextField bankName;
+    @FXML
+    private TextField accountName;
+    @FXML
+    private TextField accountNum;
 
     @FXML
-    private void handledashBoard_btn() {
-        System.out.println("Stop Clicking me, you are on my page");
+    private void handledashBoard_btn(ActionEvent event) throws IOException {
+        System.out.println("Dashboard clicked");
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
+        Parent root = loader.load();
+
+        // Create a new scene
+        Scene scene = new Scene(root);
+
+        // Get the stage information
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the new scene on the stage
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -76,7 +58,6 @@ public class homePageController {
         // Set the new scene on the stage
         stage.setScene(scene);
         stage.show();
-
     }
 
     @FXML
@@ -104,20 +85,22 @@ public class homePageController {
         System.out.println("Settings clicked");
     }
 
+    // Event Handlers for the Card Operations Buttons
     @FXML
-    private void handleSave_btn() {
-        // Handle save button action
+    private void handleAddCard_btn(ActionEvent event) {
+        System.out.println("Add Card clicked");
     }
 
     @FXML
-    private void handleDraft_btn() {
-        // Handle save as draft button action
+    private void handleSave_btn(ActionEvent event) {
+        System.out.println("Save clicked");
     }
 
-    //expense report for pie chart
-    // Method to generate and display the pie chart
-    public void generatePieChart() {
-
+    // Initialization method
+    @FXML
+    public void initialize() {
+        // Initialization logic here
     }
+
 
 }

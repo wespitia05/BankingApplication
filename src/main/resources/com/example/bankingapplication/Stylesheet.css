@@ -3,14 +3,13 @@
     -fx-background-radius: 30px;
 }
 
+/*side bar*/
+
 .sidebar{
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 30px 30px 0px 0px;
 }
 
-.sidebar_opt{
-    -fx-fill:#C1C1C1;
-}
 
 .pane {
     -fx-background-color: linear-gradient(to left bottom, #ADD8E6, #FFFFFF); /* Light blue and white gradient */
@@ -20,14 +19,21 @@
     -fx-effect: dropshadow(gaussian, #FFFFFF, 10, 0.5, 0, 0); /* Reflection effect */
 }
 
+/*Pane for my card*/
 
-
+.myCard_pane {
+    -fx-background-color:  #FFFFFF; /* Light blue and white gradient */
+    -fx-border-color: #C1C1C1;
+    -fx-background-radius: 0px 0px 30px 30px;
+    -fx-border-radius: 0px 0px 30px 30px;
+    -fx-effect: dropshadow(gaussian, #FFFFFF, 10, 0.5, 0, 0); /* Reflection effect */
+}
 
 .pane_quicktransfer{
     -fx-background-color: #FFFFFF;
      /*-fx-background-color: #ADD8E6; /* Light blue-green color */
     -fx-border-color: #C1C1C1;
-    -fx-background-radius: 30x 0px 0px 30px;
+    -fx-background-radius: 0x 0px 0px 0px;
     -fx-border-radius: 30px 30px 30px 30px;
 }
 
@@ -37,6 +43,8 @@
     -fx-border-radius: 5px;
     -fx-border-color: #C1C1C1;
     -fx-border-style: dashed;
+
+    -fx-text-fill:  #333333;
 
 }
 /**/
@@ -61,3 +69,4 @@
     -fx-background-radius: 100%;
 
 }
+
