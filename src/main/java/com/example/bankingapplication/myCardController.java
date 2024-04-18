@@ -28,9 +28,6 @@ public class myCardController {
     private void handledashBoard_btn(ActionEvent event) throws IOException {
         System.out.println("Dashboard clicked");
 
-
-        System.out.println("Dashboard clicked");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
         Parent root = loader.load();
 
@@ -77,8 +74,23 @@ public class myCardController {
 
     // Event Handlers for the Card Operations Buttons
     @FXML
-    private void handleAddCard_btn(ActionEvent event) {
+    private void handleAddCard_btn(ActionEvent event) throws IOException {
         System.out.println("Add Card clicked");
+
+        System.out.println("Dashboard clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addAccount.fxml"));
+        Parent root = loader.load();
+
+        // Create a new scene
+        Scene scene = new Scene(root);
+
+        // Get the stage information
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the new scene on the stage
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
