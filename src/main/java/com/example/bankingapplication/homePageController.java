@@ -180,6 +180,10 @@ public class homePageController extends loginController{
     /////////////////////////////////////////////////// Quick Transfer ////////////////////////////////
     @FXML
     private void handleSave_btn(ActionEvent event) {
+        // These fields are for Debit card info
+        String enteredDebit = debit_TF.getText().trim();
+        String firebaseDebit = getDebitInfoFromFirestore(); // Retrieve debit info from Firestore
+
         // Get the entered amount from the enterAmount_TF TextField
         String enteredAmount = enterAmount_TF.getText().trim();
 
@@ -188,17 +192,25 @@ public class homePageController extends loginController{
             // Convert the entered amount to double
             double amount = Double.parseDouble(enteredAmount);
 
-            // Update the checking balance
-            String checkingBalance = checkingBalanceTF.getText().trim();
-            if (!checkingBalance.isEmpty() && checkingBalance.matches("\\d*\\.?\\d+")) {
-                double checking = Double.parseDouble(checkingBalance);
-                checking += amount;
-                checkingBalanceTF.setText(String.valueOf(checking));
+            // Update the checking balance if the debit card is found
+            if (enteredDebit.equals(firebaseDebit)) {
+                String checkingBalance = checkingBalanceTF.getText().trim();
+                if (!checkingBalance.isEmpty() && checkingBalance.matches("\\d*\\.?\\d+")) {
+                    double checking = Double.parseDouble(checkingBalance);
+                    checking += amount;
+                    checkingBalanceTF.setText(String.valueOf(checking));
 
-                // Call the method to update the checking balance in Firestore
+                    // Call the method to update the checking balance in Firestore
 
-                updateCheckingBalanceInFirestore(checking);
+                      updateCheckingBalanceInFirestore(checking);
 
+                } else {
+                    // Display an error message if the checking balance is empty or not valid
+                    System.out.println("Invalid checking balance");
+                }
+            } else {
+                // Print message if debit card is not found
+                System.out.println("Debit card not found");
             }
         } else {
             // Display an error message if the entered amount is not valid
@@ -208,11 +220,10 @@ public class homePageController extends loginController{
             alert.setContentText("Please enter a valid amount.");
             alert.showAndWait();
         }
-
     }
 
-    ///////////////////// updating balance into Fire Store ///////////////////////
 
+    ///////////////////// updating balance into Fire Store ///////////////////////
 
     private void updateCheckingBalanceInFirestore(double checkingBalance) {
         Firestore db = main.fstore;
@@ -236,8 +247,32 @@ public class homePageController extends loginController{
     }
 
 
-
     /////////////////////////////Updating balance in FireStore////////////////////////////////////////
+
+    ///////////////////////////Getting debit into form fireBase //////////////////////////////////////////////////
+
+    private String getDebitInfoFromFirestore() {
+        Firestore db = main.fstore;
+        CollectionReference debitRef = db.collection("userinfo");
+
+        // Query Firestore to retrieve debit card info based on entered debit card number
+        ApiFuture<QuerySnapshot> future = debitRef.whereEqualTo("Debit", debit_TF.getText().trim()).get();
+        try {
+            QuerySnapshot querySnapshot = future.get();
+            if (!querySnapshot.isEmpty()) {
+                DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                return document.getString("Debit");
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null; // Return null if debit card info not found
+    }
+
+    ///????????????????????????????????????????  Getting debit info form fireBase ????????????????????????????????????////
+
+
+
 
     @FXML
     private void handleDraft_btn() {
