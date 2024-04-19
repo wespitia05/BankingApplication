@@ -151,5 +151,12 @@ public class homePageController extends loginController{
     public void generatePieChart() {
 
     }
+//
+//    public String getUsername(String firstName ){
+//        return firstName;
+//    }
 
+    public void setFirstName(String firstName) {
+        System.out.println(firstName + " is called");
+    }
 }

@@ -1,10 +1,7 @@
 package com.example.bankingapplication;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.*;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,7 +38,27 @@ public class loginController {
     public void initialize () {
         System.out.println ("Initialize called");
     }
-    public void handleLoginButton (ActionEvent event) throws IOException {
+
+    public String getFirstNameByUsername(Firestore db, String username) throws InterruptedException, ExecutionException {
+        DocumentReference docRef = db.collection("userinfo").document(username);
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+        DocumentSnapshot document = future.get();
+
+        if (document.exists()) {
+            String firstName = document.getString("FirstName");
+            if (firstName != null) {
+                System.out.println("Retrieved First Name: " + firstName);
+                return firstName;
+            } else {
+                System.out.println("First Name field is missing for username: " + username);
+                return null;
+            }
+        } else {
+            System.out.println("Document does not exist for username: " + username);
+            return null;
+        }
+    }
+    public void handleLoginButton (ActionEvent event) throws IOException, ExecutionException, InterruptedException {
         System.out.println ("handleLoginButton called");
 
         String username = usernameTextField.getText();
@@ -63,10 +80,19 @@ public class loginController {
             String storedPassword = document.getString("Password");
             if (storedPassword.equals(password)) {
                 System.out.println("Login successful");
+
+
+                // Retrieve the first name associated with the username
+                String firstName = getFirstNameByUsername(db, username);
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
                 Parent root = loader.load();
                 homePageController homeController = loader.getController();
                 homeController.setUsername(username);
+
+                homeController.setFirstName(firstName); // Set the first name
+
+
                 stg.getScene().setRoot(root);
             } else {
                 System.out.println("Password Incorrect");
