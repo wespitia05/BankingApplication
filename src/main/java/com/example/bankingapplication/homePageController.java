@@ -40,6 +40,8 @@ public class homePageController extends loginController{
     private TextField savingsBalanceTF;
     @FXML
     private TextField debit_TF;
+    @FXML
+    private Label userFullName;
     private String username;
 
     @FXML
@@ -50,7 +52,8 @@ public class homePageController extends loginController{
 
     public void setUsername(String username) {
         this.username = username;
-        displayUserBalances();  // Now call to fetch balances after username is set
+        displayUserBalances();
+        displayUserFullName();
     }
 
     private void displayUserBalances() {
@@ -84,6 +87,33 @@ public class homePageController extends loginController{
         }
     }
 
+    public void displayUserFullName () {
+        if (username != null && !username.isEmpty()) {
+            Firestore db = main.fstore;
+            CollectionReference usersRef = db.collection("userinfo");
+
+            ApiFuture<QuerySnapshot> future = usersRef.whereEqualTo("Username", username).get();
+            future.addListener(() -> {
+                try {
+                    QuerySnapshot querySnapshot = future.get();
+                    if (!querySnapshot.isEmpty()) {
+                        DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                        String firstName = document.getString("First Name");
+                        String lastName = document.getString("Last Name");
+                        Platform.runLater(() -> setUserFullName(firstName, lastName));
+                    }
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }, Executors.newSingleThreadExecutor());
+        } else {
+            System.out.println("Username is not set or empty");
+        }
+    }
+
+    public void setUserFullName(String firstName, String lastName) {
+        userFullName.setText(firstName + " " + lastName);
+    }
 
     @FXML
     private void handledashBoard_btn() {
@@ -156,7 +186,4 @@ public class homePageController extends loginController{
 //        return firstName;
 //    }
 
-    public void setFirstName(String firstName) {
-        System.out.println(firstName + " is called");
-    }
 }
