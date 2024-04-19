@@ -14,6 +14,8 @@
           <TableColumn fx:id="firstNameCol" prefWidth="87.36944580078125" text="First Name" />
           <TableColumn fx:id="lastNameCol" prefWidth="86.63055419921875" text="Last Name" />
             <TableColumn fx:id="dobCol" prefWidth="80.8856201171875" text="Date of Birth" />
+            <TableColumn fx:id="addressCol" prefWidth="75.0" text="Address" />
+            <TableColumn fx:id="zipCodeCol" prefWidth="75.0" text="Zip Code" />
             <TableColumn fx:id="usernameCol" prefWidth="82.367431640625" text="Username" />
             <TableColumn fx:id="passwordCol" prefWidth="84.13259887695312" text="Password" />
             <TableColumn fx:id="checkingCol" prefWidth="84.62042236328125" text="Checking" />

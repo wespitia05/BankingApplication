@@ -13,7 +13,7 @@ public class userInfo {
     String zipCode;
 
     public userInfo(String firstName, String lastName, String dob, String username, String password,
-                    String checking, String savings, String id, String address, String zipCode) {
+                    String checking, String savings, String address, String zipCode, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
@@ -21,9 +21,9 @@ public class userInfo {
         this.password = password;
         this.checking = checking;
         this.savings = savings;
-        this.id = id;
         this.address = address;
         this.zipCode = zipCode;
+        this.id = id;
     }
     public String getFirstName() {
         return firstName;
