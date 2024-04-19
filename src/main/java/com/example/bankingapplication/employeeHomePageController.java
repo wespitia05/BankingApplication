@@ -38,6 +38,10 @@ public class employeeHomePageController extends employeeLoginController {
     @FXML
     private TableColumn <userInfo, String> savingsCol;
     @FXML
+    private TableColumn <userInfo, String> addressCol;
+    @FXML
+    private TableColumn <userInfo, String> zipCodeCol;
+    @FXML
     private Button displayAllCustomersButton;
     @FXML
     private Button editCustomerButton;
@@ -65,6 +69,10 @@ public class employeeHomePageController extends employeeLoginController {
                 new PropertyValueFactory<userInfo, String>("checking"));
         savingsCol.setCellValueFactory(
                 new PropertyValueFactory<userInfo, String>("savings"));
+        addressCol.setCellValueFactory(
+                new PropertyValueFactory<userInfo, String>("address"));
+        zipCodeCol.setCellValueFactory(
+                new PropertyValueFactory<userInfo, String>("zipCode"));
 
         fetchAndDisplayEmployeeDetails();
     }
@@ -122,9 +130,9 @@ public class employeeHomePageController extends employeeLoginController {
                         document.getString("Password"),
                         document.getString("Checking"),
                         document.getString("Savings"),
-                        document.getId(),
                         document.getString("Address"),
-                        document.getString("Zip Code")
+                        document.getString("Zip Code"),
+                        document.getId()
                 ));
             }
             userInfoTV.setItems(data);
@@ -190,26 +198,27 @@ public class employeeHomePageController extends employeeLoginController {
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveButtonType) {
                 return new userInfo(
-                        firstNameField.getText(),  // First Name
-                        lastNameField.getText(),   // Last Name
-                        dobField.getText(),        // Date of Birth
-                        usernameField.getText(),   // Username
-                        passwordField.getText(),   // Password
-                        checkingField.getText(),   // Checking Account Balance
-                        savingsField.getText(),    // Savings Account Balance
+                        firstNameField.getText(),
+                        lastNameField.getText(),
+                        dobField.getText(),
+                        usernameField.getText(),
+                        passwordField.getText(),
+                        checkingField.getText(),
+                        savingsField.getText(),
                         addressField.getText(),
                         zipCodeField.getText(),
-                        selectedUser.getId());
+                        selectedUser.getId()
+                );
             }
             return null;
         });
 
         Optional<userInfo> result = dialog.showAndWait();
-
         result.ifPresent(newUserInfo -> {
             updateCustomerTV(newUserInfo);
             updateCustomerInFirestore(newUserInfo);
         });
+
     }
     // merge test
     // merge test 2
@@ -223,7 +232,7 @@ public class employeeHomePageController extends employeeLoginController {
         int index = userInfoTV.getItems().indexOf(userInfoTV.getSelectionModel().getSelectedItem());
         if (index >= 0) {
             userInfoTV.getItems().set(index, updatedUser);
-            System.out.println ("Update table view successful");
+            System.out.println("Update table view successful");
         }
     }
 
@@ -239,9 +248,11 @@ public class employeeHomePageController extends employeeLoginController {
         updates.put("Password", updatedUser.getPassword());
         updates.put("Checking", updatedUser.getChecking());
         updates.put("Savings", updatedUser.getSavings());
+        updates.put("Address", updatedUser.getAddress());
+        updates.put("Zip Code", updatedUser.getZipCode());
 
-        docRef.update(updates).addListener(() -> {
-            System.out.println("Update successful");
+        docRef.set(updates, SetOptions.merge()).addListener(() -> {
+            System.out.println("Database updated successfully.");
         }, Executors.newSingleThreadExecutor());
     }
 
@@ -291,7 +302,7 @@ public class employeeHomePageController extends employeeLoginController {
 
         userInfo selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
         if (selectedUser == null) {
-            System.out.println("No user selected for editing.");
+            System.out.println("No user selected to view");
             return;
         }
 
@@ -313,6 +324,10 @@ public class employeeHomePageController extends employeeLoginController {
         Label password = new Label(selectedUser.getPassword());
         Label checking = new Label(selectedUser.getChecking());
         Label savings = new Label(selectedUser.getSavings());
+
+        System.out.println("Viewing customer: " + firstName.getText() + " " + lastName.getText() +
+                "\nAddress: " + address.getText() +
+                "\nZip code: " + zipCode.getText());
 
         grid.add(new Label("First Name:"), 0, 0);
         grid.add(firstName, 1, 0);
