@@ -194,6 +194,11 @@ public class homePageController extends loginController{
                 double checking = Double.parseDouble(checkingBalance);
                 checking += amount;
                 checkingBalanceTF.setText(String.valueOf(checking));
+
+                // Call the method to update the checking balance in Firestore
+
+                updateCheckingBalanceInFirestore(checking);
+
             }
         } else {
             // Display an error message if the entered amount is not valid
@@ -206,6 +211,34 @@ public class homePageController extends loginController{
 
     }
 
+    ///////////////////// updating balance into Fire Store ///////////////////////
+
+
+    private void updateCheckingBalanceInFirestore(double checkingBalance) {
+        Firestore db = main.fstore;
+        CollectionReference usersRef = db.collection("userinfo");
+
+        ApiFuture<QuerySnapshot> future = usersRef.whereEqualTo("Username", username).get();
+        future.addListener(() -> {
+            try {
+                QuerySnapshot querySnapshot = future.get();
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                    String documentId = document.getId();
+
+                    // Update the Checking balance field in Firestore
+                    usersRef.document(documentId).update("Checking", String.valueOf(checkingBalance));
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
+    }
+
+
+
+    /////////////////////////////Updating balance in FireStore////////////////////////////////////////
+
     @FXML
     private void handleDraft_btn() {
         // Handle save as draft button action
@@ -216,14 +249,6 @@ public class homePageController extends loginController{
     public void generatePieChart() {
 
     }
-
-
-
-
-    /////updating balance
-
-
-
 
 
 }
