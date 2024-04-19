@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class homePageController extends loginController{
     private Button saveDraft_btn;
     @FXML
     private TextField addAccountNum_TF;
+    @FXML
+    private TextField enterAmount_TF;
     @FXML
     private PieChart pieChart;
     @FXML
@@ -115,6 +118,8 @@ public class homePageController extends loginController{
         userFullName.setText(firstName + " " + lastName);
     }
 
+
+    /////////////////////////////////////////// side bar //////////////////////////////////
     @FXML
     private void handledashBoard_btn() {
         System.out.println("Stop Clicking me, you are on my page");
@@ -166,9 +171,39 @@ public class homePageController extends loginController{
         System.out.println("Settings clicked");
     }
 
+
+
+    ////////////// side bar ///////////////////////////////////////////////
+
+
+
+    /////////////////////////////////////////////////// Quick Transfer ////////////////////////////////
     @FXML
-    private void handleSave_btn() {
-        // Handle save button action
+    private void handleSave_btn(ActionEvent event) {
+        // Get the entered amount from the enterAmount_TF TextField
+        String enteredAmount = enterAmount_TF.getText().trim();
+
+        // Check if the entered amount is a valid number
+        if (!enteredAmount.isEmpty() && enteredAmount.matches("\\d*\\.?\\d+")) {
+            // Convert the entered amount to double
+            double amount = Double.parseDouble(enteredAmount);
+
+            // Update the checking balance
+            String checkingBalance = checkingBalanceTF.getText().trim();
+            if (!checkingBalance.isEmpty() && checkingBalance.matches("\\d*\\.?\\d+")) {
+                double checking = Double.parseDouble(checkingBalance);
+                checking += amount;
+                checkingBalanceTF.setText(String.valueOf(checking));
+            }
+        } else {
+            // Display an error message if the entered amount is not valid
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Amount");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a valid amount.");
+            alert.showAndWait();
+        }
+
     }
 
     @FXML
@@ -181,9 +216,14 @@ public class homePageController extends loginController{
     public void generatePieChart() {
 
     }
-//
-//    public String getUsername(String firstName ){
-//        return firstName;
-//    }
+
+
+
+
+    /////updating balance
+
+
+
+
 
 }
