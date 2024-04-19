@@ -20,7 +20,7 @@ import static com.example.bankingapplication.main.stg;
 
 public class loginController {
     @FXML
-    private TextField usernameTextField;
+    public TextField usernameTextField;
     @FXML
     private TextField passwordTextField;
     @FXML
@@ -41,7 +41,7 @@ public class loginController {
     public void initialize () {
         System.out.println ("Initialize called");
     }
-    public void handleLoginButton () throws IOException {
+    public void handleLoginButton (ActionEvent event) throws IOException {
         System.out.println ("handleLoginButton called");
 
         String username = usernameTextField.getText();
@@ -65,6 +65,8 @@ public class loginController {
                 System.out.println("Login successful");
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
                 Parent root = loader.load();
+                homePageController homeController = loader.getController();
+                homeController.setUsername(username);
                 stg.getScene().setRoot(root);
             } else {
                 System.out.println("Password Incorrect");

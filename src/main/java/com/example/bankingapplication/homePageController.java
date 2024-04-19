@@ -1,7 +1,8 @@
 package com.example.bankingapplication;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,21 +10,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 
-public class homePageController {
+public class homePageController extends loginController{
 
     //btn = button--- // TF = text Field
     @FXML
@@ -41,17 +35,55 @@ public class homePageController {
     @FXML
     private TextField savings_TF;
     @FXML
-    private TextField balance_TF;
+    private TextField checkingBalanceTF;
     @FXML
-    private TextField currency_TF;
+    private TextField savingsBalanceTF;
     @FXML
     private TextField debit_TF;
+    private String username;
 
     @FXML
     public void initialize() {
         // Initialization code
         generatePieChart();
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+        displayUserBalances();  // Now call to fetch balances after username is set
+    }
+
+    private void displayUserBalances() {
+        if (username != null && !username.isEmpty()) {
+            Firestore db = main.fstore;
+            CollectionReference usersRef = db.collection("userinfo");
+
+            ApiFuture<QuerySnapshot> future = usersRef.whereEqualTo("Username", username).get();
+            future.addListener(() -> {
+                try {
+                    QuerySnapshot querySnapshot = future.get();
+                    if (!querySnapshot.isEmpty()) {
+                        DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                        String checkingBalance = document.getString("Checking");
+                        String savingsBalance = document.getString("Savings");
+                        Platform.runLater(() -> setBalances(checkingBalance, savingsBalance));
+                    }
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }, Executors.newSingleThreadExecutor());
+        } else {
+            System.out.println("Username is not set or empty");
+        }
+    }
+
+    public void setBalances(String checking, String savings) {
+        if (checkingBalanceTF != null && savingsBalanceTF != null) {
+            checkingBalanceTF.setText(checking);
+            savingsBalanceTF.setText(savings);
+        }
+    }
+
 
     @FXML
     private void handledashBoard_btn() {

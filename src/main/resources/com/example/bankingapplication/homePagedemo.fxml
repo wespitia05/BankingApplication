@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.homePageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.homePageController">
    <left>
       <AnchorPane prefHeight="600.0" prefWidth="130.0" styleClass="sidebar" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
@@ -138,10 +138,10 @@
                <children>
                   <AnchorPane prefHeight="96.0" prefWidth="150.0">
                      <children>
-                        <Label layoutX="16.0" layoutY="5.0" text="Balance" />
-                        <Label layoutX="14.0" layoutY="48.0" text="Currency" />
-                        <TextField fx:id="balance_TF" layoutX="1.0" layoutY="23.0" promptText="balance" stylesheets="@Stylesheet.css" />
-                        <TextField fx:id="currency_TF" layoutY="69.0" promptText="currency" stylesheets="@Stylesheet.css" />
+                        <Label layoutX="-16.0" layoutY="-8.0" text="Checking Balance" />
+                        <Label layoutX="-16.0" layoutY="48.0" text="Savings Balance" />
+                        <TextField fx:id="checkingBalanceTF" layoutX="-16.0" layoutY="14.0" onAction="#initialize" stylesheets="@Stylesheet.css" />
+                        <TextField fx:id="savingsBalanceTF" layoutX="-16.0" layoutY="70.0" onAction="#initialize" stylesheets="@Stylesheet.css" />
                      </children>
                   </AnchorPane>
                </children>
