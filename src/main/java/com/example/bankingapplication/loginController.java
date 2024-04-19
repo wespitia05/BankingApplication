@@ -31,6 +31,8 @@ public class loginController {
     @FXML
     private Label showPassword;
     private boolean passwordVisible = false;
+    private String firstName;
+    private String lastName;
     // testing for branch
     // branch test for mian worked
     // luis branch test
@@ -39,25 +41,11 @@ public class loginController {
         System.out.println ("Initialize called");
     }
 
-    public String getFirstNameByUsername(Firestore db, String username) throws InterruptedException, ExecutionException {
-        DocumentReference docRef = db.collection("userinfo").document(username);
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-        DocumentSnapshot document = future.get();
-
-        if (document.exists()) {
-            String firstName = document.getString("FirstName");
-            if (firstName != null) {
-                System.out.println("Retrieved First Name: " + firstName);
-                return firstName;
-            } else {
-                System.out.println("First Name field is missing for username: " + username);
-                return null;
-            }
-        } else {
-            System.out.println("Document does not exist for username: " + username);
-            return null;
-        }
+    public void setUserFullName (String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
+
     public void handleLoginButton (ActionEvent event) throws IOException, ExecutionException, InterruptedException {
         System.out.println ("handleLoginButton called");
 
@@ -81,16 +69,13 @@ public class loginController {
             if (storedPassword.equals(password)) {
                 System.out.println("Login successful");
 
-
                 // Retrieve the first name associated with the username
-                String firstName = getFirstNameByUsername(db, username);
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
                 Parent root = loader.load();
                 homePageController homeController = loader.getController();
                 homeController.setUsername(username);
-
-                homeController.setFirstName(firstName); // Set the first name
+                homeController.setUserFullName(firstName, lastName);
 
 
                 stg.getScene().setRoot(root);
