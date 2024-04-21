@@ -22,9 +22,9 @@ public class homePageController extends loginController{
 
     //btn = button--- // TF = text Field
     @FXML
-    private Button save_btn;
+    private Button save_btn; ///checking
     @FXML
-    private Button saveDraft_btn;
+    private Button saveDraft_btn; //savings
     @FXML
     private TextField addAccountNum_TF;
     @FXML
@@ -51,6 +51,9 @@ public class homePageController extends loginController{
     public void initialize() {
         // Initialization code
         generatePieChart();
+
+        // Manually set the onAction event handler for the saveDraft_btn button
+        saveDraft_btn.setOnAction(this::handleSaveDraft_btn);
     }
 
     public void setUsername(String username) {
@@ -179,7 +182,7 @@ public class homePageController extends loginController{
 
     /////////////////////////////////////////////////// Quick Transfer ////////////////////////////////
     @FXML
-    private void handleSave_btn(ActionEvent event) {
+    private void handleSave_btn(ActionEvent event) {   ///updates your checking balance
         // These fields are for Debit card info
         String enteredDebit = debit_TF.getText().trim();
         String firebaseDebit = getDebitInfoFromFirestore(); // Retrieve debit info from Firestore
@@ -270,8 +273,71 @@ public class homePageController extends loginController{
     }
 
     ///????????????????????????????????????????  Getting debit info form fireBase ????????????????????????????????????////
+    //////////////////////////////////////////// Updates your savings //////////////////////////////////////////////
+    @FXML
+    private void handleSaveDraft_btn(ActionEvent event) {
+        // These fields are for Debit card info
+        String enteredDebit = debit_TF.getText().trim();
+        String firebaseDebit = getDebitInfoFromFirestore(); // Retrieve debit info from Firestore
 
+        // Get the entered amount from the enterAmount_TF TextField
+        String enteredAmount = enterAmount_TF.getText().trim();
 
+        // Check if the entered amount is a valid number
+        if (!enteredAmount.isEmpty() && enteredAmount.matches("\\d*\\.?\\d+")) {
+            // Convert the entered amount to double
+            double amount = Double.parseDouble(enteredAmount);
+
+            // Update the savings balance if the debit card is found
+            if (enteredDebit.equals(firebaseDebit)) {
+                String savingsBalance = savingsBalanceTF.getText().trim();
+                if (!savingsBalance.isEmpty() && savingsBalance.matches("\\d*\\.?\\d+")) {
+                    double savings = Double.parseDouble(savingsBalance);
+                    savings += amount;
+                    savingsBalanceTF.setText(String.valueOf(savings));
+
+                    // Call the method to update the savings balance in Firestore
+                    updateSavingsBalanceInFirestore(savings);
+
+                } else {
+                    // Display an error message if the savings balance is empty or not valid
+                    System.out.println("Invalid savings balance");
+                }
+            } else {
+                // Print message if debit card is not found
+                System.out.println("Debit card not found");
+            }
+        } else {
+            // Display an error message if the entered amount is not valid
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Amount");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a valid amount.");
+            alert.showAndWait();
+        }
+    }
+
+    private void updateSavingsBalanceInFirestore(double savingsBalance) {
+        Firestore db = main.fstore;
+        CollectionReference usersRef = db.collection("userinfo");
+
+        ApiFuture<QuerySnapshot> future = usersRef.whereEqualTo("Username", username).get();
+        future.addListener(() -> {
+            try {
+                QuerySnapshot querySnapshot = future.get();
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                    String documentId = document.getId();
+
+                    // Update the Savings balance field in Firestore
+                    usersRef.document(documentId).update("Savings", String.valueOf(savingsBalance));
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
+    }
+////////////////////////////////////update savings ////////////////////////////////////////////
 
 
     @FXML
