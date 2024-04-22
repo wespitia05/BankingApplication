@@ -49,8 +49,9 @@ public class homePageController extends loginController{
 
     @FXML
     public void initialize() {
-        // Initialization code
-        generatePieChart();
+
+        checkingBalanceTF.setText(UserData.getCheckingBalance());
+        savingsBalanceTF.setText(UserData.getSavingsBalance());
 
         // Manually set the onAction event handler for the saveDraft_btn button
         saveDraft_btn.setOnAction(this::handleSaveDraft_btn);
@@ -75,7 +76,10 @@ public class homePageController extends loginController{
                         DocumentSnapshot document = querySnapshot.getDocuments().get(0);
                         String checkingBalance = document.getString("Checking");
                         String savingsBalance = document.getString("Savings");
-                        Platform.runLater(() -> setBalances(checkingBalance, savingsBalance));
+                        Platform.runLater(() -> {
+                            setBalances(checkingBalance, savingsBalance);
+                            updateSavingsTextField(savingsBalance);
+                        });
                     }
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -85,6 +89,7 @@ public class homePageController extends loginController{
             System.out.println("Username is not set or empty");
         }
     }
+    //////setting savings balance view for the top screen
 
     public void setBalances(String checking, String savings) {
         if (checkingBalanceTF != null && savingsBalanceTF != null) {
@@ -92,6 +97,15 @@ public class homePageController extends loginController{
             savingsBalanceTF.setText(savings);
         }
     }
+
+    // Method to update savings balance TextField
+    private void updateSavingsTextField(String savingsBalance) { /////////////////look over this method
+        if (savings_TF != null) {
+            savings_TF.setText(savingsBalance);
+        }   ////////////////////////////////////////// for some reason it is not displaying the balance on the top right screen
+    }
+    ///////////////////////////////////////////////////////////
+
 
     public void displayUserFullName () {
         if (username != null && !username.isEmpty()) {
@@ -176,13 +190,17 @@ public class homePageController extends loginController{
 
 
 
-    ////////////// side bar ///////////////////////////////////////////////
+   ////////////////////////////////////////////// side bar ///////////////////////////////////////////////
 
 
 
     /////////////////////////////////////////////////// Quick Transfer ////////////////////////////////
+
+
+    ///?????????????????????????????????????????????????????? checking balance /////////////////////////////////
     @FXML
     private void handleSave_btn(ActionEvent event) {   ///updates your checking balance
+
         // These fields are for Debit card info
         String enteredDebit = debit_TF.getText().trim();
         String firebaseDebit = getDebitInfoFromFirestore(); // Retrieve debit info from Firestore
@@ -225,8 +243,7 @@ public class homePageController extends loginController{
         }
     }
 
-
-    ///////////////////// updating balance into Fire Store ///////////////////////
+    ///////////////////// updating balance into Fire Store for checking ///////////////////////
 
     private void updateCheckingBalanceInFirestore(double checkingBalance) {
         Firestore db = main.fstore;
@@ -250,7 +267,7 @@ public class homePageController extends loginController{
     }
 
 
-    /////////////////////////////Updating balance in FireStore////////////////////////////////////////
+    ////??????????????????????????????????????Updating balance in FireStore////////////////////////////////////////
 
     ///////////////////////////Getting debit into form fireBase //////////////////////////////////////////////////
 
@@ -273,6 +290,7 @@ public class homePageController extends loginController{
     }
 
     ///????????????????????????????????????????  Getting debit info form fireBase ????????????????????????????????????////
+
     //////////////////////////////////////////// Updates your savings //////////////////////////////////////////////
     @FXML
     private void handleSaveDraft_btn(ActionEvent event) {
@@ -338,6 +356,8 @@ public class homePageController extends loginController{
         }, Executors.newSingleThreadExecutor());
     }
 ////////////////////////////////////update savings ////////////////////////////////////////////
+
+    /////???????????????????????????????End of quick transfer ???????????????????????????????????????????
 
 
     @FXML
