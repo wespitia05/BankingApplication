@@ -79,6 +79,7 @@ public class main extends Application {
         }
     }
 
+
     public static void addEmployeeDataToDB(String firstName, String lastName, String address,
                                    String zipCode, String dob, String username, String password, int employeeID) {
 

@@ -1,10 +1,7 @@
 package com.example.bankingapplication;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.*;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +17,7 @@ import static com.example.bankingapplication.main.stg;
 
 public class loginController {
     @FXML
-    private TextField usernameTextField;
+    public TextField usernameTextField;
     @FXML
     private TextField passwordTextField;
     @FXML
@@ -34,6 +31,8 @@ public class loginController {
     @FXML
     private Label showPassword;
     private boolean passwordVisible = false;
+    private String firstName;
+    private String lastName;
     // testing for branch
     // branch test for mian worked
     // luis branch test
@@ -41,7 +40,13 @@ public class loginController {
     public void initialize () {
         System.out.println ("Initialize called");
     }
-    public void handleLoginButton () throws IOException {
+
+    public void setUserFullName (String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public void handleLoginButton (ActionEvent event) throws IOException, ExecutionException, InterruptedException {
         System.out.println ("handleLoginButton called");
 
         String username = usernameTextField.getText();
@@ -63,8 +68,16 @@ public class loginController {
             String storedPassword = document.getString("Password");
             if (storedPassword.equals(password)) {
                 System.out.println("Login successful");
+
+                // Retrieve the first name associated with the username
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
                 Parent root = loader.load();
+                homePageController homeController = loader.getController();
+                homeController.setUsername(username);
+                homeController.setUserFullName(firstName, lastName);
+
+
                 stg.getScene().setRoot(root);
             } else {
                 System.out.println("Password Incorrect");
