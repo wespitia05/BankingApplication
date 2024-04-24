@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.myCardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.myCardController">
     <left>
         <AnchorPane prefHeight="600.0" prefWidth="148.0" BorderPane.alignment="CENTER">
             <children>
@@ -58,7 +58,6 @@
                </graphic>
             </Label>
             <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="573.0" size="30" text="" />
-            <Label fx:id="userFullName" layoutX="56.0" layoutY="554.0" />
             </children>
         </AnchorPane>
     </left>
@@ -83,12 +82,12 @@
                                     <Label style="-fx-text-fill: white;" text="**** **** **** 5678" />
                                     <Label style="-fx-text-fill: white;" text="09/27" />
                                 </VBox>
-                           <Label text="add card" />
                            <Button alignment="CENTER" onAction="#handleAddCard_btn" prefHeight="96.0" prefWidth="140.0" style="-fx-background-color: transparent; -fx-text-fill: #333333;" styleClass="plus_btn" stylesheets="@Stylesheet.css">
                               <graphic>
                                  <FontAwesomeIconView glyphName="PLUS" />
                               </graphic>
                            </Button>
+                           <Label text="add card" />
                            <HBox.margin>
                               <Insets top="15.0" />
                            </HBox.margin>
