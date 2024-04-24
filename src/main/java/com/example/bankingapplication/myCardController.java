@@ -1,28 +1,18 @@
 package com.example.bankingapplication;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QuerySnapshot;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 
-import static com.example.bankingapplication.main.stg;
+public class myCardController {
 
-public class myCardController extends homePageController{
 
     @FXML
     private TextField cardNum_TF;
@@ -32,37 +22,24 @@ public class myCardController extends homePageController{
     private TextField balance_TF;
     @FXML
     private TextField name_TF;
-    @FXML
-    private Label userFullName;
 
     // Event Handlers for the Sidebar Buttons
     @FXML
     private void handledashBoard_btn(ActionEvent event) throws IOException {
         System.out.println("Dashboard clicked");
 
-
-
-        // Load the FXML file and get the root and controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
-        homePageController controller = loader.getController();
+        Parent root = loader.load();
 
-        // Set data using methods in your controller
-        controller.setUserFullName(userInfo.getFirstName(), userInfo.getLastName());
-        controller.updateCheckingBalanceInFirestore(userInfo.getChecking());
-        controller.updateSavingsBalanceInFirestore(userInfo.getSavings());
-        controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
-
-        // Set the scene on the current stage
+        // Create a new scene
         Scene scene = new Scene(root);
+
+        // Get the stage information
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the new scene on the stage
         stage.setScene(scene);
         stage.show();
-
-    }
-
-    public void setUserFullName(String fullName) {
-        userFullName.setText(fullName);
     }
 
     @FXML
@@ -104,8 +81,14 @@ public class myCardController extends homePageController{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addAccount.fxml"));
         Parent root = loader.load();
+
+        // Create a new scene
         Scene scene = new Scene(root);
+
+        // Get the stage information
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the new scene on the stage
         stage.setScene(scene);
         stage.show();
     }
@@ -131,7 +114,13 @@ public class myCardController extends homePageController{
     }
 
     // Initialization method
+    @FXML
     public void initialize() {
-        userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
+        // Initialization logic here
     }
+
+
+
+
+
 }
