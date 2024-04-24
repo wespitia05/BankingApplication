@@ -99,11 +99,13 @@ public class homePageController extends loginController{
 
     private void updateSavingsTextField(String savingsBalance) { /////////////////look over this method
         if (savingsBalanceTF != null) {
+            updateSavingsBalanceInFirestore(savingsBalance);
             savingsBalanceTF.setText(savingsBalance);
         }
     }
     private void updateCheckingTextField(String savingsBalance) { /////////////////look over this method
         if (checkingBalanceTF != null) {
+            updateCheckingBalanceInFirestore(savingsBalance);
             checkingBalanceTF.setText(savingsBalance);
         }
     }
@@ -217,7 +219,7 @@ public class homePageController extends loginController{
                     String documentId = document.getId();
 
                     // Update the Checking balance field in Firestore
-                    usersRef.document(documentId).update("Checking", String.valueOf(checkingBalance));
+                    usersRef.document(documentId).update("Checking", checkingBalance);
                 }
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
@@ -300,7 +302,7 @@ public class homePageController extends loginController{
                     String documentId = document.getId();
 
                     // Update the Savings balance field in Firestore
-                    usersRef.document(documentId).update("Savings", String.valueOf(savingsBalance));
+                    usersRef.document(documentId).update("Savings", savingsBalance);
                 }
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
