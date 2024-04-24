@@ -106,7 +106,7 @@ public class homePageController extends loginController{
 
     // Method to update savings balance TextField
     private void updateSavingsTextField(String savingsBalance) { /////////////////look over this method
-        if (savings_TF != null) {
+         if (savings_TF != null) {
             savings_TF.setText(savingsBalance);
         }   ////////////////////////////////////////// for some reason it is not displaying the balance on the top right screen
     }
@@ -264,7 +264,7 @@ public class homePageController extends loginController{
                     String documentId = document.getId();
 
                     // Update the Checking balance field in Firestore
-                    usersRef.document(documentId).update("Checking", String.valueOf(checkingBalance));
+                    usersRef.document(documentId).update("Checking", checkingBalance);
                 }
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
@@ -354,7 +354,7 @@ public class homePageController extends loginController{
                     String documentId = document.getId();
 
                     // Update the Savings balance field in Firestore
-                    usersRef.document(documentId).update("Savings", String.valueOf(savingsBalance));
+                    usersRef.document(documentId).update("Savings", savingsBalance);
                 }
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
