@@ -68,7 +68,5 @@ public class createAcctController {
     public void handleOnMouseClicked (MouseEvent event) throws IOException {
         System.out.println ("handleOnMouseClicked");
 
-        main m = new main();
-        m.changeScene("login.fxml");
     }
 }
