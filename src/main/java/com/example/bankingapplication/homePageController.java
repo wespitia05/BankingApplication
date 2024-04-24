@@ -6,12 +6,16 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -45,6 +49,8 @@ public class homePageController extends loginController{
     private TextField debit_TF;
     @FXML
     private Label userFullName;
+    @FXML
+    private ImageView popupAd;
     private String username;
 
     @FXML
@@ -369,6 +375,28 @@ public class homePageController extends loginController{
     // Method to generate and display the pie chart
     public void generatePieChart() {
 
+    }
+
+    @FXML
+    private void popupShow() {
+        try {
+            Stage popupStage = new Stage();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("popupPayment.fxml"));
+            Parent popupContent = loader.load();
+
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setTitle("Popup Window");
+
+            // Set the loaded FXML as the root of the scene for the popup stage
+            Scene popupScene = new Scene(popupContent);
+            popupStage.setScene(popupScene);
+
+            // Show the popup
+            popupStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
