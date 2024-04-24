@@ -23,7 +23,6 @@ public class main extends Application {
     static Firestore fstore;
     public static FirebaseAuth fauth;
     private final FirestoreContext contxtFirebase = new FirestoreContext();
-
     @Override
     public void start(Stage stage) throws IOException {
         fstore = contxtFirebase.firebase();
@@ -82,7 +81,7 @@ public class main extends Application {
 
 
     public static void addEmployeeDataToDB(String firstName, String lastName, String address,
-                                           String zipCode, String dob, String username, String password, int employeeID) {
+                                   String zipCode, String dob, String username, String password, int employeeID) {
 
         // Create document reference
         DocumentReference docRef = main.fstore.collection("employeeinfo").document(UUID.randomUUID().toString());
@@ -110,8 +109,8 @@ public class main extends Application {
         }
     }
 
-    public static void changeScene(String fxml) throws IOException {
-        Parent pane = FXMLLoader.load(main.class.getResource(fxml));
+    public void changeScene (String fxml) throws IOException {
+        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         stg.getScene().setRoot(pane);
     }
 
