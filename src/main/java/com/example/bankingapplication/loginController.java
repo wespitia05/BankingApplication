@@ -31,8 +31,8 @@ public class loginController {
     @FXML
     private Label showPassword;
     private boolean passwordVisible = false;
-    private String firstName;
-    private String lastName;
+    String firstName;
+    String lastName;
     // testing for branch
     // branch test for mian worked
     // luis branch test
@@ -45,6 +45,7 @@ public class loginController {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
 
     public void handleLoginButton (ActionEvent event) throws IOException, ExecutionException, InterruptedException {
         System.out.println ("handleLoginButton called");
@@ -69,6 +70,12 @@ public class loginController {
             if (storedPassword.equals(password)) {
                 System.out.println("Login successful");
 
+                userInfo.setUsername(username);
+                userInfo.setFirstName(document.getString("First Name"));
+                userInfo.setLastName(document.getString("Last Name"));
+                userInfo.setChecking(document.getString("Checking"));
+                userInfo.setSavings(document.getString("Savings"));
+
                 // Retrieve the first name associated with the username
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
@@ -76,8 +83,6 @@ public class loginController {
                 homePageController homeController = loader.getController();
                 homeController.setUsername(username);
                 homeController.setUserFullName(firstName, lastName);
-
-
                 stg.getScene().setRoot(root);
             } else {
                 System.out.println("Password Incorrect");
