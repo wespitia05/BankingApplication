@@ -176,10 +176,10 @@
                <children>
                   <AnchorPane prefHeight="96.0" prefWidth="150.0">
                      <children>
-                        <Label layoutX="-16.0" layoutY="-8.0" text="Checking Balance" />
-                        <Label layoutX="-16.0" layoutY="48.0" text="Savings Balance" />
-                        <TextField fx:id="checkingBalanceTF" layoutX="-16.0" layoutY="14.0" onAction="#initialize" stylesheets="@Stylesheet.css" />
-                        <TextField fx:id="savingsBalanceTF" layoutX="-16.0" layoutY="70.0" onAction="#initialize" stylesheets="@Stylesheet.css" />
+                        <Label layoutX="-16.0" layoutY="-8.0" text="Checking" />
+                        <Label layoutX="-16.0" layoutY="48.0" text="Savings" />
+                        <TextField fx:id="checkingBalanceTF" editable="false" layoutX="-16.0" layoutY="14.0" onAction="#initialize" stylesheets="@Stylesheet.css" />
+                        <TextField fx:id="savingsBalanceTF" editable="false" layoutX="-16.0" layoutY="70.0" onAction="#initialize" stylesheets="@Stylesheet.css" />
                      </children>
                   </AnchorPane>
                </children>
