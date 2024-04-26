@@ -49,12 +49,12 @@
                             <FontAwesomeIconView glyphName="GEAR" size="16" />
                         </graphic></Button>
                 </VBox>
-                <Label contentDisplay="TOP" layoutX="25.0" layoutY="20.0" text="Unity Bank">
+                <Label layoutX="7.0" layoutY="59.0" text="UNITY BANK">
                     <font>
                         <Font name="Baskerville Old Face" size="20.0" />
                     </font>
                     <graphic>
-                        <FontAwesomeIconView glyphName="BANK" size="16" />
+                        <FontAwesomeIconView glyphName="BANK" layoutX="7.0" layoutY="62.0" size="16" />
                     </graphic>
                 </Label>
                 <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="573.0" size="30" text="" />
