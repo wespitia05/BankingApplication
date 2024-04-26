@@ -43,8 +43,8 @@ public class myCardController extends homePageController{
 
         // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName(), userInfo.getLastName());
-        controller.updateCheckingBalanceInFirestore(userInfo.getChecking());
-        controller.updateSavingsBalanceInFirestore(userInfo.getSavings());
+        controller.updateCheckingBalanceInFirestore(Double.parseDouble(userInfo.getChecking()));
+        controller.updateSavingsBalanceInFirestore(Double.parseDouble(userInfo.getSavings()));
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
 
         // Set the scene on the current stage

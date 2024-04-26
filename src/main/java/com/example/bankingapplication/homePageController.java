@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -50,9 +51,9 @@ public class homePageController extends loginController{
     @FXML
     public void initialize() {
 
-        checkingBalanceTF.setText(UserData.getCheckingBalance());
-        savingsBalanceTF.setText(UserData.getSavingsBalance());
+        System.out.println ("initialize called");
 
+        userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
         // Manually set the onAction event handler for the saveDraft_btn button
         saveDraft_btn.setOnAction(this::handleSaveDraft_btn);
     }
@@ -245,7 +246,7 @@ public class homePageController extends loginController{
 
     ///////////////////// updating balance into Fire Store for checking ///////////////////////
 
-    private void updateCheckingBalanceInFirestore(double checkingBalance) {
+    public void updateCheckingBalanceInFirestore(double checkingBalance) {
         Firestore db = main.fstore;
         CollectionReference usersRef = db.collection("userinfo");
 
@@ -335,7 +336,7 @@ public class homePageController extends loginController{
         }
     }
 
-    private void updateSavingsBalanceInFirestore(double savingsBalance) {
+    public void updateSavingsBalanceInFirestore(double savingsBalance) {
         Firestore db = main.fstore;
         CollectionReference usersRef = db.collection("userinfo");
 
@@ -380,7 +381,7 @@ public class homePageController extends loginController{
             Parent popupContent = loader.load();
 
             popupStage.initModality(Modality.APPLICATION_MODAL);
-            popupStage.setTitle("Popup Window");
+            popupStage.setTitle("Payment");
 
             // Set the loaded FXML as the root of the scene for the popup stage
             Scene popupScene = new Scene(popupContent);
