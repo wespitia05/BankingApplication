@@ -2,6 +2,8 @@ package com.example.bankingapplication;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,11 +14,14 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
+
 
 public class homePageController extends loginController{
 
@@ -44,6 +49,13 @@ public class homePageController extends loginController{
     @FXML
     private TextField debit_TF;
     @FXML
+    private AnchorPane sideBar;
+    @FXML
+    private Label menu;
+
+    @FXML
+    private Label menuBack;
+    @FXML
     private Label userFullName;
     public String username;
 
@@ -51,9 +63,56 @@ public class homePageController extends loginController{
     public void initialize() {
         System.out.println ("initialize called");
 
+
         userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
         // Manually set the onAction event handler for the saveDraft_btn button
         saveDraft_btn.setOnAction(this::handleSaveDraft_btn);
+
+
+        sideBar.setTranslateX(-176);
+
+        menu.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(sideBar);
+
+            slide.setToX(0);
+            slide.play();
+
+            sideBar.setTranslateX(-176);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                menu.setVisible(false);
+                menuBack.setVisible(true);
+            });
+        });
+
+        menuBack.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(sideBar);
+
+            double finalTranslateX = -sideBar.getWidth();
+
+            slide.setInterpolator(Interpolator.EASE_BOTH); //apply a smooth easing function
+
+            slide.setFromX(0); // start from the current position
+            slide.setToX(finalTranslateX); //Move to the final position
+
+//            sideBar.setTranslateX(-176);
+//            slide.play();
+
+
+
+            //  sideBar.setTranslateX(0);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                menu.setVisible(true);
+                menuBack.setVisible(false);
+            });
+
+            slide.play();
+        });
 
     }
 
