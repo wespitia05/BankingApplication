@@ -2,6 +2,8 @@ package com.example.bankingapplication;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +15,9 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -39,29 +43,80 @@ public class homePageController extends loginController{
     @FXML
     private TextField savings_TF;
     @FXML
-    private TextField checkingBalanceTF;
+    public TextField checkingBalanceTF;
     @FXML
-    private TextField savingsBalanceTF;
+    public TextField savingsBalanceTF;
     @FXML
     private TextField debit_TF;
     @FXML
+    private AnchorPane sideBar;
+    @FXML
+    private Label menu;
+
+    @FXML
+    private Label menuBack;
+    @FXML
     private Label userFullName;
-    private String username;
+    public String username;
 
     @FXML
     public void initialize() {
-
         System.out.println ("initialize called");
 
         userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
         // Manually set the onAction event handler for the saveDraft_btn button
         saveDraft_btn.setOnAction(this::handleSaveDraft_btn);
+
+        sideBar.setTranslateX(-176);
+
+        menu.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(sideBar);
+
+            slide.setToX(0);
+            slide.play();
+
+            sideBar.setTranslateX(-176);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                menu.setVisible(false);
+                menuBack.setVisible(true);
+            });
+        });
+
+        menuBack.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(sideBar);
+
+            double finalTranslateX = -sideBar.getWidth();
+
+            slide.setInterpolator(Interpolator.EASE_BOTH); //apply a smooth easing function
+
+            slide.setFromX(0); // start from the current position
+            slide.setToX(finalTranslateX); //Move to the final position
+
+//            sideBar.setTranslateX(-176);
+//            slide.play();
+
+
+
+            //  sideBar.setTranslateX(0);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                menu.setVisible(true);
+                menuBack.setVisible(false);
+            });
+
+            slide.play();
+        });
+
     }
 
     public void setUsername(String username) {
         this.username = username;
         displayUserBalances();
-        displayUserFullName();
     }
 
     private void displayUserBalances() {
@@ -80,6 +135,7 @@ public class homePageController extends loginController{
                         Platform.runLater(() -> {
                             setBalances(checkingBalance, savingsBalance);
                             updateSavingsTextField(savingsBalance);
+                            updateCheckingTextField(checkingBalance);
                         });
                     }
                 } catch (InterruptedException | ExecutionException e) {
@@ -90,7 +146,6 @@ public class homePageController extends loginController{
             System.out.println("Username is not set or empty");
         }
     }
-    //////setting savings balance view for the top screen
 
     public void setBalances(String checking, String savings) {
         if (checkingBalanceTF != null && savingsBalanceTF != null) {
@@ -99,69 +154,40 @@ public class homePageController extends loginController{
         }
     }
 
-    // Method to update savings balance TextField
     private void updateSavingsTextField(String savingsBalance) { /////////////////look over this method
-         if (savings_TF != null) {
-            savings_TF.setText(savingsBalance);
-        }   ////////////////////////////////////////// for some reason it is not displaying the balance on the top right screen
+        if (savingsBalanceTF != null) {
+            savingsBalanceTF.setText(savingsBalance);
+        }
     }
-    ///////////////////////////////////////////////////////////
-
-
-    public void displayUserFullName () {
-        if (username != null && !username.isEmpty()) {
-            Firestore db = main.fstore;
-            CollectionReference usersRef = db.collection("userinfo");
-
-            ApiFuture<QuerySnapshot> future = usersRef.whereEqualTo("Username", username).get();
-            future.addListener(() -> {
-                try {
-                    QuerySnapshot querySnapshot = future.get();
-                    if (!querySnapshot.isEmpty()) {
-                        DocumentSnapshot document = querySnapshot.getDocuments().get(0);
-                        String firstName = document.getString("First Name");
-                        String lastName = document.getString("Last Name");
-                        Platform.runLater(() -> setUserFullName(firstName, lastName));
-                    }
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }, Executors.newSingleThreadExecutor());
-        } else {
-            System.out.println("Username is not set or empty");
+    private void updateCheckingTextField(String savingsBalance) { /////////////////look over this method
+        if (checkingBalanceTF != null) {
+            checkingBalanceTF.setText(savingsBalance);
         }
     }
 
-    public void setUserFullName(String firstName, String lastName) {
-        userFullName.setText(firstName + " " + lastName);
-    }
-
-
-    /////////////////////////////////////////// side bar //////////////////////////////////
     @FXML
     private void handledashBoard_btn() {
         System.out.println("Stop Clicking me, you are on my page");
-
     }
 
     @FXML
     private void handlemyCard_btn(ActionEvent event) throws IOException {
         System.out.println("My Cards clicked");
 
-
+        // Load the FXML file and get the root and controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("myCards.fxml"));
-        Parent root = loader.load();
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        myCardController controller = loader.getController();
 
-        // Create a new scene
+        // Set data using methods in your controller
+        controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
+        controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+
+        // Set the scene on the current stage
         Scene scene = new Scene(root);
-
-        // Get the stage information
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        // Set the new scene on the stage
         stage.setScene(scene);
         stage.show();
-
     }
 
     @FXML
@@ -189,18 +215,8 @@ public class homePageController extends loginController{
         System.out.println("Settings clicked");
     }
 
-
-
-   ////////////////////////////////////////////// side bar ///////////////////////////////////////////////
-
-
-
-    /////////////////////////////////////////////////// Quick Transfer ////////////////////////////////
-
-
-    ///?????????????????????????????????????????????????????? checking balance /////////////////////////////////
     @FXML
-    private void handleSave_btn(ActionEvent event) {   ///updates your checking balance
+    public void handleSave_btn(ActionEvent event) {   ///updates your checking balance
 
         // These fields are for Debit card info
         String enteredDebit = debit_TF.getText().trim();
@@ -221,10 +237,11 @@ public class homePageController extends loginController{
                     double checking = Double.parseDouble(checkingBalance);
                     checking += amount;
                     checkingBalanceTF.setText(String.valueOf(checking));
+                    userInfo.setChecking(String.valueOf(checking));
 
                     // Call the method to update the checking balance in Firestore
 
-                      updateCheckingBalanceInFirestore(checking);
+                    updateCheckingBalanceInFirestore(checking);
 
                 } else {
                     // Display an error message if the checking balance is empty or not valid
@@ -244,9 +261,7 @@ public class homePageController extends loginController{
         }
     }
 
-    ///////////////////// updating balance into Fire Store for checking ///////////////////////
-
-    public void updateCheckingBalanceInFirestore(double checkingBalance) {
+    public void updateCheckingBalanceInFirestore(Double checkingBalance) {
         Firestore db = main.fstore;
         CollectionReference usersRef = db.collection("userinfo");
 
@@ -259,7 +274,7 @@ public class homePageController extends loginController{
                     String documentId = document.getId();
 
                     // Update the Checking balance field in Firestore
-                    usersRef.document(documentId).update("Checking", checkingBalance);
+                    usersRef.document(documentId).update("Checking", String.valueOf(checkingBalance));
                 }
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
@@ -267,12 +282,7 @@ public class homePageController extends loginController{
         }, Executors.newSingleThreadExecutor());
     }
 
-
-    ////??????????????????????????????????????Updating balance in FireStore////////////////////////////////////////
-
-    ///////////////////////////Getting debit into form fireBase //////////////////////////////////////////////////
-
-    private String getDebitInfoFromFirestore() {
+    public String getDebitInfoFromFirestore() {
         Firestore db = main.fstore;
         CollectionReference debitRef = db.collection("userinfo");
 
@@ -287,14 +297,11 @@ public class homePageController extends loginController{
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return null; // Return null if debit card info not found
+        return null;
     }
 
-    ///????????????????????????????????????????  Getting debit info form fireBase ????????????????????????????????????////
-
-    //////////////////////////////////////////// Updates your savings //////////////////////////////////////////////
     @FXML
-    private void handleSaveDraft_btn(ActionEvent event) {
+    public void handleSaveDraft_btn(ActionEvent event) {
         // These fields are for Debit card info
         String enteredDebit = debit_TF.getText().trim();
         String firebaseDebit = getDebitInfoFromFirestore(); // Retrieve debit info from Firestore
@@ -314,6 +321,7 @@ public class homePageController extends loginController{
                     double savings = Double.parseDouble(savingsBalance);
                     savings += amount;
                     savingsBalanceTF.setText(String.valueOf(savings));
+                    userInfo.setSavings(String.valueOf(savings));
 
                     // Call the method to update the savings balance in Firestore
                     updateSavingsBalanceInFirestore(savings);
@@ -336,7 +344,7 @@ public class homePageController extends loginController{
         }
     }
 
-    public void updateSavingsBalanceInFirestore(double savingsBalance) {
+    public void updateSavingsBalanceInFirestore(Double savingsBalance) {
         Firestore db = main.fstore;
         CollectionReference usersRef = db.collection("userinfo");
 
@@ -349,17 +357,13 @@ public class homePageController extends loginController{
                     String documentId = document.getId();
 
                     // Update the Savings balance field in Firestore
-                    usersRef.document(documentId).update("Savings", savingsBalance);
+                    usersRef.document(documentId).update("Savings", String.valueOf(savingsBalance));
                 }
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }, Executors.newSingleThreadExecutor());
     }
-////////////////////////////////////update savings ////////////////////////////////////////////
-
-    /////???????????????????????????????End of quick transfer ???????????????????????????????????????????
-
 
     @FXML
     private void handleDraft_btn() {
