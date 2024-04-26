@@ -1,16 +1,26 @@
 package com.example.bankingapplication;
 
 public class userInfo {
-    String firstName;
-    String lastName;
+    private static userInfo instance;
+    static String firstName;
+    static String lastName;
     String dob;
-    String username;
+    static String username;
     String password;
-    String checking;
-    String savings;
+    static String checking;
+    static String savings;
     String id;
     String address;
     String zipCode;
+
+    private userInfo () {}
+
+    public static synchronized userInfo getInstance() {
+        if (instance == null) {
+            instance = new userInfo();
+        }
+        return instance;
+    }
 
     public userInfo(String firstName, String lastName, String dob, String username, String password,
                     String checking, String savings, String address, String zipCode, String id) {
@@ -25,20 +35,20 @@ public class userInfo {
         this.zipCode = zipCode;
         this.id = id;
     }
-    public String getFirstName() {
+    public static String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public static void setFirstName(String fn) {
+        firstName = fn;
     }
 
-    public String getLastName() {
+    public static String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public static void setLastName(String ln) {
+        lastName = ln;
     }
 
     public String getDob() {
@@ -49,12 +59,12 @@ public class userInfo {
         this.dob = dob;
     }
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public static void setUsername(String un) {
+        username = un;
     }
 
     public String getPassword() {
@@ -65,20 +75,20 @@ public class userInfo {
         this.password = password;
     }
 
-    public String getChecking() {
+    public static String getChecking() {
         return checking;
     }
 
-    public void setChecking(String checking) {
-        this.checking = checking;
+    public static void setChecking(String c) {
+        checking = c;
     }
 
-    public String getSavings() {
+    public static String getSavings() {
         return savings;
     }
 
-    public void setSavings(String savings) {
-        this.savings = savings;
+    public static void setSavings(String s) {
+        savings = s;
     }
 
     public String getId() {
