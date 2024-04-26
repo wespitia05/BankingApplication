@@ -1,11 +1,5 @@
 package com.example.bankingapplication;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QuerySnapshot;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,8 +43,8 @@ public class myCardController extends homePageController{
 
         // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName(), userInfo.getLastName());
-        controller.updateCheckingBalanceInFirestore(userInfo.getChecking());
-        controller.updateSavingsBalanceInFirestore(userInfo.getSavings());
+        controller.updateCheckingBalanceInFirestore(Double.parseDouble(userInfo.getChecking()));
+        controller.updateSavingsBalanceInFirestore(Double.parseDouble(userInfo.getSavings()));
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
 
         // Set the scene on the current stage

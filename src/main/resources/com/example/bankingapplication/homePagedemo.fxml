@@ -2,9 +2,15 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.PieChart?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -59,6 +65,19 @@
                </children>
             </VBox>
             <Text fill="#5daff2" layoutX="9.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNITY BANK">
+      <AnchorPane prefHeight="371.0" prefWidth="130.0" styleClass="sidebar" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="154.0" prefWidth="100.0">
+               <children>
+                  <FontAwesomeIconView fill="#5daff2" glyphName="BANK" size="16">
+                     <VBox.margin>
+                        <Insets left="5.0" top="25.0" />
+                     </VBox.margin>
+                  </FontAwesomeIconView>
+               </children>
+            </VBox>
+            <Circle fill="WHITE" layoutX="34.0" layoutY="568.0" radius="18.0" stroke="#c1c1c1" strokeType="INSIDE" />
+            <Text fill="#5daff2" layoutX="4.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNITY BANK">
                <font>
                   <Font name="Baskerville Old Face" size="16.0" />
                </font>
@@ -212,6 +231,20 @@
             <HBox layoutX="4.0" layoutY="221.0" prefHeight="151.0" prefWidth="303.0">
                <children>
                   <Label styleClass="text_font" stylesheets="@Stylesheet.css" text="Wallet" textFill="#efeaea">
+                  <ImageView fx:id="popupAd" accessibleRole="INCREMENT_BUTTON" fitHeight="176.0" fitWidth="136.0" nodeOrientation="INHERIT" onMouseClicked="#popupShow" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@travscott.jpg" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <PieChart fx:id="pieChart" legendVisible="true" minHeight="100.0" minWidth="0.0" prefHeight="231.0" prefWidth="165.0" title="Pie Chart" />
+               </children>
+            </HBox>
+            <HBox layoutX="16.0" layoutY="196.0" prefHeight="164.0" prefWidth="302.0">
+               <children>
+                  <Label text="Wallet">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -299,6 +332,55 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </HBox>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <TableView layoutX="63.0" layoutY="377.0" prefHeight="200.0" prefWidth="315.0">
+               <columns>
+                  <TableColumn prefWidth="229.59999084472656" text="Recent Transactions" />
+                  <TableColumn prefWidth="75.0" text="Cost" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <VBox layoutX="-120.0" layoutY="118.0" prefHeight="253.0" prefWidth="132.0" spacing="10" style="-fx-padding: 10px;">
+               <children>
+                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Dashboard">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="HOME" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="My Cards">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Transactions">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Payments">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="MONEY" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlereports_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Reports">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="FILE" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Profiles">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="USER" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Settings">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="GEAR" size="16" />
+                     </graphic>
+                  </Button>
                </children>
             </VBox>
          </children>
