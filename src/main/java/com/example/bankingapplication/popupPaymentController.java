@@ -11,7 +11,6 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 public class popupPaymentController {
-  //  homePageController controller = new homePageController();
     @FXML
     public ListView cart;
     @FXML
