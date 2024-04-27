@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.myCardController">
+    <left>
+        <AnchorPane prefHeight="600.0" prefWidth="148.0" BorderPane.alignment="CENTER">
+            <children>
+                <!-- Sidebar -->
+                <VBox layoutX="11.0" layoutY="85.0" spacing="10" style="-fx-padding: 10px;">
+                    <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Dashboard">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="HOME" size="16" />
+                        </graphic>
+                    </Button>
+                    <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="My Cards">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
+                        </graphic></Button>
+                    <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Transactions">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
+                        </graphic></Button>
+                    <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Payments">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="MONEY" size="16" />
+                        </graphic></Button>
+                    <Button onAction="#handlereports_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Reports">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="FILE" size="16" />
+                        </graphic></Button>
+                    <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Profiles">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="USER" size="16" />
+                        </graphic></Button>
+                    <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Settings">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="GEAR" size="16" />
+                        </graphic></Button>
+                </VBox>
+                <Label contentDisplay="TOP" layoutX="25.0" layoutY="20.0" text="Unity Bank">
+                    <font>
+                        <Font name="Baskerville Old Face" size="20.0" />
+                    </font>
+                    <graphic>
+                        <FontAwesomeIconView glyphName="BANK" size="16" />
+                    </graphic>
+                </Label>
+                <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="573.0" size="30" text="" />
+            </children>
+        </AnchorPane>
+    </left>
+    <center>
+        <AnchorPane prefHeight="600.0" prefWidth="683.0" BorderPane.alignment="CENTER">
+            <children>
+            <HBox layoutX="12.0" layoutY="163.0" prefHeight="49.0" prefWidth="612.0">
+               <children>
+                  <Pane prefHeight="64.0" prefWidth="186.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <children>
+                        <Text layoutX="67.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payments" textAlignment="CENTER" />
+                        <Label layoutX="67.0" layoutY="22.0" text="\$7,600.00">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="46.0" fitWidth="66.0" layoutX="7.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Wallet.png" />
+                           </image></ImageView>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Pane>
+                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="186.0">
+                     <children>
+                        <ImageView fitHeight="42.0" fitWidth="50.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Request.png" />
+                           </image></ImageView>
+                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Requests" textAlignment="CENTER" />
+                        <Label layoutX="48.0" layoutY="22.0" text="\$500.00">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="64.0" prefWidth="186.0">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="53.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Subscription.png" />
+                           </image></ImageView>
+                        <Text layoutX="58.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriptions" textAlignment="CENTER" />
+                        <Label layoutX="58.0" layoutY="22.0" text="\$458.00">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children></HBox>
+                <TableView layoutX="12.0" layoutY="223.0" prefHeight="331.0" prefWidth="613.0">
+                    <columns>
+                        <TableColumn prefWidth="229.59999084472656" text="Recent Transactions" />
+                        <TableColumn prefWidth="75.0" text="Cost" />
+                    </columns>
+                </TableView>
+            <Label layoutX="26.0" layoutY="40.0" text="Transaction Summary">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="myChoiceBox" layoutX="26.0" layoutY="77.0" prefHeight="27.0" prefWidth="185.0" />
+            </children>
+        </AnchorPane>
+    </center>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+</BorderPane>
