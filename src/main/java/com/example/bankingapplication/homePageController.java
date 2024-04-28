@@ -5,6 +5,8 @@ import com.google.cloud.firestore.*;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.scene.layout.AnchorPane;
@@ -48,6 +52,7 @@ public class homePageController extends loginController{
     public TextField savingsBalanceTF;
     @FXML
     private TextField debit_TF;
+    private ImageView popupAd;
     @FXML
     private AnchorPane sideBar;
     @FXML
@@ -154,12 +159,12 @@ public class homePageController extends loginController{
         }
     }
 
-    private void updateSavingsTextField(String savingsBalance) { /////////////////look over this method
+    private void updateSavingsTextField(String savingsBalance) {
         if (savingsBalanceTF != null) {
             savingsBalanceTF.setText(savingsBalance);
         }
     }
-    private void updateCheckingTextField(String savingsBalance) { /////////////////look over this method
+    private void updateCheckingTextField(String savingsBalance) {
         if (checkingBalanceTF != null) {
             checkingBalanceTF.setText(savingsBalance);
         }
@@ -387,6 +392,13 @@ public class homePageController extends loginController{
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.setTitle("Payment");
 
+            popupPaymentController controller = loader.getController();
+
+            ObservableList<String> travMeal = FXCollections.observableArrayList("Quarter Pounder w/ Cheese and Bacon", "Medium Fry", "Sprite", "Barbeque Sauce");
+            controller.cart.setItems(travMeal);
+            controller.updateTotalLabel("Total:      $6.00");
+            controller.subtotal = "6.00";
+
             // Set the loaded FXML as the root of the scene for the popup stage
             Scene popupScene = new Scene(popupContent);
             popupStage.setScene(popupScene);
@@ -396,6 +408,12 @@ public class homePageController extends loginController{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String getImg () {
+        Image img = popupAd.getImage();
+        String file = img.getUrl();
+        return file;
     }
 
 
