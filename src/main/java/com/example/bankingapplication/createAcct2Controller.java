@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.Random;
 
 import static com.example.bankingapplication.main.addDataToDB;
 import static com.example.bankingapplication.main.stg;
@@ -49,6 +50,9 @@ public class createAcct2Controller extends createAcctController {
         String confirmPassword = confirmPasswordTextField.getText();
         String checking = "0";
         String savings = "0";
+        String cardNum;
+        String cardExp = generateExpirationDate();
+        String cardCVV = generateCVV();
 
         if (!password.equals(confirmPassword)) {
             Alert alert = new Alert (Alert.AlertType.WARNING);
@@ -79,11 +83,51 @@ public class createAcct2Controller extends createAcctController {
             }
             return;
         }
-        addDataToDB(firstName, lastName, address, zipCode, dob, username, password, checking, savings);
+
+        do {
+            cardNum = generateCardNumber();
+        } while (cardNumExists(cardNum));
+
+        addDataToDB(firstName, lastName, address, zipCode, dob, username, password, checking, savings, cardNum, cardExp, cardCVV);
         System.out.println("Account created successfully");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
         Parent root = loader.load();
         stg.getScene().setRoot(root);
+    }
+
+    private String generateCardNumber() {
+        String prefix = "223344556677";
+        Random random = new Random();
+        int lastFourDigits = random.nextInt(10000);
+        return prefix + String.format("%04d", lastFourDigits);
+    }
+
+    private String generateExpirationDate() {
+        Random random = new Random();
+        int month = random.nextInt(12) + 1;
+        return String.format("%02d", month) + "/26";
+    }
+
+    private String generateCVV() {
+        Random random = new Random();
+        int cvv = random.nextInt(900) + 100;
+        return String.valueOf(cvv);
+    }
+
+    private boolean cardNumExists(String cardNum) {
+        try {
+            Firestore db = main.fstore;
+            Query query = db.collection("userinfo").whereEqualTo("Card Number", cardNum);
+            QuerySnapshot querySnapshot = query.get().get();
+            if (!querySnapshot.isEmpty()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private boolean usernameExists(String username) {

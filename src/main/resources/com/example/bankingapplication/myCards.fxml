@@ -74,8 +74,8 @@
                                     <!-- First Credit Card -->
                                     <VBox prefHeight="100.0" prefWidth="172.0" spacing="10" style="-fx-padding: 10px;" styleClass="credit-card" stylesheets="@Stylesheet.css">
                                         <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Credit Card 1" />
-                                        <Label style="-fx-text-fill: white;" text="**** **** **** 1234" />
-                                        <Label style="-fx-text-fill: white;" text="05/25" />
+                                        <Label fx:id="cardNumLabel" style="-fx-text-fill: white;" />
+                                        <Label fx:id="cardExpLabel" style="-fx-text-fill: white;" />
                                     </VBox>
                                     <!-- Second Credit Card -->
                                     <VBox prefHeight="100.0" prefWidth="181.0" spacing="10" style="-fx-padding: 10px; -fx-background-color: #2ca02c;" styleClass="color_card" stylesheets="@Stylesheet.css">

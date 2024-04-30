@@ -4,14 +4,17 @@ public class userInfo {
     private static userInfo instance;
     static String firstName;
     static String lastName;
-    String dob;
+    static String dob;
     static String username;
-    String password;
+    static String password;
     static String checking;
     static String savings;
-    String id;
-    String address;
-    String zipCode;
+    static String id;
+    static String address;
+    static String zipCode;
+    static String cardNum;
+    static String cardExp;
+    static String cardCVV;
 
     private userInfo () {}
 
@@ -23,17 +26,21 @@ public class userInfo {
     }
 
     public userInfo(String firstName, String lastName, String dob, String username, String password,
-                    String checking, String savings, String address, String zipCode, String id) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dob = dob;
-        this.username = username;
-        this.password = password;
-        this.checking = checking;
-        this.savings = savings;
-        this.address = address;
-        this.zipCode = zipCode;
-        this.id = id;
+                    String checking, String savings, String address, String zipCode, String cardNum,
+                    String cardExp, String cardCVV, String id) {
+        userInfo.firstName = firstName;
+        userInfo.lastName = lastName;
+        userInfo.dob = dob;
+        userInfo.username = username;
+        userInfo.password = password;
+        userInfo.checking = checking;
+        userInfo.savings = savings;
+        userInfo.address = address;
+        userInfo.zipCode = zipCode;
+        userInfo.cardNum = cardNum;
+        userInfo.cardExp = cardExp;
+        userInfo.cardCVV = cardCVV;
+        userInfo.id = id;
     }
     public static String getFirstName() {
         return firstName;
@@ -51,12 +58,12 @@ public class userInfo {
         lastName = ln;
     }
 
-    public String getDob() {
+    public static String getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public static void setDob(String db) {
+        dob = db;
     }
 
     public static String getUsername() {
@@ -67,12 +74,12 @@ public class userInfo {
         username = un;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public static void setPassword(String pwd) {
+        password = pwd;
     }
 
     public static String getChecking() {
@@ -91,27 +98,49 @@ public class userInfo {
         savings = s;
     }
 
-    public String getId() {
+    public static String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public static void setId(String ID) { id = ID;}
 
-    public String getAddress() {
+    public static String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public static void setAddress(String addy) {
+        address = addy;
     }
 
-    public String getZipCode() {
+    public static String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public static void setZipCode(String zip) {
+        zipCode = zip;
+    }
+
+    public static String getCardNum() {
+        return cardNum;
+    }
+
+    public static void setCardNum(String cardNum) {
+        userInfo.cardNum = cardNum;
+    }
+
+    public static String getCardExp() {
+        return cardExp;
+    }
+
+    public static void setCardExp(String cardExp) {
+        userInfo.cardExp = cardExp;
+    }
+
+    public static String getCardCVV() {
+        return cardCVV;
+    }
+
+    public static void setCardCVV(String cardCVV) {
+        userInfo.cardCVV = cardCVV;
     }
 }
