@@ -22,25 +22,41 @@ public class employeeHomePageController extends employeeLoginController {
     @FXML
     private Label employeeName;
     @FXML
-    private TableView <userInfo> userInfoTV;
+    private TableView <userInfoDisplay> userInfoTV;
     @FXML
-    private TableColumn <userInfo, String> firstNameCol;
+    private TableColumn <userInfoDisplay, String> firstNameCol;
     @FXML
-    private TableColumn <userInfo, String> lastNameCol;
+    private TableColumn <userInfoDisplay, String> lastNameCol;
     @FXML
-    private TableColumn <userInfo, String> dobCol;
+    private TableColumn <userInfoDisplay, String> dobCol;
     @FXML
-    private TableColumn <userInfo, String> usernameCol;
+    private TableColumn <userInfoDisplay, String> usernameCol;
     @FXML
-    private TableColumn <userInfo, String> passwordCol;
+    private TableColumn <userInfoDisplay, String> passwordCol;
     @FXML
-    private TableColumn <userInfo, String> checkingCol;
+    private TableColumn <userInfoDisplay, String> checkingCol;
     @FXML
-    private TableColumn <userInfo, String> savingsCol;
+    private TableColumn <userInfoDisplay, String> savingsCol;
     @FXML
-    private TableColumn <userInfo, String> addressCol;
+    private TableColumn <userInfoDisplay, String> addressCol;
     @FXML
-    private TableColumn <userInfo, String> zipCodeCol;
+    private TableColumn <userInfoDisplay, String> zipCodeCol;
+    @FXML
+    private TableColumn <userInfoDisplay, String> cardNumCol;
+    @FXML
+    private TableColumn <userInfoDisplay, String> cardExpCol;
+    @FXML
+    private TableColumn <userInfoDisplay, String> cardCVVCol;
+    @FXML
+    private TableView <transactionInfoDisplay> transactionTV;
+    @FXML
+    private TableColumn <transactionInfoDisplay, String> transactionNameCol;
+    @FXML
+    private TableColumn <transactionInfoDisplay, String> transactionCategoryCol;
+    @FXML
+    private TableColumn <transactionInfoDisplay, String> transactionAmountCol;
+    @FXML
+    private TableColumn <transactionInfoDisplay, String> transactionDateCol;
     @FXML
     private Button displayAllCustomersButton;
     @FXML
@@ -48,7 +64,7 @@ public class employeeHomePageController extends employeeLoginController {
     @FXML
     private Button deleteCustomerButton;
     @FXML
-    private Button startTransactionButton;
+    private Button viewTransactionsButton;
     @FXML
     private Button viewCustomerButton;
 
@@ -56,25 +72,41 @@ public class employeeHomePageController extends employeeLoginController {
         System.out.println("initialize called");
 
         firstNameCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("firstName"));
+                new PropertyValueFactory<userInfoDisplay, String>("firstName"));
         lastNameCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("lastName"));
+                new PropertyValueFactory<userInfoDisplay, String>("lastName"));
         dobCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("dob"));
+                new PropertyValueFactory<userInfoDisplay, String>("dob"));
         usernameCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("username"));
+                new PropertyValueFactory<userInfoDisplay, String>("username"));
         passwordCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("password"));
+                new PropertyValueFactory<userInfoDisplay, String>("password"));
         checkingCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("checking"));
+                new PropertyValueFactory<userInfoDisplay, String>("checking"));
         savingsCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("savings"));
+                new PropertyValueFactory<userInfoDisplay, String>("savings"));
         addressCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("address"));
+                new PropertyValueFactory<userInfoDisplay, String>("address"));
         zipCodeCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("zipCode"));
+                new PropertyValueFactory<userInfoDisplay, String>("zipCode"));
+        cardNumCol.setCellValueFactory(
+                new PropertyValueFactory<userInfoDisplay, String>("cardNum"));
+        cardExpCol.setCellValueFactory(
+                new PropertyValueFactory<userInfoDisplay, String>("cardExp"));
+        cardCVVCol.setCellValueFactory(
+                new PropertyValueFactory<userInfoDisplay, String>("cardCVV"));
+
+        transactionNameCol.setCellValueFactory(
+                new PropertyValueFactory<transactionInfoDisplay, String>("name"));
+        transactionCategoryCol.setCellValueFactory(
+                new PropertyValueFactory<transactionInfoDisplay, String>("category"));
+        transactionAmountCol.setCellValueFactory(
+                new PropertyValueFactory<transactionInfoDisplay, String>("amount"));
+        transactionDateCol.setCellValueFactory(
+                new PropertyValueFactory<transactionInfoDisplay, String>("date"));
 
         fetchAndDisplayEmployeeDetails();
+
     }
 
     private void fetchAndDisplayEmployeeDetails() {
@@ -117,12 +149,12 @@ public class employeeHomePageController extends employeeLoginController {
         Firestore db = main.fstore;
         ApiFuture<QuerySnapshot> future = db.collection("userinfo").get();
 
-        ObservableList<userInfo> data = FXCollections.observableArrayList();
+        ObservableList<userInfoDisplay> data = FXCollections.observableArrayList();
 
         try {
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
             for (QueryDocumentSnapshot document : documents) {
-                data.add(new userInfo(
+                data.add(new userInfoDisplay(
                         document.getString("First Name"),
                         document.getString("Last Name"),
                         document.getString("Date of Birth"),
@@ -132,6 +164,9 @@ public class employeeHomePageController extends employeeLoginController {
                         document.getString("Savings"),
                         document.getString("Address"),
                         document.getString("Zip Code"),
+                        document.getString("Card Number"),
+                        document.getString("Card Expiration Date"),
+                        document.getString("Card CVV"),
                         document.getId()
                 ));
             }
@@ -143,13 +178,13 @@ public class employeeHomePageController extends employeeLoginController {
 
     public void handleEditCustomerButton() {
         System.out.println("handleEditCustomerButton called");
-        userInfo selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
         if (selectedUser == null) {
             System.out.println("No user selected for editing.");
             return;
         }
 
-        Dialog<userInfo> dialog = new Dialog<>();
+        Dialog<userInfoDisplay> dialog = new Dialog<>();
         dialog.setTitle("Edit Customer");
         dialog.setHeaderText("Edit the selected customer's details");
 
@@ -170,6 +205,9 @@ public class employeeHomePageController extends employeeLoginController {
         TextField savingsField = new TextField(selectedUser.getSavings());
         TextField addressField = new TextField(selectedUser.getAddress());
         TextField zipCodeField = new TextField(selectedUser.getZipCode());
+        TextField cardNumField = new TextField(selectedUser.getCardNum());
+        TextField cardExpField = new TextField(selectedUser.getCardExp());
+        TextField cardCVVField = new TextField(selectedUser.getCardCVV());
         // Add fields for other userInfo properties as needed
 
         grid.add(new Label("First Name:"), 0, 0);
@@ -190,6 +228,12 @@ public class employeeHomePageController extends employeeLoginController {
         grid.add(checkingField,1,7);
         grid.add(new Label("Username:"),0,8);
         grid.add(savingsField,1,8);
+        grid.add(new Label("Card Number:"), 0, 9);
+        grid.add(cardNumField, 1, 9);
+        grid.add(new Label("Card Expiration Date:"), 0, 10);
+        grid.add(cardExpField, 1, 10);
+        grid.add(new Label("Card CVV:"), 0, 11);
+        grid.add(cardCVVField, 1, 11);
         // Add other fields to the grid
 
         dialog.getDialogPane().setContent(grid);
@@ -197,7 +241,7 @@ public class employeeHomePageController extends employeeLoginController {
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveButtonType) {
-                return new userInfo(
+                return new userInfoDisplay(
                         firstNameField.getText(),
                         lastNameField.getText(),
                         dobField.getText(),
@@ -207,13 +251,16 @@ public class employeeHomePageController extends employeeLoginController {
                         savingsField.getText(),
                         addressField.getText(),
                         zipCodeField.getText(),
+                        cardNumField.getText(),
+                        cardExpField.getText(),
+                        cardCVVField.getText(),
                         selectedUser.getId()
                 );
             }
             return null;
         });
 
-        Optional<userInfo> result = dialog.showAndWait();
+        Optional<userInfoDisplay> result = dialog.showAndWait();
         result.ifPresent(newUserInfo -> {
             updateCustomerTV(newUserInfo);
             updateCustomerInFirestore(newUserInfo);
@@ -228,7 +275,7 @@ public class employeeHomePageController extends employeeLoginController {
 
     //it works lets try pushing it
 
-    private void updateCustomerTV(userInfo updatedUser) {
+    private void updateCustomerTV(userInfoDisplay updatedUser) {
         int index = userInfoTV.getItems().indexOf(userInfoTV.getSelectionModel().getSelectedItem());
         if (index >= 0) {
             userInfoTV.getItems().set(index, updatedUser);
@@ -236,7 +283,7 @@ public class employeeHomePageController extends employeeLoginController {
         }
     }
 
-    private void updateCustomerInFirestore(userInfo updatedUser) {
+    private void updateCustomerInFirestore(userInfoDisplay updatedUser) {
         Firestore db = main.fstore;
         DocumentReference docRef = db.collection("userinfo").document(updatedUser.getId());
 
@@ -259,7 +306,7 @@ public class employeeHomePageController extends employeeLoginController {
     public void handleDeleteCustomerButton() {
         System.out.println("handleDeleteCustomerButton called");
 
-        userInfo selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Removal");
@@ -300,7 +347,7 @@ public class employeeHomePageController extends employeeLoginController {
     public void handleViewCustomerButton () {
         System.out.println ("handleViewCustomerButton called");
 
-        userInfo selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
         if (selectedUser == null) {
             System.out.println("No user selected to view");
             return;
@@ -324,10 +371,9 @@ public class employeeHomePageController extends employeeLoginController {
         Label password = new Label(selectedUser.getPassword());
         Label checking = new Label(selectedUser.getChecking());
         Label savings = new Label(selectedUser.getSavings());
-
-        System.out.println("Viewing customer: " + firstName.getText() + " " + lastName.getText() +
-                "\nAddress: " + address.getText() +
-                "\nZip code: " + zipCode.getText());
+        Label cardNum = new Label(selectedUser.getCardNum());
+        Label cardExp = new Label(selectedUser.getCardExp());
+        Label cardCVV = new Label(selectedUser.getCardCVV());
 
         grid.add(new Label("First Name:"), 0, 0);
         grid.add(firstName, 1, 0);
@@ -345,8 +391,14 @@ public class employeeHomePageController extends employeeLoginController {
         grid.add(password,1,6);
         grid.add(new Label("Checking:"),0,7);
         grid.add(checking,1,7);
-        grid.add(new Label("Username:"),0,8);
+        grid.add(new Label("Savings:"),0,8);
         grid.add(savings,1,8);
+        grid.add(new Label("Card Number:"), 0, 9);
+        grid.add(cardNum, 1, 9);
+        grid.add(new Label("Card Expiration Date:"), 0, 10);
+        grid.add(cardExp, 1, 10);
+        grid.add(new Label("Card CVV:"), 0, 11);
+        grid.add(cardCVV, 1, 11);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -368,7 +420,38 @@ public class employeeHomePageController extends employeeLoginController {
         dialog.showAndWait();
     }
 
-    public void handleStartTransactionButton () {
-        System.out.println ("handleStartTransactionButton called");
+    public void handleViewTransactionsButton() {
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            System.out.println("no user selected to view transactions");
+            return;
+        }
+
+        String username = selectedUser.getUsername();  // Assuming getUsername() correctly returns the document ID used in Firestore
+
+        Firestore db = main.fstore;
+        ApiFuture<QuerySnapshot> future = db.collection("userinfo").document(username).collection("transactions").get();
+
+        future.addListener(() -> {
+            try {
+                QuerySnapshot querySnapshot = future.get();
+                ObservableList<transactionInfoDisplay> transactions = FXCollections.observableArrayList();
+                if (!querySnapshot.isEmpty()) {
+                    querySnapshot.getDocuments().forEach(doc -> {
+                        String name = doc.getString("Name");
+                        String category = doc.getString("Category");
+                        String amount = doc.getString("Amount");
+                        String date = doc.getString("Date");
+                        transactions.add(new transactionInfoDisplay(name, category, amount, date));
+                    });
+                    Platform.runLater(() -> transactionTV.setItems(transactions));
+                } else {
+                    System.out.println("No transactions found for selected user.");
+                    Platform.runLater(() -> transactionTV.setItems(FXCollections.observableArrayList())); // Clear previous entries
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
     }
 }

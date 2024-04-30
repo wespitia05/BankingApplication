@@ -33,6 +33,8 @@ public class loginController {
     private boolean passwordVisible = false;
     String firstName;
     String lastName;
+    String cardNum;
+    String cardExp;
     // testing for branch
     // branch test for mian worked
     // luis branch test
@@ -44,6 +46,14 @@ public class loginController {
     public void setUserFullName (String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public void setCardNum (String cardNum) {
+        this.cardNum = cardNum;
+    }
+
+    public void setCardExp (String cardExp) {
+        this.cardExp = cardExp;
     }
 
 
@@ -75,6 +85,9 @@ public class loginController {
                 userInfo.setLastName(document.getString("Last Name"));
                 userInfo.setChecking(document.getString("Checking"));
                 userInfo.setSavings(document.getString("Savings"));
+                userInfo.setCardNum(document.getString("Card Number"));
+                userInfo.setCardExp(document.getString("Card Expiration Date"));
+                userInfo.setCardCVV(document.getString("Card CVV"));
 
                 // Retrieve the first name associated with the username
 
@@ -83,6 +96,8 @@ public class loginController {
                 homePageController homeController = loader.getController();
                 homeController.setUsername(username);
                 homeController.setUserFullName(firstName, lastName);
+                homeController.setCardNum(cardNum);
+                homeController.setCardExp(cardExp);
                 stg.getScene().setRoot(root);
             } else {
                 System.out.println("Password Incorrect");

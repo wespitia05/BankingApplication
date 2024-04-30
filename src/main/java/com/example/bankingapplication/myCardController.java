@@ -28,6 +28,10 @@ public class myCardController extends homePageController{
     private TextField name_TF;
     @FXML
     private Label userFullName;
+    @FXML
+    private Label cardNumLabel;
+    @FXML
+    private Label cardExpLabel;
 
     // Event Handlers for the Sidebar Buttons
     @FXML
@@ -43,6 +47,8 @@ public class myCardController extends homePageController{
 
         // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName(), userInfo.getLastName());
+        controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        controller.setCardExp(userInfo.getCardExp());
         controller.updateCheckingBalanceInFirestore(Double.parseDouble(userInfo.getChecking()));
         controller.updateSavingsBalanceInFirestore(Double.parseDouble(userInfo.getSavings()));
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
@@ -127,5 +133,7 @@ public class myCardController extends homePageController{
     // Initialization method
     public void initialize() {
         userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
+        cardNumLabel.setText("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        cardExpLabel.setText(userInfo.getCardExp());
     }
 }
