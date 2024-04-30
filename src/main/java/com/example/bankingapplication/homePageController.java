@@ -52,16 +52,20 @@ public class homePageController extends loginController{
     public TextField savingsBalanceTF;
     @FXML
     private TextField debit_TF;
+    @FXML
     private ImageView popupAd;
     @FXML
     private AnchorPane sideBar;
     @FXML
     private Label menu;
-
     @FXML
     private Label menuBack;
     @FXML
     private Label userFullName;
+    @FXML
+    private Label cardNumLabel;
+    @FXML
+    private Label cardExpLabel;
     public String username;
 
     @FXML
@@ -69,6 +73,8 @@ public class homePageController extends loginController{
         System.out.println ("initialize called");
 
         userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
+        cardNumLabel.setText("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        cardExpLabel.setText(userInfo.getCardExp());
         // Manually set the onAction event handler for the saveDraft_btn button
         saveDraft_btn.setOnAction(this::handleSaveDraft_btn);
 
@@ -102,13 +108,6 @@ public class homePageController extends loginController{
             slide.setFromX(0); // start from the current position
             slide.setToX(finalTranslateX); //Move to the final position
 
-//            sideBar.setTranslateX(-176);
-//            slide.play();
-
-
-
-            //  sideBar.setTranslateX(0);
-
             slide.setOnFinished((ActionEvent e)-> {
                 menu.setVisible(true);
                 menuBack.setVisible(false);
@@ -116,7 +115,6 @@ public class homePageController extends loginController{
 
             slide.play();
         });
-
     }
 
     public void setUsername(String username) {
@@ -137,10 +135,16 @@ public class homePageController extends loginController{
                         DocumentSnapshot document = querySnapshot.getDocuments().get(0);
                         String checkingBalance = document.getString("Checking");
                         String savingsBalance = document.getString("Savings");
+                        String cardNum = document.getString("Card Number");
+                        String cardExp = document.getString("Card Expiration Date");
+
+                        String formatCardNum = "**** **** **** " + cardNum.substring(cardNum.length() - 4);
                         Platform.runLater(() -> {
                             setBalances(checkingBalance, savingsBalance);
                             updateSavingsTextField(savingsBalance);
                             updateCheckingTextField(checkingBalance);
+                            cardNumLabel.setText(formatCardNum);
+                            cardExpLabel.setText(cardExp);
                         });
                     }
                 } catch (InterruptedException | ExecutionException e) {
@@ -186,6 +190,8 @@ public class homePageController extends loginController{
 
         // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
+        controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        controller.setCardExp(userInfo.getCardExp());
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
 
         // Set the scene on the current stage

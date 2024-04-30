@@ -236,10 +236,10 @@
                   </Label>
                   <AnchorPane prefHeight="130.0" prefWidth="234.0" styleClass="credit-card" stylesheets="@Stylesheet.css">
                      <children>
-                        <Label layoutX="21.0" layoutY="76.0" text="**** **** **** 3647" textFill="#ece5e5" />
+                        <Label fx:id="cardNumLabel" layoutX="21.0" layoutY="76.0" textFill="#ece5e5" />
                         <Circle fill="#1c2126" layoutX="192.0" layoutY="97.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
                         <Circle fill="#4f99df" layoutX="205.0" layoutY="97.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label layoutX="21.0" layoutY="99.0" text="05/27" textFill="#ece5e5">
+                        <Label fx:id="cardExpLabel" layoutX="21.0" layoutY="99.0" textFill="#ece5e5">
                            <font>
                               <Font size="11.0" />
                            </font>
