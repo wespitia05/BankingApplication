@@ -6,11 +6,9 @@
 /*side bar*/
 
 .sidebar{
-
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 0px 0px 0px 0px;
 }
-
 
 .pane {
     -fx-background-color: linear-gradient(to left bottom, #ADD8E6, #FFFFFF); /* Light blue and white gradient */
@@ -21,23 +19,45 @@
 }
 
 /*Pane for my card*/
-
 .myCard_pane {
-    -fx-background-color:  #FFFFFF; /* Light blue and white gradient */
+    -fx-background-color:
+        /* Dark purple gradient on top */
+        linear-gradient(to top, #170026, #5C005C 70%),
+        /* Light turquoise gradient with transparency */
+        linear-gradient(to bottom, #00FFFF 70%, rgba(255,255,255,0)),
+        /* Glass-like color shade with smoother blending */
+        radial-gradient(focus-angle 45deg, focus-distance 50%, center 15% 15%, radius 20%, #ADD8E6 20%, #F0F0F0 30%, transparent 70%);
     -fx-border-color: #C1C1C1;
     -fx-background-radius: 0px 0px 30px 30px;
     -fx-border-radius: 0px 0px 30px 30px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0); /* Dark shadow */
     -fx-effect: dropshadow(gaussian, #FFFFFF, 10, 0.5, 0, 0); /* Reflection effect */
 }
+
+/*for my card page, add color*/
+.Credit_Card2 {
+        -fx-background-color: linear-gradient(to right, #9370DB, #C0C0C0); /* Light purple */
+        -fx-background-radius: 10px;
+        -fx-effect: dropshadow(gaussian, #9370DB, 10, 0.5, 0, 0); /* Shadow effect matching light purple */
+}
+/*test color looks really pretty*/
+.linear-gradient-with-yellow {
+    -fx-background-color: linear-gradient(to right, #9370DB, #C0C0C0), #FFFF99; /* Light purple gradient with soft yellow */
+    -fx-background-radius: 10px;
+}
+
+
+
+
 
 .pane_quicktransfer{
     -fx-background-color: #FFFFFF;
      /*-fx-background-color: #ADD8E6; /* Light blue-green color */
     -fx-border-color: #C1C1C1;
-    /*
+/*
     -fx-background-radius: 30px 30px 30px 30px;
     -fx-border-radius: 30px 30px 30px 30px;
-    */
+*/
 }
 
 .plus_btn{
@@ -76,5 +96,71 @@
 .text_font {
     -fx-fill: #FF0000; /*change the color of the font*/
 }
+
+/*Stying for mouse
+this will make clicking buttons looks cool
+*/
+
+.button-d{
+    -fx-padding: 5px;
+    -fx-background-color: #413aa9;
+    -fx-text-fill: white;
+    -fx-border-radius: 10px;
+    -fx-border-width: 0px;
+    -fx-cursor: hand;
+    -fx-font-size: 2rem;
+    -fx-transition: scale 0.5s ease; /* Transition for scaling */
+}
+
+.button-d:hover{
+     -fx-background-color: #544bdb; /* Set background color */
+     -fx-scale-x: 1.2; /* Scale horizontally */
+     -fx-scale-y: 1.2; /* Scale vertically */
+}
+
+.button-d:pressed{
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+}
+
+
+.button-menu{
+    -fx-padding: 5px;
+    -fx-background-color: #413aa9;
+    -fx-text-fill: white;
+    -fx-border-radius: 10px;
+    -fx-border-width: 0px;
+    -fx-cursor: hand;
+    -fx-font-size: 2rem;
+}
+
+.button-d:hover{
+     -fx-background-color: #544bdb; /* Set background color */
+     -fx-scale-x: 1.2; /* Scale horizontally */
+     -fx-scale-y: 1.2; /* Scale vertically */
+}
+
+
+
+/*this is for text fields*/
+
+.text-fieldlook {
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 224, 0.5), 15, 0.0, 0, 4); /* Bright white-yellow shadow with medium opacity */
+    -fx-font-size: 12pt; /* Initial font size */
+    -fx-background-radius: 5; /* Rounded corners */
+    -fx-background-color: black; /* Background color */
+    -fx-border-color: transparent; /* Transparent border color */
+    -fx-border-radius: 5; /* Rounded border */
+    -fx-border-width: 1; /* Border width */
+    -fx-transition: font-size 0.3s, scale 0.3s; /* Transition for font size and scale */
+}
+
+.text-fieldlook:hover {
+    -fx-font-size: 14pt; /* Increased font size on hover */
+    -fx-scale-x: 1.05; /* Scale horizontally on hover */
+    -fx-scale-y: 1.05; /* Scale vertically on hover */
+}
+
+
 
 
