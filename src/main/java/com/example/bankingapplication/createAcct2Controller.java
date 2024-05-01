@@ -90,7 +90,7 @@ public class createAcct2Controller extends createAcctController {
 
         addDataToDB(firstName, lastName, address, zipCode, dob, username, password, checking, savings, cardNum, cardExp, cardCVV);
         System.out.println("Account created successfully");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent root = loader.load();
         stg.getScene().setRoot(root);
     }
