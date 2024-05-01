@@ -99,7 +99,7 @@ public class main extends Application {
                                    String cardCVV) {
 
         // Create document reference
-        DocumentReference docRef = main.fstore.collection("userinfo").document(UUID.randomUUID().toString());
+        DocumentReference docRef = main.fstore.collection("userinfo").document(username);
 
         // Create data object
         Map<String, Object> data = new HashMap<>();
