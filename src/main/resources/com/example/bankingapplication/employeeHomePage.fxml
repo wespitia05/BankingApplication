@@ -2,14 +2,16 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.employeeHomePageController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@employeeHomePageStylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.employeeHomePageController">
    <children>
-      <TableView fx:id="userInfoTV" layoutX="179.0" layoutY="35.0" prefHeight="293.0" prefWidth="587.0">
+      <TableView fx:id="userInfoTV" layoutX="178.0" layoutY="35.0" prefHeight="293.0" prefWidth="694.0">
         <columns>
           <TableColumn fx:id="firstNameCol" prefWidth="87.36944580078125" text="First Name" />
           <TableColumn fx:id="lastNameCol" prefWidth="86.63055419921875" text="Last Name" />
@@ -35,12 +37,12 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="displayAllCustomersButton" layoutX="20.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleDisplayAllCustomersButton" text="Display All Customers" />
-      <Button fx:id="editCustomerButton" layoutX="40.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleEditCustomerButton" text="Edit Customer" />
-      <Button fx:id="deleteCustomerButton" layoutX="33.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleDeleteCustomerButton" text="Delete Customer" />
-      <Button fx:id="viewTransactionsButton" layoutX="32.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleViewTransactionsButton" text="View Transactions" />
-      <Button fx:id="viewCustomerButton" layoutX="38.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleViewCustomerButton" text="View Customer" />
-      <TableView fx:id="transactionTV" layoutX="179.0" layoutY="368.0" prefHeight="218.0" prefWidth="587.0">
+      <Button fx:id="displayAllCustomersButton" layoutX="15.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleDisplayAllCustomersButton" text="Display All Customers" />
+      <Button fx:id="editCustomerButton" layoutX="35.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleEditCustomerButton" text="Edit Customer" />
+      <Button fx:id="deleteCustomerButton" layoutX="28.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleDeleteCustomerButton" text="Delete Customer" />
+      <Button fx:id="viewTransactionsButton" layoutX="27.0" layoutY="214.0" mnemonicParsing="false" onAction="#handleViewTransactionsButton" text="View Transactions" />
+      <Button fx:id="viewCustomerButton" layoutX="33.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleViewCustomerButton" text="View Customer" />
+      <TableView fx:id="transactionTV" layoutX="285.0" layoutY="365.0" prefHeight="218.0" prefWidth="587.0">
         <columns>
           <TableColumn fx:id="transactionNameCol" prefWidth="172.0" text="Name" />
           <TableColumn fx:id="transactionCategoryCol" prefWidth="165.0" text="Category" />
@@ -48,15 +50,53 @@
             <TableColumn fx:id="transactionDateCol" prefWidth="136.0" text="Date" />
         </columns>
       </TableView>
-      <Label layoutX="179.0" layoutY="15.0" text="All User Information">
+      <Label layoutX="178.0" layoutY="12.0" text="All User Information">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="179.0" layoutY="342.0" text="Transaction History">
+      <Label layoutX="285.0" layoutY="342.0" text="Transaction History">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="373.0" text="From Account">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="fromCheckingRB" layoutX="25.0" layoutY="395.0" mnemonicParsing="false" text="Checking" textFill="#fcfafa">
          <font>
             <Font size="14.0" />
          </font>
+      </RadioButton>
+      <RadioButton fx:id="fromSavingsRB" layoutX="25.0" layoutY="419.0" mnemonicParsing="false" text="Savings" textFill="#fcfafa">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </RadioButton>
+      <Label layoutX="163.0" layoutY="374.0" text="To Account">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
       </Label>
+      <RadioButton fx:id="toCheckingRB" layoutX="160.0" layoutY="395.0" mnemonicParsing="false" text="Checking" textFill="#fcfafa">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="toSavingsRB" layoutX="160.0" layoutY="419.0" mnemonicParsing="false" text="Savings" textFill="#fcfafa">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </RadioButton>
+      <Label layoutX="27.0" layoutY="463.0" text="Enter Amount">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="amountEnteredTF" layoutX="131.0" layoutY="460.0" prefHeight="26.0" prefWidth="125.0" />
+      <Button fx:id="startTransferButton" layoutX="83.0" layoutY="513.0" mnemonicParsing="false" onAction="#handleStartTransferButton" text="Start Transfer" />
+      <Button fx:id="spendingPercentageButton" layoutX="18.0" layoutY="294.0" mnemonicParsing="false" onAction="#handleSpendingPercentageButton" text="Spending Percentage" />
    </children>
 </AnchorPane>
