@@ -31,7 +31,7 @@ public class main extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("CSC 325 - Capstone Project");
         stage.setScene(scene);
-        stage.initStyle(StageStyle.TRANSPARENT); //takes the x button away
+        //stage.initStyle(StageStyle.TRANSPARENT); //takes the x button away
         stage.show();
         //Branch test 1 is it working
 

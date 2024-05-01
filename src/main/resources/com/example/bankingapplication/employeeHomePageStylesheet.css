@@ -11,6 +11,11 @@
     -fx-text-fill: #333;
 }
 
+.button:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
+
 /* Style for TableView to have soft radius on edges */
 .table-view {
     -fx-background-radius: 10;

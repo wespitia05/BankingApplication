@@ -6,13 +6,16 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -625,6 +628,14 @@ public class employeeHomePageController extends employeeLoginController {
 
         // Show dialog
         dialog.showAndWait();
+    }
+
+    public void handleSignOutOnMouseClicked () throws IOException {
+        System.out.println("handleSignOutOnMouseClicked called");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("employeeLogin.fxml"));
+        Parent root = loader.load();
+        stg.getScene().setRoot(root);
     }
 }
 
