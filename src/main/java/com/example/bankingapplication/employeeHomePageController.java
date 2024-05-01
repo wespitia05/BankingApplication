@@ -7,9 +7,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
+
+import static com.example.bankingapplication.main.stg;
 
 public class employeeHomePageController extends employeeLoginController {
     @FXML
@@ -67,6 +71,24 @@ public class employeeHomePageController extends employeeLoginController {
     private Button viewTransactionsButton;
     @FXML
     private Button viewCustomerButton;
+    @FXML
+    private RadioButton fromCheckingRB;
+    @FXML
+    private RadioButton fromSavingsRB;
+    @FXML
+    private RadioButton toCheckingRB;
+    @FXML
+    private RadioButton toSavingsRB;
+    @FXML
+    private ToggleGroup fromtg;
+    @FXML
+    private ToggleGroup totg;
+    @FXML
+    private Button startTransferButton;
+    @FXML
+    private TextField amountEnteredTF;
+    @FXML
+    private Button spendingPercentageButton;
 
     public void initialize () {
         System.out.println("initialize called");
@@ -107,6 +129,33 @@ public class employeeHomePageController extends employeeLoginController {
 
         fetchAndDisplayEmployeeDetails();
 
+        fromtg = new ToggleGroup();
+        fromCheckingRB.setToggleGroup(fromtg);
+        fromSavingsRB.setToggleGroup(fromtg);
+
+        totg = new ToggleGroup();
+        toCheckingRB.setToggleGroup(totg);
+        toSavingsRB.setToggleGroup(totg);
+
+        fromtg.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue == fromCheckingRB && toCheckingRB.isSelected()) {
+                    totg.selectToggle(null);
+                } else if (newValue == fromSavingsRB && toSavingsRB.isSelected()) {
+                    totg.selectToggle(null);
+                }
+            }
+        });
+
+        totg.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue == toCheckingRB && fromCheckingRB.isSelected()) {
+                    fromtg.selectToggle(null);
+                } else if (newValue == toSavingsRB && fromSavingsRB.isSelected()) {
+                    fromtg.selectToggle(null);
+                }
+            }
+        });
     }
 
     private void fetchAndDisplayEmployeeDetails() {
@@ -146,6 +195,7 @@ public class employeeHomePageController extends employeeLoginController {
     }
 
     public void displayAllCustomers() {
+
         Firestore db = main.fstore;
         ApiFuture<QuerySnapshot> future = db.collection("userinfo").get();
 
@@ -421,6 +471,7 @@ public class employeeHomePageController extends employeeLoginController {
     }
 
     public void handleViewTransactionsButton() {
+        System.out.println("handleViewTransactionsButton called");
         userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
         if (selectedUser == null) {
             System.out.println("no user selected to view transactions");
@@ -454,4 +505,126 @@ public class employeeHomePageController extends employeeLoginController {
             }
         }, Executors.newSingleThreadExecutor());
     }
+
+    public void handleStartTransferButton () {
+        System.out.println("handleStartTransferButton called");
+
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            System.out.println("No user selected.");
+            return;
+        }
+
+        RadioButton selectedFrom = (RadioButton) fromtg.getSelectedToggle();
+        RadioButton selectedTo = (RadioButton) totg.getSelectedToggle();
+        if (selectedFrom == null || selectedTo == null) {
+            System.out.println("Both source and destination accounts must be selected.");
+            return;
+        }
+
+        double amount;
+        try {
+            amount = Double.parseDouble(amountEnteredTF.getText());
+            if (amount <= 0) {
+                throw new NumberFormatException("Amount must be positive.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered.");
+            return;
+        }
+
+        int fromAmount = Integer.parseInt(selectedFrom == fromCheckingRB ? selectedUser.getChecking() : selectedUser.getSavings());
+        int toAmount = Integer.parseInt(selectedTo == toCheckingRB ? selectedUser.getChecking() : selectedUser.getSavings());
+
+        if (fromAmount < amount) {
+            System.out.println("Insufficient funds.");
+            return;
+        }
+
+        fromAmount -= amount;
+        toAmount += amount;
+
+        if (selectedFrom == fromCheckingRB) {
+            selectedUser.setChecking(String.valueOf(fromAmount));
+        } else {
+            selectedUser.setSavings(String.valueOf(fromAmount));
+        }
+
+        if (selectedTo == toCheckingRB) {
+            selectedUser.setChecking(String.valueOf(toAmount));
+        } else {
+            selectedUser.setSavings(String.valueOf(toAmount));
+        }
+
+        updateCustomerTV(selectedUser);
+        updateCustomerInFirestore(selectedUser);
+    }
+
+    public void handleSpendingPercentageButton () {
+        System.out.println("handleSpendingPercentageButton called");
+
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            System.out.println("No user selected.");
+            return;
+        }
+
+        fetchAndDisplaySpendingPercentage(selectedUser.getUsername());
+    }
+
+    private void fetchAndDisplaySpendingPercentage(String username) {
+        DocumentReference userDocRef = main.fstore.collection("userinfo").document(username);
+        ApiFuture<QuerySnapshot> future = userDocRef.collection("transactions").get();
+
+        future.addListener(() -> {
+            try {
+                QuerySnapshot querySnapshot = future.get(); // Retrieve the query results
+                Map<String, Double> categoryTotals = new HashMap<>();
+                double totalSpent = 0;
+
+                for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                    String category = doc.getString("Category");
+                    double amount = Double.parseDouble(doc.getString("Amount"));
+                    categoryTotals.put(category, categoryTotals.getOrDefault(category, 0.0) + amount);
+                    totalSpent += amount;
+                }
+
+                double finalTotalSpent = totalSpent;
+                Platform.runLater(() -> displayPieChart(categoryTotals, finalTotalSpent));
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
+    }
+
+    private void displayPieChart(Map<String, Double> categoryTotals, double totalSpent) {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        categoryTotals.forEach((category, sum) -> {
+            double percentage = (sum / totalSpent) * 100;
+            pieChartData.add(new PieChart.Data(category + String.format(" (%.1f%%)", percentage), sum));
+        });
+
+        PieChart pieChart = new PieChart(pieChartData);
+        pieChart.setTitle("Spending Percentage");
+
+        // Create a Dialog
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(stg); // Make sure 'stg' is your primary stage, passed or accessible here
+        dialog.setTitle("Spending Pie Chart");
+
+        // Set the Pie Chart as the content of the dialog
+        DialogPane dialogPane = new DialogPane();
+        dialogPane.setContent(pieChart);
+        dialog.setDialogPane(dialogPane);
+
+        // Add a close button
+        ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialogPane.getButtonTypes().add(closeButton);
+
+        // Show dialog
+        dialog.showAndWait();
+    }
 }
+

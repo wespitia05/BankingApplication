@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class main extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("CSC 325 - Capstone Project");
         stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT); //takes the x button away
         stage.show();
         //Branch test 1 is it working
 
@@ -99,7 +101,7 @@ public class main extends Application {
                                    String cardCVV) {
 
         // Create document reference
-        DocumentReference docRef = main.fstore.collection("userinfo").document(UUID.randomUUID().toString());
+        DocumentReference docRef = main.fstore.collection("userinfo").document(username);
 
         // Create data object
         Map<String, Object> data = new HashMap<>();
