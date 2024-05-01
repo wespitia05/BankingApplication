@@ -88,6 +88,10 @@ public class loginController {
                 userInfo.setCardNum(document.getString("Card Number"));
                 userInfo.setCardExp(document.getString("Card Expiration Date"));
                 userInfo.setCardCVV(document.getString("Card CVV"));
+                transactionsInfo.setName(document.getString("Name"));
+                transactionsInfo.setCategory(document.getString("Category"));
+                transactionsInfo.setAmount(document.getString("Amount"));
+                transactionsInfo.setDate(document.getString("Date"));
 
                 // Retrieve the first name associated with the username
 

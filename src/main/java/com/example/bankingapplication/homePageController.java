@@ -25,6 +25,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
@@ -131,6 +133,7 @@ public class homePageController extends loginController{
     public void setUsername(String username) {
         this.username = username;
         displayUserBalances();
+        fetchAndDisplaySpendingPercentage();
     }
 
     private void displayUserBalances() {
@@ -475,6 +478,41 @@ public class homePageController extends loginController{
         scaleTransition.play();
     }
 
+    private void fetchAndDisplaySpendingPercentage() {
+        DocumentReference userDocRef = main.fstore.collection("userinfo").document(username);
+        ApiFuture<QuerySnapshot> future = userDocRef.collection("transactions").get();
+
+        future.addListener(() -> {
+            try {
+                QuerySnapshot querySnapshot = future.get(); // Retrieve the query results
+                Map<String, Double> categoryTotals = new HashMap<>();
+                double totalSpent = 0;
+
+                for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                    String category = doc.getString("Category");
+                    double amount = Double.parseDouble(doc.getString("Amount"));
+                    categoryTotals.put(category, categoryTotals.getOrDefault(category, 0.0) + amount);
+                    totalSpent += amount;
+                }
+
+                double finalTotalSpent = totalSpent;
+                Platform.runLater(() -> displayPieChart(categoryTotals, finalTotalSpent));
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
+    }
+
+    private void displayPieChart(Map<String, Double> categoryTotals, double totalSpent) {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        categoryTotals.forEach((category, sum) -> {
+            double percentage = (sum / totalSpent) * 100;
+            pieChartData.add(new PieChart.Data(category + String.format(" (%.1f%%)", percentage), sum));
+        });
+
+        pieChart.setData(pieChartData);
+    }
 
 
 }
