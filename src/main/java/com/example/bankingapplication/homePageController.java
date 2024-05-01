@@ -3,6 +3,7 @@ package com.example.bankingapplication;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -72,6 +73,8 @@ public class homePageController extends loginController{
     public void initialize() {
         System.out.println ("initialize called");
 
+        //code for sliding the menu
+
         userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
         cardNumLabel.setText("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
         cardExpLabel.setText(userInfo.getCardExp());
@@ -115,6 +118,14 @@ public class homePageController extends loginController{
 
             slide.play();
         });
+    }
+
+    // Method to add animation to a TextField
+    private void addAnimation(TextField textField) {
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(0.6), textField);
+        transition.setFromY(-5); // Move up by 5 pixels
+        transition.setToY(0);    // Move back to original position
+        textField.setOnMouseClicked(event -> transition.play());
     }
 
     public void setUsername(String username) {
@@ -226,6 +237,7 @@ public class homePageController extends loginController{
         System.out.println("Settings clicked");
     }
 
+    // this code is for the Checking button
     @FXML
     public void handleSave_btn(ActionEvent event) {   ///updates your checking balance
 
@@ -270,6 +282,12 @@ public class homePageController extends loginController{
             alert.setContentText("Please enter a valid amount.");
             alert.showAndWait();
         }
+
+        // Add animation to checkingBalanceTF
+        addAnimation(checkingBalanceTF);
+
+        // Add animation to savingsBalanceTF
+        addAnimation(savingsBalanceTF);
     }
 
     public void updateCheckingBalanceInFirestore(Double checkingBalance) {
@@ -311,8 +329,11 @@ public class homePageController extends loginController{
         return null;
     }
 
+
+    // this code is for the save button
     @FXML
     public void handleSaveDraft_btn(ActionEvent event) {
+
         // These fields are for Debit card info
         String enteredDebit = debit_TF.getText().trim();
         String firebaseDebit = getDebitInfoFromFirestore(); // Retrieve debit info from Firestore
@@ -353,6 +374,13 @@ public class homePageController extends loginController{
             alert.setContentText("Please enter a valid amount.");
             alert.showAndWait();
         }
+        // Add animation to checkingBalanceTF
+        addAnimation(checkingBalanceTF);
+
+        // Add animation to savingsBalanceTF
+        addAnimation(savingsBalanceTF);
+
+
     }
 
     public void updateSavingsBalanceInFirestore(Double savingsBalance) {
@@ -411,16 +439,42 @@ public class homePageController extends loginController{
 
             // Show the popup
             popupStage.show();
+
+            // Add explosion-type animation to the popup ad
+            addExplosionAnimation(popupAd);
+
+            // Add listener to trigger reverse animation when popup window is closed
+            popupStage.setOnHidden(event -> {
+                // Reverse explosion-type animation
+                reverseExplosionAnimation(popupAd);
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     public String getImg () {
         Image img = popupAd.getImage();
         String file = img.getUrl();
         return file;
     }
+
+    //animation for the pop-up add. Makes the add increase in size
+    private void addExplosionAnimation(ImageView imageView) {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.5), imageView);
+        scaleTransition.setToX(1.5);
+        scaleTransition.setToY(1.5);
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.play();
+    }
+    //makes the add go back to original size
+    private void reverseExplosionAnimation(ImageView imageView) {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.5), imageView);
+        scaleTransition.setToX(1); // Return to normal size
+        scaleTransition.setToY(1); // Return to normal size
+        scaleTransition.play();
+    }
+
 
 
 }
