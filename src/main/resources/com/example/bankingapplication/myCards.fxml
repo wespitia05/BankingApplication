@@ -17,7 +17,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.myCardController">
     <left>
-        <AnchorPane prefHeight="600.0" prefWidth="148.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="600.0" prefWidth="148.0" styleClass="Credit_Card4" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
             <children>
                 <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="7.0" layoutY="59.0" text="UNITY BANK">
                     <font>
@@ -78,39 +78,41 @@
         </AnchorPane>
     </left>
     <center>
-        <AnchorPane prefHeight="600.0" prefWidth="683.0" style="-fx-background-color: #032d4d;" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="600.0" prefWidth="683.0" style="-fx-background-color: #11212D;" styleClass="roundCorner_Pane" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
             <children>
-                <VBox layoutX="5.0" layoutY="3.0" prefHeight="200.0" prefWidth="644.0" styleClass="myCard_pane" stylesheets="@Stylesheet.css">
+                <VBox layoutX="5.0" layoutY="3.0" prefHeight="200.0" prefWidth="644.0" style="-fx-background-color: #5D8090;" stylesheets="@Stylesheet.css">
                     <children>
                         <HBox prefHeight="140.0" prefWidth="593.0">
                             <children>
                                 <!-- Content Area -->
                                 <HBox prefHeight="140.0" prefWidth="648.0" spacing="20" style="-fx-padding: 20px;">
                                     <!-- First Credit Card -->
-                                    <VBox prefHeight="114.0" prefWidth="178.0" spacing="10" style="-fx-padding: 10px;" styleClass="credit-card" stylesheets="@Stylesheet.css">
+                                    <VBox prefHeight="121.0" prefWidth="193.0" spacing="10" style="-fx-padding: 10px;" styleClass="addAccount_credit-card" stylesheets="@Stylesheet.css">
                                         <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Credit Card 1" />
                                         <Label fx:id="cardNumLabel" style="-fx-text-fill: white;" />
                                         <Label fx:id="cardExpLabel" style="-fx-text-fill: white;" />
                                     </VBox>
                                     <!-- Second Credit Card -->
-                                    <VBox prefHeight="114.0" prefWidth="186.0" spacing="10" style="-fx-padding: 20px;" styleClass="Credit_Card2" stylesheets="@Stylesheet.css">
+                                    <VBox prefHeight="121.0" prefWidth="180.0" spacing="10" style="-fx-padding: 20px;" styleClass="Credit_Card2_bluecolor" stylesheets="@Stylesheet.css">
                                         <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Credit Card 2" />
                                         <Label style="-fx-text-fill: white;" text="**** **** **** 5678" />
                                         <Label style="-fx-text-fill: white;" text="09/27" />
                                     </VBox>
-                                    <Label prefHeight="16.0" prefWidth="76.0" text="add card">
-                              <font>
-                                 <Font name="Algerian" size="14.0" />
-                              </font></Label>
-                                    <Button alignment="CENTER" onAction="#handleAddCard_btn" prefHeight="96.0" prefWidth="140.0" style="-fx-background-color: #FF6F61; -fx-border-color: dotted;" stylesheets="@Stylesheet.css">
+                                    <Button alignment="CENTER" onAction="#handleAddCard_btn" prefHeight="46.0" prefWidth="52.0" style="-fx-background-color: #D4A7AA; -fx-background-color: #96C8DA;" stylesheets="@Stylesheet.css" textFill="#46265b">
                                         <graphic>
                                             <FontAwesomeIconView glyphName="PLUS" />
                                         </graphic>
                               <styleClass>
                                  <String fx:value="button-d" />
-                                 <String fx:value="color_card" />
+                                 <String fx:value="plus_btn" />
+                                 <String fx:value="text-field-jumpy" />
                               </styleClass>
                                     </Button>
+                                    <Label prefHeight="16.0" prefWidth="88.0" text="add card">
+                              <font>
+                                 <Font name="Monotype Koufi Bold" size="14.0" />
+                              </font>
+                           </Label>
                                     <HBox.margin>
                                         <Insets top="15.0" />
                                     </HBox.margin>
@@ -118,6 +120,10 @@
                             </children>
                         </HBox>
                     </children>
+               <styleClass>
+                  <String fx:value="cyan-style" />
+                  <String fx:value="myCard_pane" />
+               </styleClass>
                 </VBox>
                 <HBox alignment="CENTER" layoutX="5.0" layoutY="207.0" prefHeight="100.0" prefWidth="620.0">
                     <children>
