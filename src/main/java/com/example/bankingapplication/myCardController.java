@@ -99,9 +99,6 @@ public class myCardController extends homePageController{
     @FXML
     private void handleAddCard_btn(ActionEvent event) throws IOException {
         System.out.println("Add Card clicked");
-
-        System.out.println("Dashboard clicked");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addAccount.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);

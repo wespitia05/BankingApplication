@@ -16,9 +16,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -63,6 +68,20 @@ public class homePageController extends loginController{
     private Label menu;
     @FXML
     private Label menuBack;
+    @FXML
+    private AnchorPane legendContainer;
+    @FXML
+    private Label legend1;
+    @FXML
+    private Label legend2;
+
+    @FXML
+    private Label legend3;
+
+    @FXML
+    private Label legend4;
+
+
     @FXML
     private Label userFullName;
     @FXML
@@ -496,12 +515,17 @@ public class homePageController extends loginController{
                 }
 
                 double finalTotalSpent = totalSpent;
-                Platform.runLater(() -> displayPieChart(categoryTotals, finalTotalSpent));
+                Platform.runLater(() -> {
+                    displayPieChart(categoryTotals, finalTotalSpent);
+                    addLegend(categoryTotals, generateSmoothColors(categoryTotals.size()));
+                });
+
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }, Executors.newSingleThreadExecutor());
     }
+
 
     private void displayPieChart(Map<String, Double> categoryTotals, double totalSpent) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
@@ -512,6 +536,71 @@ public class homePageController extends loginController{
         });
 
         pieChart.setData(pieChartData);
+        pieChart.setTitle("Spending Percentage");
+    }
+
+
+    // Method to add legend to the pie chart
+    private void addLegend(Map<String, Double> categoryTotals, Color[] colors) {
+        // Clear existing legend items
+        legend1.setText("");
+        legend2.setText("");
+        legend3.setText("");
+        legend4.setText("");
+
+        // Create legend items for each category
+        int labelIndex = 1;
+        for (String category : categoryTotals.keySet()) {
+            if (labelIndex > 4) {
+                // You can add additional handling here if you have more categories
+                break;
+            }
+            Color color = colors[hash(category) % colors.length]; // Use a consistent color for each category
+
+            // Set category as text for the label
+            switch (labelIndex) {
+                case 1:
+                    legend1.setText(category);
+                    legend1.setTextFill(color);
+                    break;
+                case 2:
+                    legend2.setText(category);
+                    legend2.setTextFill(color);
+                    break;
+                case 3:
+                    legend3.setText(category);
+                    legend3.setTextFill(color);
+                    break;
+                case 4:
+                    legend4.setText(category);
+                    legend4.setTextFill(color);
+                    break;
+            }
+            labelIndex++;
+        }
+    }
+
+
+    // Hash function for consistent color assignment
+
+    public static Color[] generateSmoothColors(int numColors) {
+        Color[] colors = new Color[numColors];
+        for (int i = 0; i < numColors; i++) {
+            double hue = (double) i / numColors; // Vary hue smoothly across the color spectrum
+            colors[i] = Color.hsb(hue * 360, 1.0, 1.0); // Create a color using hue, saturation, and brightness
+        }
+        return colors;
+    }
+
+    ////////////////////////////////////////////////////// Pie chart //////////////////////////////
+
+    // Helper method to generate a consistent hash code for a string
+    private int hash(String s) {
+        int hash = 0;
+        for (int i = 0; i < s.length(); i++) {
+            hash = (hash * 31) + s.charAt(i);
+        }
+        return hash;
     }
 
 
