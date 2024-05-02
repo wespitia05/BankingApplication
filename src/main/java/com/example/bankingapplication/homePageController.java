@@ -516,8 +516,10 @@ public class homePageController extends loginController{
 
                 double finalTotalSpent = totalSpent;
                 Platform.runLater(() -> {
-                    displayPieChart(categoryTotals, finalTotalSpent);
-                    addLegend(categoryTotals, generateSmoothColors(categoryTotals.size()));
+                    Color[] colors = generateSmoothColors(categoryTotals.size());
+                    displayPieChart(categoryTotals, finalTotalSpent, colors);
+                    Map<String, Double> spendingPercentage = calculateSpendingPercentage(categoryTotals, finalTotalSpent);
+                    displaySpendingPercentage(spendingPercentage);
                 });
 
             } catch (InterruptedException | ExecutionException e) {
@@ -525,21 +527,25 @@ public class homePageController extends loginController{
             }
         }, Executors.newSingleThreadExecutor());
     }
-
-
-    private void displayPieChart(Map<String, Double> categoryTotals, double totalSpent) {
+    private void displayPieChart(Map<String, Double> categoryTotals, double totalSpent, Color[] colors) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-        categoryTotals.forEach((category, sum) -> {
+        int colorIndex = 0;
+        for (Map.Entry<String, Double> entry : categoryTotals.entrySet()) {
+            String category = entry.getKey();
+            double sum = entry.getValue();
             double percentage = (sum / totalSpent) * 100;
-            pieChartData.add(new PieChart.Data(category + String.format(" (%.1f%%)", percentage), sum));
-        });
+            PieChart.Data data = new PieChart.Data(category + String.format(" (%.1f%%)", percentage), sum);
+            //data.setFill(colors[colorIndex % colors.length]); // Set the fill color
+            pieChartData.add(data);
+            colorIndex++;
+        }
 
         pieChart.setData(pieChartData);
         pieChart.setTitle("Spending Percentage");
     }
 
-
+    // Method to add legend to the pie chart
     // Method to add legend to the pie chart
     private void addLegend(Map<String, Double> categoryTotals, Color[] colors) {
         // Clear existing legend items
@@ -550,12 +556,13 @@ public class homePageController extends loginController{
 
         // Create legend items for each category
         int labelIndex = 1;
+        int colorIndex = 0;
         for (String category : categoryTotals.keySet()) {
             if (labelIndex > 4) {
                 // You can add additional handling here if you have more categories
                 break;
             }
-            Color color = colors[hash(category) % colors.length]; // Use a consistent color for each category
+            Color color = colors[colorIndex % colors.length]; // Use a consistent color for each category
 
             // Set category as text for the label
             switch (labelIndex) {
@@ -577,19 +584,65 @@ public class homePageController extends loginController{
                     break;
             }
             labelIndex++;
+            colorIndex++;
         }
     }
 
-
-    // Hash function for consistent color assignment
-
-    public static Color[] generateSmoothColors(int numColors) {
+    // Method to generate smooth colors
+    private Color[] generateSmoothColors(int numColors) {
         Color[] colors = new Color[numColors];
         for (int i = 0; i < numColors; i++) {
-            double hue = (double) i / numColors; // Vary hue smoothly across the color spectrum
-            colors[i] = Color.hsb(hue * 360, 1.0, 1.0); // Create a color using hue, saturation, and brightness
+            colors[i] = Color.hsb(0, 1, (double) i / numColors);
         }
         return colors;
+    }
+//calculatingSpendingPercentage
+    private Map<String, Double> calculateSpendingPercentage(Map<String, Double> categoryTotals, double totalSpent) {
+        Map<String, Double> spendingPercentage = new HashMap<>();
+        for (Map.Entry<String, Double> entry : categoryTotals.entrySet()) {
+            String category = entry.getKey();
+            double sum = entry.getValue();
+            double percentage = (sum / totalSpent) * 100;
+            spendingPercentage.put(category, percentage);
+        }
+        return spendingPercentage;
+    }
+
+    //display percentage
+    private void displaySpendingPercentage(Map<String, Double> spendingPercentage) {
+        // Clear existing legend items
+        legend1.setText("");
+        legend2.setText("");
+        legend3.setText("");
+        legend4.setText("");
+
+        // Create legend items for each category
+        int labelIndex = 1;
+        for (Map.Entry<String, Double> entry : spendingPercentage.entrySet()) {
+            if (labelIndex > 4) {
+                // You can add additional handling here if you have more categories
+                break;
+            }
+            String category = entry.getKey();
+            double percentage = entry.getValue();
+
+            // Set category and percentage as text for the label
+            switch (labelIndex) {
+                case 1:
+                    legend1.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
+                    break;
+                case 2:
+                    legend2.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
+                    break;
+                case 3:
+                    legend3.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
+                    break;
+                case 4:
+                    legend4.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
+                    break;
+            }
+            labelIndex++;
+        }
     }
 
     ////////////////////////////////////////////////////// Pie chart //////////////////////////////

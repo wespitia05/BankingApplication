@@ -387,33 +387,53 @@
                   </AnchorPane>
                </children>
             </VBox>
-            <AnchorPane layoutX="27.0" layoutY="360.0" prefHeight="202.0" prefWidth="238.0" style="-fx-border-color: black;">
+            <AnchorPane layoutX="8.0" layoutY="360.0" prefHeight="206.0" prefWidth="360.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="251.0">
+                  <VBox prefHeight="148.0" prefWidth="219.0">
                      <children>
-                        <HBox prefHeight="166.0" prefWidth="251.0">
-                           <children>
-                              <PieChart fx:id="pieChart" prefHeight="150.0" prefWidth="270.0" stylesheets="@Stylesheet.css" title="PieChart" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <AnchorPane fx:id="legendContainer" prefHeight="50.0" prefWidth="253.0">
-                                 <children>
-                                    <!-- Legend item 2 -->
-                                    <HBox layoutX="42.0" layoutY="4.0" spacing="5.0" />
-                                    <!-- Legend item 1 -->
-                                    <HBox layoutX="35.0" layoutY="21.0" spacing="5.0" />
-                                    <Label fx:id="legend1" layoutX="14.0" layoutY="17.0" text="Label" />
-                                    <Label fx:id="legend2" layoutX="47.0" layoutY="17.0" text="Label" />
-                                    <Label fx:id="legend3" layoutX="93.0" layoutY="17.0" text="Label" />
-                                    <Label fx:id="legend4" layoutX="137.0" layoutY="17.0" text="Label" />
-                                 </children></AnchorPane>
-                           </children>
-                        </HBox>
+                        <PieChart fx:id="pieChart" prefHeight="166.0" prefWidth="243.0" stylesheets="@Stylesheet.css" title="PieChart" />
                      </children>
                   </VBox>
-                  <VBox spacing="5.0" />
+                  <HBox layoutX="-1.0" layoutY="155.0" prefHeight="50.0" prefWidth="453.0">
+                     <children>
+                        <AnchorPane fx:id="legendContainer" prefHeight="50.0" prefWidth="290.0">
+                           <children>
+                              <Label fx:id="legend1" layoutX="-6.0" layoutY="-4.0" prefHeight="32.0" prefWidth="109.0" text="Label" textFill="#f7ebeb">
+                                 <padding>
+                                    <Insets left="20.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="legend2" layoutX="84.0" layoutY="-4.0" prefHeight="42.0" prefWidth="100.0" text="Label" textFill="#f7ebeb">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="legend3" layoutX="172.0" layoutY="-4.0" prefHeight="42.0" prefWidth="97.0" text="Label" textFill="#f7ebeb">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="legend4" layoutX="267.0" layoutY="-4.0" prefHeight="42.0" prefWidth="109.0" text="Label" textFill="#f7ebeb">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
 
                </children>
             </AnchorPane>
