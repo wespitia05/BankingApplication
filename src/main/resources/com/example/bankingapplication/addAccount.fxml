@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -13,47 +15,8 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.addAccountController">
    <left>
-      <AnchorPane prefHeight="600.0" prefWidth="148.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="600.0" prefWidth="148.0" styleClass="Credit_Card4" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="11.0" layoutY="85.0" spacing="10" style="-fx-padding: 10px;">
-               <children>
-                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Dashboard">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="HOME" size="16" />
-                     </graphic>
-                  </Button>
-                  <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="My Cards">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
-                     </graphic>
-                  </Button>
-                  <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Transactions">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
-                     </graphic>
-                  </Button>
-                  <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Payments">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="MONEY" size="16" />
-                     </graphic>
-                  </Button>
-                  <Button onAction="#handlereports_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Reports">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="FILE" size="16" />
-                     </graphic>
-                  </Button>
-                  <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Profiles">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="USER" size="16" />
-                     </graphic>
-                  </Button>
-                  <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Settings">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="GEAR" size="16" />
-                     </graphic>
-                  </Button>
-               </children>
-            </VBox>
             <Label contentDisplay="TOP" layoutX="25.0" layoutY="20.0" text="Unity Bank">
                <font>
                   <Font name="Baskerville Old Face" size="20.0" />
@@ -63,39 +26,105 @@
                </graphic>
             </Label>
             <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="573.0" size="30" text="" />
+            <VBox layoutX="11.0" layoutY="104.0" prefHeight="380.0" prefWidth="130.0">
+               <children>
+                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Dashboard">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="HOME" size="16" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" styleClass="button-d" stylesheets="@Stylesheet.css" text="My Cards">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Transactions">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Payments">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="MONEY" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlereports_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Reports">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="LAPTOP" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Profiles">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="USER" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Settings">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="GEAR" size="16" />
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane prefHeight="600.0" prefWidth="683.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="600.0" prefWidth="683.0" style="-fx-background-color: #83B0C1;" styleClass="roundCorner_Pane" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="5.0" layoutY="3.0" prefHeight="222.0" prefWidth="644.0" styleClass="myCard_pane" stylesheets="@Stylesheet.css">
+            <VBox layoutX="5.0" layoutY="3.0" prefHeight="222.0" prefWidth="644.0" styleClass="myCard_pane_coolBorder" stylesheets="@Stylesheet.css">
                <children>
                   <HBox prefHeight="177.0" prefWidth="643.0">
                      <children>
-                        <HBox prefHeight="161.0" prefWidth="644.0" spacing="20" style="-fx-padding: 20px;">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="161.0" prefWidth="644.0" spacing="20" style="-fx-padding: 20px;">
                            <HBox.margin>
                               <Insets top="25.0" />
                            </HBox.margin>
                            <children>
-                              <VBox prefHeight="100.0" prefWidth="172.0" spacing="10" style="-fx-padding: 10px;" styleClass="credit-card" stylesheets="@Stylesheet.css">
+                              <VBox prefHeight="113.0" prefWidth="179.0" spacing="10" style="-fx-padding: 10px;" styleClass="addAccount_credit-card" stylesheets="@Stylesheet.css">
                                  <children>
                                     <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Credit Card 1" />
                                     <Label style="-fx-text-fill: white;" text="**** **** **** 1234" />
                                     <Label style="-fx-text-fill: white;" text="05/25" />
                                  </children>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
                               </VBox>
-                              <VBox prefHeight="100.0" prefWidth="181.0" spacing="10" style="-fx-padding: 10px; -fx-background-color: #2ca02c;" styleClass="color_card" stylesheets="@Stylesheet.css">
+                              <VBox prefHeight="100.0" prefWidth="181.0" spacing="10" style="-fx-padding: 10px;" stylesheets="@Stylesheet.css">
                                  <children>
                                     <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Credit Card 2" />
                                     <Label style="-fx-text-fill: white;" text="**** **** **** 5678" />
                                     <Label style="-fx-text-fill: white;" text="09/27" />
                                  </children>
+                                 <styleClass>
+                                    <String fx:value="color_card" />
+                                    <String fx:value="Credit_Card2_bluecolor" />
+                                 </styleClass>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
                               </VBox>
-                              <Button alignment="CENTER" onAction="#handleAddCard_btn" prefHeight="96.0" prefWidth="140.0" style="-fx-background-color: transparent; -fx-text-fill: #333333;" styleClass="plus_btn" stylesheets="@Stylesheet.css">
+                              <Button alignment="CENTER" onAction="#handleAddCard_btn" prefHeight="36.0" prefWidth="50.0" style="-fx-background-color: #D4A5A5;" stylesheets="@Stylesheet.css">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="PLUS" />
                                  </graphic>
+                                 <styleClass>
+                                    <String fx:value="plus_btn" />
+                                    <String fx:value="button-d" />
+                                    <String fx:value="text-field-jumpy" />
+                                 </styleClass>
                               </Button>
                               <Label text="add card" />
                            </children>
@@ -113,13 +142,18 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="60.0" layoutY="83.0" prefHeight="26.0" prefWidth="236.0" promptText="Bank Name" />
-                        <TextField layoutX="60.0" layoutY="147.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Name" />
-                        <TextField layoutX="60.0" layoutY="204.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Number" />
+                        <TextField layoutX="60.0" layoutY="83.0" prefHeight="26.0" prefWidth="236.0" promptText="Bank Name" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
+                        <TextField layoutX="60.0" layoutY="147.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Name" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
+                        <TextField layoutX="60.0" layoutY="204.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Number" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
                         <Label layoutX="60.0" layoutY="53.0" text="Bank Name*" />
                         <Label layoutX="60.0" layoutY="121.0" text="Accountn Name*" />
                         <Label layoutX="60.0" layoutY="179.0" text="Accountn Number*" />
-                        <Button layoutX="394.0" layoutY="115.0" onAction="#handleSave_btn" prefHeight="72.0" prefWidth="146.0" style="-fx-background-color: transparent; -fx-text-fill: #333333;" styleClass="plus_btn" stylesheets="@Stylesheet.css" text="SAVE" />
+                        <Button layoutX="394.0" layoutY="115.0" onAction="#handleSave_btn" prefHeight="72.0" prefWidth="146.0" style="-fx-background-color: #E4B16D;" stylesheets="@Stylesheet.css" text="SAVE">
+                           <styleClass>
+                              <String fx:value="plus_btn" />
+                              <String fx:value="button-d" />
+                              <String fx:value="text-field-jumpy" />
+                           </styleClass></Button>
                      </children>
                   </AnchorPane>
                </children>

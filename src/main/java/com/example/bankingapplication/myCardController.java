@@ -6,13 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 
-public class myCardController {
+import static com.example.bankingapplication.main.stg;
 
+public class myCardController extends homePageController{
 
     @FXML
     private TextField cardNum_TF;
@@ -22,24 +26,43 @@ public class myCardController {
     private TextField balance_TF;
     @FXML
     private TextField name_TF;
+    @FXML
+    private Label userFullName;
+    @FXML
+    private Label cardNumLabel;
+    @FXML
+    private Label cardExpLabel;
 
     // Event Handlers for the Sidebar Buttons
     @FXML
     private void handledashBoard_btn(ActionEvent event) throws IOException {
         System.out.println("Dashboard clicked");
 
+
+
+        // Load the FXML file and get the root and controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
-        Parent root = loader.load();
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        homePageController controller = loader.getController();
 
-        // Create a new scene
+        // Set data using methods in your controller
+        controller.setUserFullName(userInfo.getFirstName(), userInfo.getLastName());
+        controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        controller.setCardExp(userInfo.getCardExp());
+        controller.updateCheckingBalanceInFirestore(Double.parseDouble(userInfo.getChecking()));
+        controller.updateSavingsBalanceInFirestore(Double.parseDouble(userInfo.getSavings()));
+        controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+
+        // Set the scene on the current stage
         Scene scene = new Scene(root);
-
-        // Get the stage information
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        // Set the new scene on the stage
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    public void setUserFullName(String fullName) {
+        userFullName.setText(fullName);
     }
 
     @FXML
@@ -81,14 +104,8 @@ public class myCardController {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addAccount.fxml"));
         Parent root = loader.load();
-
-        // Create a new scene
         Scene scene = new Scene(root);
-
-        // Get the stage information
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        // Set the new scene on the stage
         stage.setScene(scene);
         stage.show();
     }
@@ -99,8 +116,16 @@ public class myCardController {
     }
 
     @FXML
-    private void handleWithdrawl_btn(ActionEvent event) {
+    private void handleWithdrawl_btn(ActionEvent event)throws IOException {
         System.out.println("Withdrawal clicked");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("withdrawal.fxml"));
+
+
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -114,13 +139,9 @@ public class myCardController {
     }
 
     // Initialization method
-    @FXML
     public void initialize() {
-        // Initialization logic here
+        userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
+        cardNumLabel.setText("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        cardExpLabel.setText(userInfo.getCardExp());
     }
-
-
-
-
-
 }

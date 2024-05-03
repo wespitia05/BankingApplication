@@ -6,11 +6,16 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,25 +23,47 @@ import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+import static com.example.bankingapplication.main.stg;
+
 public class employeeHomePageController extends employeeLoginController {
     @FXML
     private Label employeeName;
     @FXML
-    private TableView <userInfo> userInfoTV;
+    private TableView <userInfoDisplay> userInfoTV;
     @FXML
-    private TableColumn <userInfo, String> firstNameCol;
+    private TableColumn <userInfoDisplay, String> firstNameCol;
     @FXML
-    private TableColumn <userInfo, String> lastNameCol;
+    private TableColumn <userInfoDisplay, String> lastNameCol;
     @FXML
-    private TableColumn <userInfo, String> dobCol;
+    private TableColumn <userInfoDisplay, String> dobCol;
     @FXML
-    private TableColumn <userInfo, String> usernameCol;
+    private TableColumn <userInfoDisplay, String> usernameCol;
     @FXML
-    private TableColumn <userInfo, String> passwordCol;
+    private TableColumn <userInfoDisplay, String> passwordCol;
     @FXML
-    private TableColumn <userInfo, String> checkingCol;
+    private TableColumn <userInfoDisplay, String> checkingCol;
     @FXML
-    private TableColumn <userInfo, String> savingsCol;
+    private TableColumn <userInfoDisplay, String> savingsCol;
+    @FXML
+    private TableColumn <userInfoDisplay, String> addressCol;
+    @FXML
+    private TableColumn <userInfoDisplay, String> zipCodeCol;
+    @FXML
+    private TableColumn <userInfoDisplay, String> cardNumCol;
+    @FXML
+    private TableColumn <userInfoDisplay, String> cardExpCol;
+    @FXML
+    private TableColumn <userInfoDisplay, String> cardCVVCol;
+    @FXML
+    private TableView <transactionInfoDisplay> transactionTV;
+    @FXML
+    private TableColumn <transactionInfoDisplay, String> transactionNameCol;
+    @FXML
+    private TableColumn <transactionInfoDisplay, String> transactionCategoryCol;
+    @FXML
+    private TableColumn <transactionInfoDisplay, String> transactionAmountCol;
+    @FXML
+    private TableColumn <transactionInfoDisplay, String> transactionDateCol;
     @FXML
     private Button displayAllCustomersButton;
     @FXML
@@ -44,29 +71,94 @@ public class employeeHomePageController extends employeeLoginController {
     @FXML
     private Button deleteCustomerButton;
     @FXML
-    private Button startTransactionButton;
+    private Button viewTransactionsButton;
     @FXML
     private Button viewCustomerButton;
+    @FXML
+    private RadioButton fromCheckingRB;
+    @FXML
+    private RadioButton fromSavingsRB;
+    @FXML
+    private RadioButton toCheckingRB;
+    @FXML
+    private RadioButton toSavingsRB;
+    @FXML
+    private ToggleGroup fromtg;
+    @FXML
+    private ToggleGroup totg;
+    @FXML
+    private Button startTransferButton;
+    @FXML
+    private TextField amountEnteredTF;
+    @FXML
+    private Button spendingPercentageButton;
 
     public void initialize () {
         System.out.println("initialize called");
 
         firstNameCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("firstName"));
+                new PropertyValueFactory<userInfoDisplay, String>("firstName"));
         lastNameCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("lastName"));
+                new PropertyValueFactory<userInfoDisplay, String>("lastName"));
         dobCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("dob"));
+                new PropertyValueFactory<userInfoDisplay, String>("dob"));
         usernameCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("username"));
+                new PropertyValueFactory<userInfoDisplay, String>("username"));
         passwordCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("password"));
+                new PropertyValueFactory<userInfoDisplay, String>("password"));
         checkingCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("checking"));
+                new PropertyValueFactory<userInfoDisplay, String>("checking"));
         savingsCol.setCellValueFactory(
-                new PropertyValueFactory<userInfo, String>("savings"));
+                new PropertyValueFactory<userInfoDisplay, String>("savings"));
+        addressCol.setCellValueFactory(
+                new PropertyValueFactory<userInfoDisplay, String>("address"));
+        zipCodeCol.setCellValueFactory(
+                new PropertyValueFactory<userInfoDisplay, String>("zipCode"));
+        cardNumCol.setCellValueFactory(
+                new PropertyValueFactory<userInfoDisplay, String>("cardNum"));
+        cardExpCol.setCellValueFactory(
+                new PropertyValueFactory<userInfoDisplay, String>("cardExp"));
+        cardCVVCol.setCellValueFactory(
+                new PropertyValueFactory<userInfoDisplay, String>("cardCVV"));
+
+        transactionNameCol.setCellValueFactory(
+                new PropertyValueFactory<transactionInfoDisplay, String>("name"));
+        transactionCategoryCol.setCellValueFactory(
+                new PropertyValueFactory<transactionInfoDisplay, String>("category"));
+        transactionAmountCol.setCellValueFactory(
+                new PropertyValueFactory<transactionInfoDisplay, String>("amount"));
+        transactionDateCol.setCellValueFactory(
+                new PropertyValueFactory<transactionInfoDisplay, String>("date"));
 
         fetchAndDisplayEmployeeDetails();
+
+        fromtg = new ToggleGroup();
+        fromCheckingRB.setToggleGroup(fromtg);
+        fromSavingsRB.setToggleGroup(fromtg);
+
+        totg = new ToggleGroup();
+        toCheckingRB.setToggleGroup(totg);
+        toSavingsRB.setToggleGroup(totg);
+
+        fromtg.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue == fromCheckingRB && toCheckingRB.isSelected()) {
+                    totg.selectToggle(null);
+                } else if (newValue == fromSavingsRB && toSavingsRB.isSelected()) {
+                    totg.selectToggle(null);
+                }
+            }
+        });
+
+        totg.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue == toCheckingRB && fromCheckingRB.isSelected()) {
+                    fromtg.selectToggle(null);
+                } else if (newValue == toSavingsRB && fromSavingsRB.isSelected()) {
+                    fromtg.selectToggle(null);
+                }
+            }
+        });
     }
 
     private void fetchAndDisplayEmployeeDetails() {
@@ -106,15 +198,16 @@ public class employeeHomePageController extends employeeLoginController {
     }
 
     public void displayAllCustomers() {
+
         Firestore db = main.fstore;
         ApiFuture<QuerySnapshot> future = db.collection("userinfo").get();
 
-        ObservableList<userInfo> data = FXCollections.observableArrayList();
+        ObservableList<userInfoDisplay> data = FXCollections.observableArrayList();
 
         try {
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
             for (QueryDocumentSnapshot document : documents) {
-                data.add(new userInfo(
+                data.add(new userInfoDisplay(
                         document.getString("First Name"),
                         document.getString("Last Name"),
                         document.getString("Date of Birth"),
@@ -122,9 +215,12 @@ public class employeeHomePageController extends employeeLoginController {
                         document.getString("Password"),
                         document.getString("Checking"),
                         document.getString("Savings"),
-                        document.getId(),
                         document.getString("Address"),
-                        document.getString("Zip Code")
+                        document.getString("Zip Code"),
+                        document.getString("Card Number"),
+                        document.getString("Card Expiration Date"),
+                        document.getString("Card CVV"),
+                        document.getId()
                 ));
             }
             userInfoTV.setItems(data);
@@ -135,13 +231,13 @@ public class employeeHomePageController extends employeeLoginController {
 
     public void handleEditCustomerButton() {
         System.out.println("handleEditCustomerButton called");
-        userInfo selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
         if (selectedUser == null) {
             System.out.println("No user selected for editing.");
             return;
         }
 
-        Dialog<userInfo> dialog = new Dialog<>();
+        Dialog<userInfoDisplay> dialog = new Dialog<>();
         dialog.setTitle("Edit Customer");
         dialog.setHeaderText("Edit the selected customer's details");
 
@@ -162,6 +258,9 @@ public class employeeHomePageController extends employeeLoginController {
         TextField savingsField = new TextField(selectedUser.getSavings());
         TextField addressField = new TextField(selectedUser.getAddress());
         TextField zipCodeField = new TextField(selectedUser.getZipCode());
+        TextField cardNumField = new TextField(selectedUser.getCardNum());
+        TextField cardExpField = new TextField(selectedUser.getCardExp());
+        TextField cardCVVField = new TextField(selectedUser.getCardCVV());
         // Add fields for other userInfo properties as needed
 
         grid.add(new Label("First Name:"), 0, 0);
@@ -182,6 +281,12 @@ public class employeeHomePageController extends employeeLoginController {
         grid.add(checkingField,1,7);
         grid.add(new Label("Username:"),0,8);
         grid.add(savingsField,1,8);
+        grid.add(new Label("Card Number:"), 0, 9);
+        grid.add(cardNumField, 1, 9);
+        grid.add(new Label("Card Expiration Date:"), 0, 10);
+        grid.add(cardExpField, 1, 10);
+        grid.add(new Label("Card CVV:"), 0, 11);
+        grid.add(cardCVVField, 1, 11);
         // Add other fields to the grid
 
         dialog.getDialogPane().setContent(grid);
@@ -189,27 +294,31 @@ public class employeeHomePageController extends employeeLoginController {
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveButtonType) {
-                return new userInfo(
-                        firstNameField.getText(),  // First Name
-                        lastNameField.getText(),   // Last Name
-                        dobField.getText(),        // Date of Birth
-                        usernameField.getText(),   // Username
-                        passwordField.getText(),   // Password
-                        checkingField.getText(),   // Checking Account Balance
-                        savingsField.getText(),    // Savings Account Balance
+                return new userInfoDisplay(
+                        firstNameField.getText(),
+                        lastNameField.getText(),
+                        dobField.getText(),
+                        usernameField.getText(),
+                        passwordField.getText(),
+                        checkingField.getText(),
+                        savingsField.getText(),
                         addressField.getText(),
                         zipCodeField.getText(),
-                        selectedUser.getId());
+                        cardNumField.getText(),
+                        cardExpField.getText(),
+                        cardCVVField.getText(),
+                        selectedUser.getId()
+                );
             }
             return null;
         });
 
-        Optional<userInfo> result = dialog.showAndWait();
-
+        Optional<userInfoDisplay> result = dialog.showAndWait();
         result.ifPresent(newUserInfo -> {
             updateCustomerTV(newUserInfo);
             updateCustomerInFirestore(newUserInfo);
         });
+
     }
     // merge test
     // merge test 2
@@ -219,15 +328,15 @@ public class employeeHomePageController extends employeeLoginController {
 
     //it works lets try pushing it
 
-    private void updateCustomerTV(userInfo updatedUser) {
+    private void updateCustomerTV(userInfoDisplay updatedUser) {
         int index = userInfoTV.getItems().indexOf(userInfoTV.getSelectionModel().getSelectedItem());
         if (index >= 0) {
             userInfoTV.getItems().set(index, updatedUser);
-            System.out.println ("Update table view successful");
+            System.out.println("Update table view successful");
         }
     }
 
-    private void updateCustomerInFirestore(userInfo updatedUser) {
+    private void updateCustomerInFirestore(userInfoDisplay updatedUser) {
         Firestore db = main.fstore;
         DocumentReference docRef = db.collection("userinfo").document(updatedUser.getId());
 
@@ -239,16 +348,18 @@ public class employeeHomePageController extends employeeLoginController {
         updates.put("Password", updatedUser.getPassword());
         updates.put("Checking", updatedUser.getChecking());
         updates.put("Savings", updatedUser.getSavings());
+        updates.put("Address", updatedUser.getAddress());
+        updates.put("Zip Code", updatedUser.getZipCode());
 
-        docRef.update(updates).addListener(() -> {
-            System.out.println("Update successful");
+        docRef.set(updates, SetOptions.merge()).addListener(() -> {
+            System.out.println("Database updated successfully.");
         }, Executors.newSingleThreadExecutor());
     }
 
     public void handleDeleteCustomerButton() {
         System.out.println("handleDeleteCustomerButton called");
 
-        userInfo selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Removal");
@@ -289,9 +400,9 @@ public class employeeHomePageController extends employeeLoginController {
     public void handleViewCustomerButton () {
         System.out.println ("handleViewCustomerButton called");
 
-        userInfo selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
         if (selectedUser == null) {
-            System.out.println("No user selected for editing.");
+            System.out.println("No user selected to view");
             return;
         }
 
@@ -313,6 +424,9 @@ public class employeeHomePageController extends employeeLoginController {
         Label password = new Label(selectedUser.getPassword());
         Label checking = new Label(selectedUser.getChecking());
         Label savings = new Label(selectedUser.getSavings());
+        Label cardNum = new Label(selectedUser.getCardNum());
+        Label cardExp = new Label(selectedUser.getCardExp());
+        Label cardCVV = new Label(selectedUser.getCardCVV());
 
         grid.add(new Label("First Name:"), 0, 0);
         grid.add(firstName, 1, 0);
@@ -330,8 +444,14 @@ public class employeeHomePageController extends employeeLoginController {
         grid.add(password,1,6);
         grid.add(new Label("Checking:"),0,7);
         grid.add(checking,1,7);
-        grid.add(new Label("Username:"),0,8);
+        grid.add(new Label("Savings:"),0,8);
         grid.add(savings,1,8);
+        grid.add(new Label("Card Number:"), 0, 9);
+        grid.add(cardNum, 1, 9);
+        grid.add(new Label("Card Expiration Date:"), 0, 10);
+        grid.add(cardExp, 1, 10);
+        grid.add(new Label("Card CVV:"), 0, 11);
+        grid.add(cardCVV, 1, 11);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -353,7 +473,169 @@ public class employeeHomePageController extends employeeLoginController {
         dialog.showAndWait();
     }
 
-    public void handleStartTransactionButton () {
-        System.out.println ("handleStartTransactionButton called");
+    public void handleViewTransactionsButton() {
+        System.out.println("handleViewTransactionsButton called");
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            System.out.println("no user selected to view transactions");
+            return;
+        }
+
+        String username = selectedUser.getUsername();  // Assuming getUsername() correctly returns the document ID used in Firestore
+
+        Firestore db = main.fstore;
+        ApiFuture<QuerySnapshot> future = db.collection("userinfo").document(username).collection("transactions").get();
+
+        future.addListener(() -> {
+            try {
+                QuerySnapshot querySnapshot = future.get();
+                ObservableList<transactionInfoDisplay> transactions = FXCollections.observableArrayList();
+                if (!querySnapshot.isEmpty()) {
+                    querySnapshot.getDocuments().forEach(doc -> {
+                        String name = doc.getString("Name");
+                        String category = doc.getString("Category");
+                        String amount = doc.getString("Amount");
+                        String date = doc.getString("Date");
+                        transactions.add(new transactionInfoDisplay(name, category, amount, date));
+                    });
+                    Platform.runLater(() -> transactionTV.setItems(transactions));
+                } else {
+                    System.out.println("No transactions found for selected user.");
+                    Platform.runLater(() -> transactionTV.setItems(FXCollections.observableArrayList())); // Clear previous entries
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
+    }
+
+    public void handleStartTransferButton () {
+        System.out.println("handleStartTransferButton called");
+
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            System.out.println("No user selected.");
+            return;
+        }
+
+        RadioButton selectedFrom = (RadioButton) fromtg.getSelectedToggle();
+        RadioButton selectedTo = (RadioButton) totg.getSelectedToggle();
+        if (selectedFrom == null || selectedTo == null) {
+            System.out.println("Both source and destination accounts must be selected.");
+            return;
+        }
+
+        double amount;
+        try {
+            amount = Double.parseDouble(amountEnteredTF.getText());
+            if (amount <= 0) {
+                throw new NumberFormatException("Amount must be positive.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered.");
+            return;
+        }
+
+        int fromAmount = Integer.parseInt(selectedFrom == fromCheckingRB ? selectedUser.getChecking() : selectedUser.getSavings());
+        int toAmount = Integer.parseInt(selectedTo == toCheckingRB ? selectedUser.getChecking() : selectedUser.getSavings());
+
+        if (fromAmount < amount) {
+            System.out.println("Insufficient funds.");
+            return;
+        }
+
+        fromAmount -= amount;
+        toAmount += amount;
+
+        if (selectedFrom == fromCheckingRB) {
+            selectedUser.setChecking(String.valueOf(fromAmount));
+        } else {
+            selectedUser.setSavings(String.valueOf(fromAmount));
+        }
+
+        if (selectedTo == toCheckingRB) {
+            selectedUser.setChecking(String.valueOf(toAmount));
+        } else {
+            selectedUser.setSavings(String.valueOf(toAmount));
+        }
+
+        updateCustomerTV(selectedUser);
+        updateCustomerInFirestore(selectedUser);
+    }
+
+    public void handleSpendingPercentageButton () {
+        System.out.println("handleSpendingPercentageButton called");
+
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            System.out.println("No user selected.");
+            return;
+        }
+
+        fetchAndDisplaySpendingPercentage(selectedUser.getUsername());
+    }
+
+    private void fetchAndDisplaySpendingPercentage(String username) {
+        DocumentReference userDocRef = main.fstore.collection("userinfo").document(username);
+        ApiFuture<QuerySnapshot> future = userDocRef.collection("transactions").get();
+
+        future.addListener(() -> {
+            try {
+                QuerySnapshot querySnapshot = future.get(); // Retrieve the query results
+                Map<String, Double> categoryTotals = new HashMap<>();
+                double totalSpent = 0;
+
+                for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                    String category = doc.getString("Category");
+                    double amount = Double.parseDouble(doc.getString("Amount"));
+                    categoryTotals.put(category, categoryTotals.getOrDefault(category, 0.0) + amount);
+                    totalSpent += amount;
+                }
+
+                double finalTotalSpent = totalSpent;
+                Platform.runLater(() -> displayPieChart(categoryTotals, finalTotalSpent));
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
+    }
+
+    private void displayPieChart(Map<String, Double> categoryTotals, double totalSpent) {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        categoryTotals.forEach((category, sum) -> {
+            double percentage = (sum / totalSpent) * 100;
+            pieChartData.add(new PieChart.Data(category + String.format(" (%.1f%%)", percentage), sum));
+        });
+
+        PieChart pieChart = new PieChart(pieChartData);
+        pieChart.setTitle("Spending Percentage");
+
+        // Create a Dialog
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(stg); // Make sure 'stg' is your primary stage, passed or accessible here
+        dialog.setTitle("Spending Pie Chart");
+
+        // Set the Pie Chart as the content of the dialog
+        DialogPane dialogPane = new DialogPane();
+        dialogPane.setContent(pieChart);
+        dialog.setDialogPane(dialogPane);
+
+        // Add a close button
+        ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialogPane.getButtonTypes().add(closeButton);
+
+        // Show dialog
+        dialog.showAndWait();
+    }
+
+    public void handleSignOutOnMouseClicked () throws IOException {
+        System.out.println("handleSignOutOnMouseClicked called");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("employeeLogin.fxml"));
+        Parent root = loader.load();
+        stg.getScene().setRoot(root);
     }
 }
+

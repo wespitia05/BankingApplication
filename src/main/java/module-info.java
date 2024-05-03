@@ -12,6 +12,7 @@ module com.example.bankingapplication {
 
     requires google.cloud.core;
     requires com.google.auth;
+    requires io.netty.common;
     opens com.example.bankingapplication to javafx.fxml;
     exports com.example.bankingapplication;
 

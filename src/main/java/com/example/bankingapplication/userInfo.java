@@ -1,107 +1,146 @@
 package com.example.bankingapplication;
 
 public class userInfo {
-    String firstName;
-    String lastName;
-    String dob;
-    String username;
-    String password;
-    String checking;
-    String savings;
-    String id;
-    String address;
-    String zipCode;
+    private static userInfo instance;
+    static String firstName;
+    static String lastName;
+    static String dob;
+    static String username;
+    static String password;
+    static String checking;
+    static String savings;
+    static String id;
+    static String address;
+    static String zipCode;
+    static String cardNum;
+    static String cardExp;
+    static String cardCVV;
+
+    private userInfo () {}
+
+    public static synchronized userInfo getInstance() {
+        if (instance == null) {
+            instance = new userInfo();
+        }
+        return instance;
+    }
 
     public userInfo(String firstName, String lastName, String dob, String username, String password,
-                    String checking, String savings, String id, String address, String zipCode) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dob = dob;
-        this.username = username;
-        this.password = password;
-        this.checking = checking;
-        this.savings = savings;
-        this.id = id;
-        this.address = address;
-        this.zipCode = zipCode;
+                    String checking, String savings, String address, String zipCode, String cardNum,
+                    String cardExp, String cardCVV, String id) {
+        userInfo.firstName = firstName;
+        userInfo.lastName = lastName;
+        userInfo.dob = dob;
+        userInfo.username = username;
+        userInfo.password = password;
+        userInfo.checking = checking;
+        userInfo.savings = savings;
+        userInfo.address = address;
+        userInfo.zipCode = zipCode;
+        userInfo.cardNum = cardNum;
+        userInfo.cardExp = cardExp;
+        userInfo.cardCVV = cardCVV;
+        userInfo.id = id;
     }
-    public String getFirstName() {
+    public static String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public static void setFirstName(String fn) {
+        firstName = fn;
     }
 
-    public String getLastName() {
+    public static String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public static void setLastName(String ln) {
+        lastName = ln;
     }
 
-    public String getDob() {
+    public static String getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public static void setDob(String db) {
+        dob = db;
     }
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public static void setUsername(String un) {
+        username = un;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public static void setPassword(String pwd) {
+        password = pwd;
     }
 
-    public String getChecking() {
+    public static String getChecking() {
         return checking;
     }
 
-    public void setChecking(String checking) {
-        this.checking = checking;
+    public static void setChecking(String c) {
+        checking = c;
     }
 
-    public String getSavings() {
+    public static String getSavings() {
         return savings;
     }
 
-    public void setSavings(String savings) {
-        this.savings = savings;
+    public static void setSavings(String s) {
+        savings = s;
     }
 
-    public String getId() {
+    public static String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public static void setId(String ID) { id = ID;}
 
-    public String getAddress() {
+    public static String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public static void setAddress(String addy) {
+        address = addy;
     }
 
-    public String getZipCode() {
+    public static String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public static void setZipCode(String zip) {
+        zipCode = zip;
+    }
+
+    public static String getCardNum() {
+        return cardNum;
+    }
+
+    public static void setCardNum(String cardNum) {
+        userInfo.cardNum = cardNum;
+    }
+
+    public static String getCardExp() {
+        return cardExp;
+    }
+
+    public static void setCardExp(String cardExp) {
+        userInfo.cardExp = cardExp;
+    }
+
+    public static String getCardCVV() {
+        return cardCVV;
+    }
+
+    public static void setCardCVV(String cardCVV) {
+        userInfo.cardCVV = cardCVV;
     }
 }
