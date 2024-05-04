@@ -170,6 +170,14 @@ public class homePageController extends loginController{
                         String savingsBalance = document.getString("Savings");
                         String cardNum = document.getString("Card Number");
                         String cardExp = document.getString("Card Expiration Date");
+                        String email = document.getString("Email");
+                        String dob = document.getString("Date of Birth");
+                        String zipCode = document.getString("Zip Code");
+                        String address = document.getString("Address");
+                        String number = document.getString("number");
+                        String firstName = document.getString("First Name");
+                        String lastName = document.getString("Last Name");
+
 
                         String formatCardNum = "**** **** **** " + cardNum.substring(cardNum.length() - 4);
                         Platform.runLater(() -> {
@@ -178,6 +186,15 @@ public class homePageController extends loginController{
                             updateCheckingTextField(checkingBalance);
                             cardNumLabel.setText(formatCardNum);
                             cardExpLabel.setText(cardExp);
+                            userInfo.setEmail(email);
+                            userInfo.setDob(dob);
+                            userInfo.setZipCode(zipCode);
+                            userInfo.setAddress(address);
+                            userInfo.setNumber(number);
+                            userInfo.setNumber(firstName);
+                            userInfo.setNumber(lastName);
+
+
                         });
                     }
                 } catch (InterruptedException | ExecutionException e) {
@@ -234,10 +251,24 @@ public class homePageController extends loginController{
         stage.show();
     }
 
+
+
+
     @FXML
-    private void handletranaction_btn(ActionEvent event) {
+    private void handletranaction_btn(ActionEvent event) throws IOException {
         System.out.println("Transactions clicked");
+
+        // Load the FXML file and get the root and controller for the transactions view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactions.fxml"));
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+
+        // Set the scene on the current stage
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
+
 
     @FXML
     private void handlepayment_btn(ActionEvent event) {
@@ -250,8 +281,18 @@ public class homePageController extends loginController{
     }
 
     @FXML
-    private void handleprofile_btn(ActionEvent event) {
+    private void handleprofile_btn(ActionEvent event) throws IOException {
         System.out.println("Profiles clicked");
+
+        // Load the FXML file and get the root and controller for the transactions view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+
+        // Set the scene on the current stage
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

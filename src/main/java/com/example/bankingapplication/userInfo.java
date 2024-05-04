@@ -15,6 +15,9 @@ public class userInfo {
     static String cardNum;
     static String cardExp;
     static String cardCVV;
+    static String email;
+    static String number;
+
 
     private userInfo () {}
 
@@ -27,7 +30,7 @@ public class userInfo {
 
     public userInfo(String firstName, String lastName, String dob, String username, String password,
                     String checking, String savings, String address, String zipCode, String cardNum,
-                    String cardExp, String cardCVV, String id) {
+                    String cardExp, String cardCVV, String id, String email) {
         userInfo.firstName = firstName;
         userInfo.lastName = lastName;
         userInfo.dob = dob;
@@ -41,6 +44,7 @@ public class userInfo {
         userInfo.cardExp = cardExp;
         userInfo.cardCVV = cardCVV;
         userInfo.id = id;
+        userInfo.email = email;
     }
     public static String getFirstName() {
         return firstName;
@@ -143,4 +147,20 @@ public class userInfo {
     public static void setCardCVV(String cardCVV) {
         userInfo.cardCVV = cardCVV;
     }
+
+    public static void setEmail(String email) {
+        userInfo.email = email;
+    }
+
+    public static String getEmail() {
+        return email;
+    }
+    public static void setNumber(String number) {
+        userInfo.number = number;
+    }
+
+    public static String getNumber() {
+        return number;
+    }
+
 }
