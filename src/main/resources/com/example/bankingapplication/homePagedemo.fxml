@@ -1,248 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import java.lang.String?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.homePageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.homePageController">
    <left>
-      <AnchorPane fx:id="sideBar" prefHeight="373.0" prefWidth="130.0" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="600.0" prefWidth="130.0" styleClass="sidebar" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <Circle fill="WHITE" layoutX="27.0" layoutY="522.0" radius="18.0" stroke="#c1c1c1" strokeType="INSIDE" />
-            <FontAwesomeIconView glyphName="USER" layoutX="22.0" layoutY="526.0" selectionFill="#150808" text="" />
-            <VBox alignment="TOP_CENTER" layoutY="97.0" prefHeight="370.0" prefWidth="130.0" AnchorPane.bottomAnchor="84.60000000000002" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Dashboard" textFill="INDIGO">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="HOME" size="16" />
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="My Cards">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Transactions">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
-                     </graphic>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Payments">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="MONEY" size="16" />
-                     </graphic>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button onAction="#handlereports_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Reports">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="LAPTOP" size="16" />
-                     </graphic>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Profiles">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="USER" size="16" />
-                     </graphic>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Settings">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="GEAR" size="16" />
-                     </graphic>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-            <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="8.0" layoutY="23.0" text="UNITY BANK" textFill="#5daff2">
+            <Circle fill="WHITE" layoutX="34.0" layoutY="568.0" radius="18.0" stroke="#c1c1c1" strokeType="INSIDE" />
+            <Text fill="#5daff2" layoutX="4.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNITY BANK">
                <font>
-                  <Font name="Baskerville Old Face" size="18.0" />
+                  <Font name="Baskerville Old Face" size="16.0" />
                </font>
-               <graphic>
-                  <FontAwesomeIconView fill="#5daff2" glyphName="BANK" size="20" tabSize="11" text="" />
-               </graphic>
-            </Label>
+            </Text>
+            <FontAwesomeIconView fill="#5daff2" glyphName="BANK" layoutX="4.0" layoutY="36.0" size="16" />
          </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <styleClass>
-            <String fx:value="sidebar" />
-            <String fx:value="Credit_Card5" />
-         </styleClass>
       </AnchorPane>
    </left>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-   <top>
-      <AnchorPane prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #9FB4C3;" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-         <children>
-            <Label fx:id="menuBack" layoutX="14.0" layoutY="4.0" prefHeight="39.0" prefWidth="83.0" style="-fx-background-color: transparent;" styleClass="button-menu" stylesheets="@Stylesheet.css" text="MENU" textFill="#faf7f7" AnchorPane.topAnchor="4.0">
-               <graphic>
-                  <FontAwesomeIconView glyphName="BARS" />
-               </graphic>
-            </Label>
-            <Label fx:id="menu" layoutX="15.0" layoutY="4.0" prefHeight="39.0" prefWidth="83.0" style="-fx-background-color: transparent;" styleClass="button-menu" stylesheets="@Stylesheet.css" text="MENU" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="#ece9e9" glyphName="BARS" />
-               </graphic>
-            </Label>
-            <HBox alignment="CENTER_RIGHT" layoutX="387.0" layoutY="-7.0" prefHeight="51.0" prefWidth="405.0" AnchorPane.bottomAnchor="3.9999999999999787" AnchorPane.rightAnchor="7.399999999999977" AnchorPane.topAnchor="-7.0">
-               <children>
-                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: white;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Dashboard" textFill="#2c818e">
-                     <graphic>
-                        <FontAwesomeIconView fill="#f4eeee" glyphName="HOME" size="16" />
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Button>
-                  <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent; -fx-text-fill: white;" styleClass="button-d" stylesheets="@Stylesheet.css" text="My Cards">
-                     <graphic>
-                        <FontAwesomeIconView fill="#faf4f4" glyphName="CREDIT_CARD" size="16" text="" />
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <textFill>
-                        <LinearGradient endX="1.0" endY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.47058823704719543" green="0.7803921699523926" blue="1.0" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="1.0" green="1.0" blue="1.0" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </textFill>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Button>
-                  <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent; -fx-text-fill: white;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Transactions">
-                     <graphic>
-                        <FontAwesomeIconView fill="#faf4f4" glyphName="ARROW_UP" size="16" />
-                     </graphic>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Button>
-                  <Button alignment="CENTER_RIGHT" onAction="#handleprofile_btn" style="-fx-background-color: transparent; -fx-text-fill: white;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Profiles">
-                     <graphic>
-                        <FontAwesomeIconView fill="#faf4f4" glyphName="USER" size="16" />
-                     </graphic>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-         </children>
-      </AnchorPane>
-   </top>
    <center>
-      <AnchorPane prefHeight="552.0" style="-fx-background-color: #032d4d;" styleClass="pane_quicktransfer" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="600.0" prefWidth="699.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="10.0" prefHeight="195.0" prefWidth="502.0" styleClass="pane" stylesheets="@Stylesheet.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <VBox layoutX="30.0" layoutY="-2.0" prefHeight="195.0" prefWidth="488.0" styleClass="pane" stylesheets="@Stylesheet.css" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="196.0">
                <children>
                   <VBox prefHeight="86.0" prefWidth="456.0">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
-                     <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="14.0" layoutY="12.0" text="Welcome Back! ">
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="userFullName" layoutX="129.0" layoutY="22.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </children>
                   </VBox>
                   <HBox prefHeight="102.0" prefWidth="457.0" stylesheets="@Stylesheet.css">
                      <VBox.margin>
                         <Insets left="15.0" right="15.0" />
                      </VBox.margin>
                      <children>
-                        <AnchorPane prefHeight="108.0" prefWidth="184.0" styleClass="color_card" stylesheets="@Stylesheet.css">
+                        <AnchorPane prefHeight="0.0" prefWidth="145.0" styleClass="color_card" stylesheets="@Stylesheet.css">
                            <padding>
                               <Insets left="15.0" top="15.0" />
                            </padding>
@@ -252,13 +47,10 @@
                                     <Font size="8.0" />
                                  </font>
                               </TextField>
-                              <Label layoutX="50.0" layoutY="8.0" text="Income" textFill="#632c6e">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
+                              <Label layoutX="50.0" layoutY="8.0" text="Income" textFill="#bfbfbf" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="108.0" prefWidth="203.0" styleClass="color_card" stylesheets="@Stylesheet.css">
+                        <AnchorPane prefHeight="93.0" prefWidth="146.0" styleClass="color_card" stylesheets="@Stylesheet.css">
                            <padding>
                               <Insets left="15.0" top="15.0" />
                            </padding>
@@ -271,13 +63,10 @@
                                     <Font size="8.0" />
                                  </font>
                               </TextField>
-                              <Label layoutX="44.0" layoutY="7.0" text="Expenses" textFill="#632c6e">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
+                              <Label layoutX="44.0" layoutY="7.0" text="Expenses" textFill="#cccccc" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="108.0" prefWidth="189.0" styleClass="color_card">
+                        <AnchorPane prefHeight="93.0" prefWidth="146.0" styleClass="color_card" stylesheets="@Stylesheet.css">
                            <padding>
                               <Insets left="15.0" top="15.0" />
                            </padding>
@@ -285,15 +74,12 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                            <children>
-                              <TextField fx:id="savings_TF" alignment="CENTER" layoutX="17.0" layoutY="21.0" opacity="0.0" prefHeight="69.0" prefWidth="111.0" promptText="Savings">
+                              <TextField fx:id="savings_TF" alignment="CENTER" layoutX="17.0" layoutY="21.0" opacity="0.0" prefHeight="69.0" prefWidth="111.0" promptText="Savings" styleClass="color_card" stylesheets="@Stylesheet.css">
                                  <font>
                                     <Font size="8.0" />
                                  </font>
                               </TextField>
-                              <Label layoutX="44.0" layoutY="8.0" text="Savings" textFill="#632c6e">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
+                              <Label layoutX="44.0" layoutY="8.0" text="Savings" textFill="#bcbcbc" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -303,22 +89,28 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox layoutY="210.0" prefHeight="156.0" prefWidth="323.0">
+            <Separator halignment="RIGHT" layoutX="520.0" layoutY="258.0" prefWidth="150.0" />
+            <HBox layoutX="525.0" layoutY="9.0" prefHeight="231.0" prefWidth="180.0">
                <children>
-                  <Label styleClass="text_font" stylesheets="@Stylesheet.css" text="Wallet" textFill="#f0f4b3">
+                  <PieChart fx:id="pieChart" legendVisible="true" minHeight="100.0" minWidth="0.0" prefHeight="231.0" prefWidth="165.0" title="Pie Chart" />
+               </children>
+            </HBox>
+            <HBox layoutX="16.0" layoutY="196.0" prefHeight="164.0" prefWidth="302.0">
+               <children>
+                  <Label text="Wallet">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <AnchorPane prefHeight="130.0" prefWidth="234.0" styleClass="addAccount_credit-card" stylesheets="@Stylesheet.css">
+                  <AnchorPane prefHeight="130.0" prefWidth="234.0" styleClass="credit-card" stylesheets="@Stylesheet.css">
                      <children>
-                        <Label fx:id="cardNumLabel" layoutX="21.0" layoutY="76.0" textFill="#ece5e5" />
+                        <Label layoutX="21.0" layoutY="76.0" text="**** **** **** 3647" textFill="#ece5e5" />
                         <Circle fill="#1c2126" layoutX="192.0" layoutY="97.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
                         <Circle fill="#4f99df" layoutX="205.0" layoutY="97.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label fx:id="cardExpLabel" layoutX="21.0" layoutY="99.0" textFill="#ece5e5">
+                        <Label layoutX="21.0" layoutY="99.0" text="05/27" textFill="#ece5e5">
                            <font>
                               <Font size="11.0" />
                            </font>
@@ -333,88 +125,96 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <VBox layoutX="341.0" layoutY="288.0" prefHeight="134.0" prefWidth="146.0">
+            <VBox layoutX="330.0" layoutY="224.0" prefHeight="96.0" prefWidth="149.0">
                <children>
                   <AnchorPane prefHeight="96.0" prefWidth="150.0">
                      <children>
-                        <Label layoutX="-16.0" layoutY="-8.0" styleClass="text_font" stylesheets="@Stylesheet.css" text="Checking" textFill="#f0f4b3">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font></Label>
-                        <Label layoutX="-16.0" layoutY="48.0" styleClass="text_font" stylesheets="@Stylesheet.css" text="Savings" textFill="#f0f4b3">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font></Label>
-                        <TextField fx:id="checkingBalanceTF" editable="false" layoutX="-16.0" layoutY="14.0" onAction="#initialize" prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: black;" styleClass="text-fieldlook" stylesheets="@Stylesheet.css" />
-                        <TextField fx:id="savingsBalanceTF" editable="false" layoutX="-16.0" layoutY="70.0" onAction="#initialize" prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: black;" styleClass="text-fieldlook" stylesheets="@Stylesheet.css" />
+                        <Label layoutX="16.0" layoutY="5.0" text="Balance" />
+                        <Label layoutX="14.0" layoutY="48.0" text="Currency" />
+                        <TextField fx:id="balance_TF" layoutX="1.0" layoutY="23.0" promptText="balance" stylesheets="@Stylesheet.css" />
+                        <TextField fx:id="currency_TF" layoutY="69.0" promptText="currency" stylesheets="@Stylesheet.css" />
                      </children>
                   </AnchorPane>
                </children>
             </VBox>
-            <PieChart fx:id="pieChart" layoutX="62.0" layoutY="366.0" prefHeight="141.0" prefWidth="199.0" style="-fx-background-color: white;" title="Spending" />
+            <Separator layoutX="483.0" layoutY="329.0" orientation="VERTICAL" prefHeight="200.0" />
+            <VBox layoutX="493.0" layoutY="268.0" prefHeight="327.0" prefWidth="190.0" styleClass="pane_quicktransfer" stylesheets="@Stylesheet.css">
+               <children>
+                  <AnchorPane prefHeight="320.0" prefWidth="188.0">
+                     <children>
+                        <Label layoutX="52.0" layoutY="14.0" text="Quick Transfer">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="addAccountNum_TF" layoutX="4.0" layoutY="57.0" prefHeight="26.0" prefWidth="142.0" promptText="Add acount number" />
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="149.0" layoutY="63.0" prefHeight="23.0" prefWidth="26.0" styleClass="circle_lbl" stylesheets="@Stylesheet.css">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ARROW_RIGHT" />
+                           </graphic>
+                        </Label>
+                        <TextField fx:id="debit_TF" alignment="CENTER_RIGHT" layoutX="4.0" layoutY="128.0" promptText="Debit" />
+                        <TextField fx:id="enterAmount_TF" alignment="TOP_LEFT" layoutX="9.0" layoutY="173.0" prefHeight="69.0" prefWidth="144.0" promptText="Enter Amount" />
+                        <Circle fill="#061f36" layoutX="14.0" layoutY="114.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fill="#4f99df" layoutX="27.0" layoutY="114.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Button fx:id="save_btn" layoutX="9.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleSave_btn" text="Save" />
+                        <Button fx:id="saveDraft_btn" layoutX="83.0" layoutY="268.0" mnemonicParsing="false" onAction="#handleDraft_btn" text="Save as Draft" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <TableView layoutX="63.0" layoutY="377.0" prefHeight="200.0" prefWidth="315.0">
+               <columns>
+                  <TableColumn prefWidth="229.59999084472656" text="Recent Transactions" />
+                  <TableColumn prefWidth="75.0" text="Cost" />
+               </columns>
+            </TableView>
+            <VBox layoutX="-120.0" layoutY="118.0" prefHeight="296.0" prefWidth="132.0" spacing="10" style="-fx-padding: 10px;">
+               <children>
+                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Dashboard">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="HOME" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="My Cards">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#switchToTransactions" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Transactions">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Payments">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="MONEY" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlereports_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Reports">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="FILE" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Profiles">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="USER" size="16" />
+                     </graphic>
+                  </Button>
+                  <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Settings">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="GEAR" size="16" />
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
          </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
       </AnchorPane>
    </center>
-   <right>
-      <AnchorPane prefHeight="552.0" prefWidth="146.0" styleClass="roundCorner_Pane" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="TOP_CENTER" layoutY="270.4" prefHeight="281.0" prefWidth="146.0" style="-fx-border-color: #B8860B;" stylesheets="@Stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Quick Transfer">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <HBox prefHeight="24.0" prefWidth="146.0">
-                     <children>
-                        <Circle fill="#061f36" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Circle fill="#4f99df" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <TextField fx:id="debit_TF" alignment="CENTER" promptText="Account Number">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="enterAmount_TF" alignment="TOP_LEFT" prefHeight="69.0" prefWidth="144.0" promptText="Enter Amount">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <HBox prefHeight="44.0" prefWidth="146.0">
-                     <children>
-                        <Button fx:id="saveDraft_btn" mnemonicParsing="false" onAction="#handleDraft_btn" prefHeight="30.0" prefWidth="66.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="Savings">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="save_btn" mnemonicParsing="false" onAction="#handleSave_btn" prefHeight="30.0" prefWidth="69.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="Checking" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </HBox>
-               </children>
-               <styleClass>
-                  <String fx:value="roundCorner_Pane" />
-                  <String fx:value="pane_quicktransfer" />
-               </styleClass>
-            </VBox>
-            <ImageView fx:id="popupAd" fitHeight="252.0" fitWidth="156.0" layoutY="14.0" onMouseClicked="#popupShow" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@travscott.jpg" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-         </children>
-      </AnchorPane>
-   </right>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </BorderPane>
