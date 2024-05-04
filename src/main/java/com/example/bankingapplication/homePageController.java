@@ -16,9 +16,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -63,6 +68,20 @@ public class homePageController extends loginController{
     private Label menu;
     @FXML
     private Label menuBack;
+    @FXML
+    private AnchorPane legendContainer;
+    @FXML
+    private Label legend1;
+    @FXML
+    private Label legend2;
+
+    @FXML
+    private Label legend3;
+
+    @FXML
+    private Label legend4;
+
+
     @FXML
     private Label userFullName;
     @FXML
@@ -151,6 +170,14 @@ public class homePageController extends loginController{
                         String savingsBalance = document.getString("Savings");
                         String cardNum = document.getString("Card Number");
                         String cardExp = document.getString("Card Expiration Date");
+                        String email = document.getString("Email");
+                        String dob = document.getString("Date of Birth");
+                        String zipCode = document.getString("Zip Code");
+                        String address = document.getString("Address");
+                        String number = document.getString("number");
+                        String firstName = document.getString("First Name");
+                        String lastName = document.getString("Last Name");
+
 
                         String formatCardNum = "**** **** **** " + cardNum.substring(cardNum.length() - 4);
                         Platform.runLater(() -> {
@@ -159,6 +186,15 @@ public class homePageController extends loginController{
                             updateCheckingTextField(checkingBalance);
                             cardNumLabel.setText(formatCardNum);
                             cardExpLabel.setText(cardExp);
+                            userInfo.setEmail(email);
+                            userInfo.setDob(dob);
+                            userInfo.setZipCode(zipCode);
+                            userInfo.setAddress(address);
+                            userInfo.setNumber(number);
+                            userInfo.setNumber(firstName);
+                            userInfo.setNumber(lastName);
+
+
                         });
                     }
                 } catch (InterruptedException | ExecutionException e) {
@@ -215,10 +251,24 @@ public class homePageController extends loginController{
         stage.show();
     }
 
+
+
+
     @FXML
-    private void handletranaction_btn(ActionEvent event) {
+    private void handletranaction_btn(ActionEvent event) throws IOException {
         System.out.println("Transactions clicked");
+
+        // Load the FXML file and get the root and controller for the transactions view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactions.fxml"));
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+
+        // Set the scene on the current stage
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
+
 
     @FXML
     private void handlepayment_btn(ActionEvent event) {
@@ -231,8 +281,18 @@ public class homePageController extends loginController{
     }
 
     @FXML
-    private void handleprofile_btn(ActionEvent event) {
+    private void handleprofile_btn(ActionEvent event) throws IOException {
         System.out.println("Profiles clicked");
+
+        // Load the FXML file and get the root and controller for the transactions view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+
+        // Set the scene on the current stage
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -496,22 +556,145 @@ public class homePageController extends loginController{
                 }
 
                 double finalTotalSpent = totalSpent;
-                Platform.runLater(() -> displayPieChart(categoryTotals, finalTotalSpent));
+                Platform.runLater(() -> {
+                    Color[] colors = generateSmoothColors(categoryTotals.size());
+                    displayPieChart(categoryTotals, finalTotalSpent, colors);
+                    Map<String, Double> spendingPercentage = calculateSpendingPercentage(categoryTotals, finalTotalSpent);
+                    displaySpendingPercentage(spendingPercentage);
+                });
+
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }, Executors.newSingleThreadExecutor());
     }
-
-    private void displayPieChart(Map<String, Double> categoryTotals, double totalSpent) {
+    private void displayPieChart(Map<String, Double> categoryTotals, double totalSpent, Color[] colors) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-        categoryTotals.forEach((category, sum) -> {
+        int colorIndex = 0;
+        for (Map.Entry<String, Double> entry : categoryTotals.entrySet()) {
+            String category = entry.getKey();
+            double sum = entry.getValue();
             double percentage = (sum / totalSpent) * 100;
-            pieChartData.add(new PieChart.Data(category + String.format(" (%.1f%%)", percentage), sum));
-        });
+            PieChart.Data data = new PieChart.Data(category + String.format(" (%.1f%%)", percentage), sum);
+            //data.setFill(colors[colorIndex % colors.length]); // Set the fill color
+            pieChartData.add(data);
+            colorIndex++;
+        }
 
         pieChart.setData(pieChartData);
+        pieChart.setTitle("Spending Percentage");
+    }
+
+    // Method to add legend to the pie chart
+    // Method to add legend to the pie chart
+    private void addLegend(Map<String, Double> categoryTotals, Color[] colors) {
+        // Clear existing legend items
+        legend1.setText("");
+        legend2.setText("");
+        legend3.setText("");
+        legend4.setText("");
+
+        // Create legend items for each category
+        int labelIndex = 1;
+        int colorIndex = 0;
+        for (String category : categoryTotals.keySet()) {
+            if (labelIndex > 4) {
+                // You can add additional handling here if you have more categories
+                break;
+            }
+            Color color = colors[colorIndex % colors.length]; // Use a consistent color for each category
+
+            // Set category as text for the label
+            switch (labelIndex) {
+                case 1:
+                    legend1.setText(category);
+                    legend1.setTextFill(color);
+                    break;
+                case 2:
+                    legend2.setText(category);
+                    legend2.setTextFill(color);
+                    break;
+                case 3:
+                    legend3.setText(category);
+                    legend3.setTextFill(color);
+                    break;
+                case 4:
+                    legend4.setText(category);
+                    legend4.setTextFill(color);
+                    break;
+            }
+            labelIndex++;
+            colorIndex++;
+        }
+    }
+
+    // Method to generate smooth colors
+    private Color[] generateSmoothColors(int numColors) {
+        Color[] colors = new Color[numColors];
+        for (int i = 0; i < numColors; i++) {
+            colors[i] = Color.hsb(0, 1, (double) i / numColors);
+        }
+        return colors;
+    }
+//calculatingSpendingPercentage
+    private Map<String, Double> calculateSpendingPercentage(Map<String, Double> categoryTotals, double totalSpent) {
+        Map<String, Double> spendingPercentage = new HashMap<>();
+        for (Map.Entry<String, Double> entry : categoryTotals.entrySet()) {
+            String category = entry.getKey();
+            double sum = entry.getValue();
+            double percentage = (sum / totalSpent) * 100;
+            spendingPercentage.put(category, percentage);
+        }
+        return spendingPercentage;
+    }
+
+    //display percentage
+    private void displaySpendingPercentage(Map<String, Double> spendingPercentage) {
+        // Clear existing legend items
+        legend1.setText("");
+        legend2.setText("");
+        legend3.setText("");
+        legend4.setText("");
+
+        // Create legend items for each category
+        int labelIndex = 1;
+        for (Map.Entry<String, Double> entry : spendingPercentage.entrySet()) {
+            if (labelIndex > 4) {
+                // You can add additional handling here if you have more categories
+                break;
+            }
+            String category = entry.getKey();
+            double percentage = entry.getValue();
+
+            // Set category and percentage as text for the label
+            switch (labelIndex) {
+                case 1:
+                    legend1.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
+                    break;
+                case 2:
+                    legend2.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
+                    break;
+                case 3:
+                    legend3.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
+                    break;
+                case 4:
+                    legend4.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
+                    break;
+            }
+            labelIndex++;
+        }
+    }
+
+    ////////////////////////////////////////////////////// Pie chart //////////////////////////////
+
+    // Helper method to generate a consistent hash code for a string
+    private int hash(String s) {
+        int hash = 0;
+        for (int i = 0; i < s.length(); i++) {
+            hash = (hash * 31) + s.charAt(i);
+        }
+        return hash;
     }
 
 
