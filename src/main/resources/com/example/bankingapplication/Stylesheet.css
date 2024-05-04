@@ -1,15 +1,5 @@
-.parent{
-    -fx-background-color:#FFFFFF;
-    -fx-background-radius: 30px;
-}
 
-/*side bar*/
-
-.sidebar{
-    -fx-background-color: #FFFFFF;
-    -fx-background-radius: 0px 0px 0px 0px;
-}
-
+/*Pane for the homepage center, holds income, expense, and savings text-fields*/
 .pane {
     -fx-background-color: linear-gradient(to left bottom, #ADD8E6, #FFFFFF); /* Light blue and white gradient */
     -fx-border-color: #C1C1C1;
@@ -28,20 +18,6 @@
 }
 
 
-.light-cyan-style {
-    -fx-background-color: #87CEEB; /* Light cyan */
-    -fx-text-fill: #11212D; /* Dark navy blue text color */
-    -fx-font-size: 14px; /* Font size */
-    -fx-padding: 10px; /* Padding */
-}
-.cyan-style {
-    -fx-background-color: #66CDAA; /* Cyan */
-    -fx-text-fill: #11212D; /* Dark navy blue text color */
-    -fx-font-size: 14px; /* Font size */
-    -fx-padding: 10px; /* Padding */
-}
-
-
 /*for my card page, add color*/
 .Credit_Card2 {
         -fx-background-color: linear-gradient(to right, #9370DB, #C0C0C0); /* Light purple */
@@ -54,20 +30,7 @@
     -fx-background-radius: 10px;
 }
 
-
-
-
-
-.pane_quicktransfer{
-    -fx-background-color: #FFFFFF;
-     /*-fx-background-color: #ADD8E6; /* Light blue-green color */
-    -fx-border-color: #C1C1C1;
-/*
-    -fx-background-radius: 30px 30px 30px 30px;
-    -fx-border-radius: 30px 30px 30px 30px;
-*/
-}
-
+/*a style for button*/
 .plus_btn{
     -fx-background-color: transparent;
     -fx-background-radius: 5px;
@@ -75,10 +38,8 @@
     -fx-border-color: #C1C1C1;
     -fx-border-style: dashed;
 
-    -fx-text-fill:  #333333;
-
 }
-/**/
+/*for the 3 text fields on the homepage*/
 .color_card{
    /* -fx-background-color: linear-gradient(to right, #1A3384, #2B49B3); */
     -fx-background-color: #FFFFFF;
@@ -87,13 +48,7 @@
 }
 
 /*credit card style */
-.credit-card {
-     /* -fx-background-color: linear-gradient(to right, #1A3384, #2B49B3); /*color of credit card*/
-      -fx-background-color: linear-gradient(to right, #4C6CB3, #8AA9E8); /* lighter shades */
-      -fx-background-radius: 10px;
-      -fx-effect: dropshadow(gaussian, #FFFFFF, 10, 0.5, 0, 0); /* reflection effect */
 
-}
 .addAccount_credit-card {
     -fx-background-color: linear-gradient(to right, #526c7b, #708090, #95a3ac); /* Shades of #708090 */
     -fx-background-radius: 10px;
@@ -101,31 +56,33 @@
 }
 
 
+.addAccount_credit-card:hover{
+    -fx-background-color: linear-gradient(to bottom, #FFD700, #B8860B); /* Gold gradient */
+     -fx-scale-x: 1.2; /* Scale horizontally */
+     -fx-scale-y: 1.2; /* Scale vertically */
+}
+/*an better effect for credit card 2*/
 
-.circle_lbl{
-    -fx-background-color: #3cdcc4;
-    -fx-background-radius: 100%;
-
+.Credit_Card2_bluecolor {
+     -fx-background-color: linear-gradient(to right, #007F86, #C0C0C0); /* Light purple */
+     -fx-background-radius: 10px;
+     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0); /* Dark shadow effect */
+}
+.Credit_Card2_bluecolor :hover{
+    -fx-background-color: linear-gradient(to bottom, #FFD700, #B8860B); /* Gold gradient */
+     -fx-scale-x: 1.2; /* Scale horizontally */
+     -fx-scale-y: 1.2; /* Scale vertically */
 }
 
-.text_font {
-    -fx-fill: #FF0000; /*change the color of the font*/
-}
 
-/*Stying for mouse
-this will make clicking buttons looks cool
-*/
+/*Button style -- Making them look good*/
 
 .button-d{
     -fx-padding: 5px;
-
-    -fx-background-color: #413aa9;
-    -fx-text-fill: #4b0082;
-
     -fx-border-radius: 10px;
     -fx-border-width: 0px;
     -fx-cursor: hand;
-    -fx-font-size: 7rem;
+    -fx-font-size: 3rem;
     -fx-transition: scale 0.5s ease; /* Transition for scaling */
 }
 
@@ -144,20 +101,16 @@ this will make clicking buttons looks cool
     -fx-font-size: 8rem;
 }
 
-
+/*for the menu button-- helps show side bar*/
 .button-menu{
     -fx-padding: 10px;
-    /*
-    -fx-background-color: #413aa9;
-    -fx-text-fill: white;
-    */
     -fx-border-radius: 10px;
     -fx-border-width: 0px;
     -fx-cursor: hand;
     -fx-font-size: 2rem;
 }
-
-.button-d:hover{
+/*OPTIONAL-- giving a weird effect might get rid of it in the future*/
+.button-menu:hover{
      -fx-background-color: #544bdb; /* Set background color */
      -fx-scale-x: 1.2; /* Scale horizontally */
      -fx-scale-y: 1.2; /* Scale vertically */
@@ -165,7 +118,7 @@ this will make clicking buttons looks cool
 
 
 
-/*this is for text fields*/
+/*this is for text fields in the homePage giving it a pop-up style*/
 
 .text-fieldlook {
     -fx-effect: dropshadow(gaussian, rgba(255, 255, 224, 0.5), 15, 0.0, 0, 4); /* Bright white-yellow shadow with medium opacity */
@@ -187,7 +140,7 @@ this will make clicking buttons looks cool
 
 
 
-/*experimenting with cool text field style*/
+/*experimenting with cool text field style, gives it a jumpy effect, looks nice*/
 .text-field-jumpy {
     -fx-background-color: linear-gradient(to bottom, #ffffff, #e0e0e0); /* Gradient for background */
     -fx-background-radius: 5px; /* Rounded corners */
@@ -198,10 +151,13 @@ this will make clicking buttons looks cool
     -fx-effect: dropshadow(gaussian, #000000, 3, 0, 0, 0); /* Shadow effect */
 }
 
-
+.text-field-jumpy:hover{
+     -fx-background-color: #544bdb; /* Set background color */
+     -fx-scale-x: 1.2; /* Scale horizontally */
+     -fx-scale-y: 1.2; /* Scale vertically */
+}
 
 /*experimenting with my card pane*/
-
 .myCard_pane_coolBorder {
     -fx-background-color: #E4B16D, linear-gradient(to bottom, #FFFFFF 10%, rgba(0, 0, 0, 0.1) 90%); /* Background color with light dark shadows */
     -fx-border-color: #C1C1C1, #A8DFF2; /* Border color with light effect */
@@ -212,37 +168,53 @@ this will make clicking buttons looks cool
 }
 
 
-/*an better effect for credit card 2*/
-
-.Credit_Card2_bluecolor {
-
-       -fx-background-color: linear-gradient(to right, #007F86, #C0C0C0); /* Light purple */
-       -fx-background-radius: 10px;
-        -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0); /* Dark shadow effect */
-
-}
 /*side bar color for addAccount page */
-.Credit_Card3 {
+.sideBar_addAccount {
     -fx-background-color: #C6A96A; /* Complementary color */
     -fx-background-radius: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0); /* Dark shadow effect */
 }
 
 /*side bar color for myCards page*/
-.Credit_Card4 {
+.sidebar_myCard{
     -fx-background-color: #D6D6D6; /* Complementary color */
     -fx-background-radius: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0); /* Dark shadow effect */
 }
 
-.roundCorner_Pane{
-    -fx-background-radius: 10px;
-
-}
-
-.Credit_Card5 {
+/*HomePage side bar color*/
+.sideBar_HomePage{
     -fx-background-color: #ffd700; /* Vibrant yellow color */
     -fx-background-radius: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0); /* Dark shadow effect */
 }
+.homePage_CardtSyle{
+    -fx-background-color: linear-gradient(to bottom, #ffd700, #ffecb3); /* Yellow with shades */
+    -fx-background-radius: 10px;
+    -fx-effect:
+        dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0), /* Dark shadow */
+        dropshadow(gaussian, #FFFFFF, 10, 0.5, 0, 0), /* White light effect */
+        dropshadow(gaussian, rgba(255, 255, 200, 0.8), 20, 0.5, 0, 0), /* Slightly darker white-yellow shadow with increased opacity */
+        dropshadow(gaussian, rgba(255, 255, 0, 0.4), 10, 0.5, 0, 0), /* Yellow shadow with increased opacity */
+        dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0); /* Darker light effect */
+    -fx-border-width: 2px; /* Border width */
+    -fx-border-color: transparent; /* Hide the original border color */
+}
+
+
+/*giving pane's rounf corners*/
+.roundCorner_Pane{
+    -fx-background-radius: 10px;
+
+}
+/*cahnge text color and it's size*/
+.text-style {
+    -fx-text-fill: #4b0082;
+    -fx-font-size: 15px; /* Font size (14 pixels in this example) */
+    -fx-font-weight: bold; /* Make the font bold */
+}
+/* CSS for creating a donut chart */
+/* Custom style for the PieChart */
+
+
 

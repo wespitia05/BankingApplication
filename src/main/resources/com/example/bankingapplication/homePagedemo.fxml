@@ -20,7 +20,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.homePageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.homePageController">
    <left>
       <AnchorPane fx:id="sideBar" prefHeight="373.0" prefWidth="130.0" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +28,7 @@
             <FontAwesomeIconView glyphName="USER" layoutX="22.0" layoutY="526.0" selectionFill="#150808" text="" />
             <VBox alignment="TOP_CENTER" layoutY="97.0" prefHeight="370.0" prefWidth="130.0" AnchorPane.bottomAnchor="84.60000000000002" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Dashboard" textFill="INDIGO">
+                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Dashboard" textFill="#8ac2f7">
                      <graphic>
                         <FontAwesomeIconView glyphName="HOME" size="16" />
                      </graphic>
@@ -41,8 +41,12 @@
                      <font>
                         <Font size="15.0" />
                      </font>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
                   </Button>
-                  <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="My Cards">
+                  <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="My Cards">
                      <graphic>
                         <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
                      </graphic>
@@ -52,46 +56,76 @@
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
                   </Button>
-                  <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Transactions">
+                  <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Transactions">
                      <graphic>
                         <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
                      </graphic>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
                   </Button>
-                  <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Payments">
+                  <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Payments">
                      <graphic>
                         <FontAwesomeIconView glyphName="MONEY" size="16" />
                      </graphic>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
                   </Button>
-                  <Button onAction="#handlereports_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Reports">
+                  <Button onAction="#handlereports_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Reports">
                      <graphic>
                         <FontAwesomeIconView glyphName="LAPTOP" size="16" />
                      </graphic>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
                   </Button>
-                  <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Profiles">
+                  <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Profiles">
                      <graphic>
                         <FontAwesomeIconView glyphName="USER" size="16" />
                      </graphic>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
                   </Button>
-                  <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Settings">
+                  <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Settings">
                      <graphic>
                         <FontAwesomeIconView glyphName="GEAR" size="16" />
                      </graphic>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
                   </Button>
                </children>
             </VBox>
@@ -108,7 +142,7 @@
             <Insets />
          </BorderPane.margin>
          <styleClass>
-            <String fx:value="sidebar" />
+            <String fx:value="sideBar_HomePage" />
             <String fx:value="Credit_Card5" />
          </styleClass>
       </AnchorPane>
@@ -127,17 +161,17 @@
          <children>
             <Label fx:id="menuBack" layoutX="14.0" layoutY="4.0" prefHeight="39.0" prefWidth="83.0" style="-fx-background-color: transparent;" styleClass="button-menu" stylesheets="@Stylesheet.css" text="MENU" textFill="#faf7f7" AnchorPane.topAnchor="4.0">
                <graphic>
-                  <FontAwesomeIconView glyphName="BARS" />
+                  <FontAwesomeIconView fill="#f7f3f3" glyphName="BARS" />
                </graphic>
             </Label>
-            <Label fx:id="menu" layoutX="15.0" layoutY="4.0" prefHeight="39.0" prefWidth="83.0" style="-fx-background-color: transparent;" styleClass="button-menu" stylesheets="@Stylesheet.css" text="MENU" textFill="WHITE">
+            <Label fx:id="menu" layoutX="14.0" layoutY="4.0" prefHeight="39.0" prefWidth="83.0" style="-fx-background-color: transparent;" styleClass="button-menu" stylesheets="@Stylesheet.css" text="MENU" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="#ece9e9" glyphName="BARS" />
+                  <FontAwesomeIconView fill="#efe9e9" glyphName="BARS" />
                </graphic>
             </Label>
             <HBox alignment="CENTER_RIGHT" layoutX="387.0" layoutY="-7.0" prefHeight="51.0" prefWidth="405.0" AnchorPane.bottomAnchor="3.9999999999999787" AnchorPane.rightAnchor="7.399999999999977" AnchorPane.topAnchor="-7.0">
                <children>
-                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: white;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Dashboard" textFill="#2c818e">
+                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: white;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Dashboard" textFill="#e4e427">
                      <graphic>
                         <FontAwesomeIconView fill="#f4eeee" glyphName="HOME" size="16" />
                      </graphic>
@@ -220,7 +254,7 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="14.0" layoutY="12.0" text="Welcome Back! ">
+                              <Label layoutX="15.0" layoutY="5.0" text="Welcome Back" textFill="#454545">
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
@@ -252,7 +286,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </TextField>
-                              <Label layoutX="50.0" layoutY="8.0" text="Income" textFill="#632c6e">
+                              <Label layoutX="50.0" layoutY="8.0" text="Income" textFill="#454545">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Label>
@@ -271,7 +305,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </TextField>
-                              <Label layoutX="44.0" layoutY="7.0" text="Expenses" textFill="#632c6e">
+                              <Label layoutX="44.0" layoutY="7.0" text="Expenses" textFill="#454545">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Label>
@@ -290,7 +324,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </TextField>
-                              <Label layoutX="44.0" layoutY="8.0" text="Savings" textFill="#632c6e">
+                              <Label layoutX="44.0" layoutY="8.0" text="Savings" textFill="#454545">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Label>
@@ -303,9 +337,9 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox layoutY="210.0" prefHeight="156.0" prefWidth="323.0">
+            <HBox layoutX="8.0" layoutY="210.0" prefHeight="149.0" prefWidth="310.0">
                <children>
-                  <Label styleClass="text_font" stylesheets="@Stylesheet.css" text="Wallet" textFill="#f0f4b3">
+                  <Label prefHeight="22.0" prefWidth="62.0" styleClass="text_font" stylesheets="@Stylesheet.css" text="Wallet" textFill="#f0f4b3">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -313,7 +347,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <AnchorPane prefHeight="130.0" prefWidth="234.0" styleClass="addAccount_credit-card" stylesheets="@Stylesheet.css">
+                  <AnchorPane prefHeight="130.0" prefWidth="234.0" styleClass="homePage_CardtSyle" stylesheets="@Stylesheet.css">
                      <children>
                         <Label fx:id="cardNumLabel" layoutX="21.0" layoutY="76.0" textFill="#ece5e5" />
                         <Circle fill="#1c2126" layoutX="192.0" layoutY="97.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
@@ -333,25 +367,76 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <VBox layoutX="341.0" layoutY="288.0" prefHeight="134.0" prefWidth="146.0">
+            <VBox layoutX="340.0" layoutY="310.0" prefHeight="134.0" prefWidth="146.0">
                <children>
                   <AnchorPane prefHeight="96.0" prefWidth="150.0">
                      <children>
                         <Label layoutX="-16.0" layoutY="-8.0" styleClass="text_font" stylesheets="@Stylesheet.css" text="Checking" textFill="#f0f4b3">
                            <font>
                               <Font name="System Bold" size="15.0" />
-                           </font></Label>
+                           </font>
+                        </Label>
                         <Label layoutX="-16.0" layoutY="48.0" styleClass="text_font" stylesheets="@Stylesheet.css" text="Savings" textFill="#f0f4b3">
                            <font>
                               <Font name="System Bold" size="15.0" />
-                           </font></Label>
+                           </font>
+                        </Label>
                         <TextField fx:id="checkingBalanceTF" editable="false" layoutX="-16.0" layoutY="14.0" onAction="#initialize" prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: black;" styleClass="text-fieldlook" stylesheets="@Stylesheet.css" />
                         <TextField fx:id="savingsBalanceTF" editable="false" layoutX="-16.0" layoutY="70.0" onAction="#initialize" prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: black;" styleClass="text-fieldlook" stylesheets="@Stylesheet.css" />
                      </children>
                   </AnchorPane>
                </children>
             </VBox>
-            <PieChart fx:id="pieChart" layoutX="62.0" layoutY="366.0" prefHeight="141.0" prefWidth="199.0" style="-fx-background-color: white;" title="Spending" />
+            <AnchorPane layoutX="8.0" layoutY="360.0" prefHeight="206.0" prefWidth="360.0">
+               <children>
+                  <VBox prefHeight="148.0" prefWidth="219.0">
+                     <children>
+                        <PieChart fx:id="pieChart" prefHeight="166.0" prefWidth="243.0" stylesheets="@Stylesheet.css" title="PieChart" />
+                     </children>
+                  </VBox>
+                  <HBox layoutX="-1.0" layoutY="155.0" prefHeight="50.0" prefWidth="453.0">
+                     <children>
+                        <AnchorPane fx:id="legendContainer" prefHeight="50.0" prefWidth="290.0">
+                           <children>
+                              <Label fx:id="legend1" layoutX="-6.0" layoutY="-4.0" prefHeight="32.0" prefWidth="109.0" text="Label" textFill="#f7ebeb">
+                                 <padding>
+                                    <Insets left="20.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="legend2" layoutX="84.0" layoutY="-4.0" prefHeight="42.0" prefWidth="100.0" text="Label" textFill="#f7ebeb">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="legend3" layoutX="172.0" layoutY="-4.0" prefHeight="42.0" prefWidth="97.0" text="Label" textFill="#f7ebeb">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="legend4" layoutX="267.0" layoutY="-4.0" prefHeight="42.0" prefWidth="109.0" text="Label" textFill="#f7ebeb">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+
+               </children>
+            </AnchorPane>
          </children>
          <BorderPane.margin>
             <Insets />
@@ -361,7 +446,7 @@
    <right>
       <AnchorPane prefHeight="552.0" prefWidth="146.0" styleClass="roundCorner_Pane" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" layoutY="270.4" prefHeight="281.0" prefWidth="146.0" style="-fx-border-color: #B8860B;" stylesheets="@Stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <VBox alignment="TOP_CENTER" layoutY="270.4" prefHeight="281.0" prefWidth="146.0" style="-fx-border-color: #B8860B;" styleClass="roundCorner_Pane" stylesheets="@Stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Quick Transfer">
                      <font>
@@ -389,7 +474,7 @@
                   </TextField>
                   <HBox prefHeight="44.0" prefWidth="146.0">
                      <children>
-                        <Button fx:id="saveDraft_btn" mnemonicParsing="false" onAction="#handleDraft_btn" prefHeight="30.0" prefWidth="66.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="Savings">
+                        <Button fx:id="saveDraft_btn" mnemonicParsing="false" onAction="#handleDraft_btn" prefHeight="30.0" prefWidth="66.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="Savings" textFill="#e1d4d4">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -401,10 +486,6 @@
                      </VBox.margin>
                   </HBox>
                </children>
-               <styleClass>
-                  <String fx:value="roundCorner_Pane" />
-                  <String fx:value="pane_quicktransfer" />
-               </styleClass>
             </VBox>
             <ImageView fx:id="popupAd" fitHeight="252.0" fitWidth="156.0" layoutY="14.0" onMouseClicked="#popupShow" pickOnBounds="true" preserveRatio="true">
                <image>
