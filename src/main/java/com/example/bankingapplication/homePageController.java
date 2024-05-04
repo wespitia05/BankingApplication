@@ -538,7 +538,7 @@ public class homePageController extends loginController{
         scaleTransition.play();
     }
 
-    private void fetchAndDisplaySpendingPercentage() {
+    public void fetchAndDisplaySpendingPercentage() {
         DocumentReference userDocRef = main.fstore.collection("userinfo").document(username);
         ApiFuture<QuerySnapshot> future = userDocRef.collection("transactions").get();
 
@@ -568,7 +568,8 @@ public class homePageController extends loginController{
             }
         }, Executors.newSingleThreadExecutor());
     }
-    private void displayPieChart(Map<String, Double> categoryTotals, double totalSpent, Color[] colors) {
+
+    public void displayPieChart(Map<String, Double> categoryTotals, double totalSpent, Color[] colors) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         int colorIndex = 0;
