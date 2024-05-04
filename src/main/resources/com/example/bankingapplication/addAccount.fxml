@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.addAccountController">
    <left>
-      <AnchorPane prefHeight="600.0" prefWidth="148.0" styleClass="Credit_Card4" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="600.0" prefWidth="148.0" styleClass="sidebar_myCard" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
             <Label contentDisplay="TOP" layoutX="25.0" layoutY="20.0" text="Unity Bank">
                <font>
@@ -77,16 +77,16 @@
    <center>
       <AnchorPane prefHeight="600.0" prefWidth="683.0" style="-fx-background-color: #83B0C1;" styleClass="roundCorner_Pane" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="5.0" layoutY="3.0" prefHeight="222.0" prefWidth="644.0" styleClass="myCard_pane_coolBorder" stylesheets="@Stylesheet.css">
+            <VBox layoutX="38.0" layoutY="3.0" prefHeight="203.0" prefWidth="562.0" styleClass="myCard_pane_coolBorder" stylesheets="@Stylesheet.css">
                <children>
                   <HBox prefHeight="177.0" prefWidth="643.0">
                      <children>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="161.0" prefWidth="644.0" spacing="20" style="-fx-padding: 20px;">
+                        <HBox alignment="CENTER" prefHeight="161.0" prefWidth="644.0" spacing="20" style="-fx-padding: 20px;">
                            <HBox.margin>
                               <Insets top="25.0" />
                            </HBox.margin>
                            <children>
-                              <VBox prefHeight="113.0" prefWidth="179.0" spacing="10" style="-fx-padding: 10px;" styleClass="addAccount_credit-card" stylesheets="@Stylesheet.css">
+                              <VBox prefHeight="122.0" prefWidth="208.0" spacing="10" style="-fx-padding: 10px;" styleClass="addAccount_credit-card" stylesheets="@Stylesheet.css">
                                  <children>
                                     <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Credit Card 1" />
                                     <Label style="-fx-text-fill: white;" text="**** **** **** 1234" />
@@ -99,7 +99,7 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox prefHeight="100.0" prefWidth="181.0" spacing="10" style="-fx-padding: 10px;" stylesheets="@Stylesheet.css">
+                              <VBox prefHeight="114.0" prefWidth="204.0" spacing="10" style="-fx-padding: 10px;" stylesheets="@Stylesheet.css">
                                  <children>
                                     <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Credit Card 2" />
                                     <Label style="-fx-text-fill: white;" text="**** **** **** 5678" />
@@ -116,17 +116,6 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </VBox>
-                              <Button alignment="CENTER" onAction="#handleAddCard_btn" prefHeight="36.0" prefWidth="50.0" style="-fx-background-color: #D4A5A5;" stylesheets="@Stylesheet.css">
-                                 <graphic>
-                                    <FontAwesomeIconView glyphName="PLUS" />
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="plus_btn" />
-                                    <String fx:value="button-d" />
-                                    <String fx:value="text-field-jumpy" />
-                                 </styleClass>
-                              </Button>
-                              <Label text="add card" />
                            </children>
                         </HBox>
                      </children>
@@ -135,16 +124,16 @@
             </VBox>
             <VBox layoutX="36.0" layoutY="254.0" prefHeight="302.0" prefWidth="570.0">
                <children>
-                  <AnchorPane prefHeight="305.0" prefWidth="570.0">
+                  <AnchorPane prefHeight="305.0" prefWidth="570.0" style="-fx-border-color: linear-gradient(to bottom, #FFD700, #B8860B); -fx-border-style: solid; -fx-border-radius: 25px; -fx-background-color: #E0C9A4; -fx-background-radius: 25px; -fx-border-width: 2px;">
                      <children>
                         <Label layoutX="14.0" layoutY="14.0" text="Add New Account">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="60.0" layoutY="83.0" prefHeight="26.0" prefWidth="236.0" promptText="Bank Name" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
-                        <TextField layoutX="60.0" layoutY="147.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Name" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
-                        <TextField layoutX="60.0" layoutY="204.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Number" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
+                        <TextField layoutX="60.0" layoutY="83.0" prefHeight="26.0" prefWidth="236.0" promptText="Bank Name" style="-fx-background-color: #E6E6FA;" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
+                        <TextField layoutX="60.0" layoutY="147.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Name" style="-fx-background-color: #E6E6FA;" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
+                        <TextField layoutX="60.0" layoutY="204.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Number" style="-fx-background-color: #E6E6FA;" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
                         <Label layoutX="60.0" layoutY="53.0" text="Bank Name*" />
                         <Label layoutX="60.0" layoutY="121.0" text="Accountn Name*" />
                         <Label layoutX="60.0" layoutY="179.0" text="Accountn Number*" />

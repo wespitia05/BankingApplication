@@ -4,6 +4,7 @@
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -11,81 +12,148 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.withdrawalController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.withdrawalController">
     <left>
-        <AnchorPane prefHeight="600.0" prefWidth="148.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="558.0" prefWidth="148.0" BorderPane.alignment="CENTER">
             <children>
-                <Label contentDisplay="TOP" layoutX="25.0" layoutY="20.0" text="Unity Bank">
-                    <font>
-                        <Font name="Baskerville Old Face" size="20.0" />
-                    </font>
-                    <graphic>
-                        <FontAwesomeIconView glyphName="BANK" size="16" />
-                    </graphic>
-                </Label>
                 <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="573.0" size="30" text="" />
-            <AnchorPane prefHeight="600.0" prefWidth="148.0">
+            <AnchorPane layoutY="-3.0" prefHeight="579.0" prefWidth="148.0">
                <children>
-                  <VBox layoutX="11.0" layoutY="85.0" spacing="10" style="-fx-padding: 10px;">
+                  <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="18.0" layoutY="564.0" size="30" text="" />
+                   <Label fx:id="userFullName" layoutX="56.0" layoutY="554.0" />
+                  <VBox alignment="TOP_CENTER" layoutX="9.0" layoutY="82.0" prefHeight="370.0" prefWidth="130.0">
                      <children>
-                        <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Dashboard">
+                        <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Dashboard" textFill="#8ac2f7">
                            <graphic>
                               <FontAwesomeIconView glyphName="HOME" size="16" />
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="button-d" />
+                              <String fx:value="text-style" />
+                           </styleClass>
                         </Button>
-                        <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="My Cards">
+                        <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="My Cards">
                            <graphic>
                               <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="button-d" />
+                              <String fx:value="text-style" />
+                           </styleClass>
                         </Button>
-                        <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Transactions">
+                        <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Transactions">
                            <graphic>
                               <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
                            </graphic>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="button-d" />
+                              <String fx:value="text-style" />
+                           </styleClass>
                         </Button>
-                        <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Payments">
+                        <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Payments">
                            <graphic>
                               <FontAwesomeIconView glyphName="MONEY" size="16" />
                            </graphic>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="button-d" />
+                              <String fx:value="text-style" />
+                           </styleClass>
                         </Button>
-                        <Button onAction="#handlereports_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Reports">
+                        <Button onAction="#handlereports_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Reports">
                            <graphic>
-                              <FontAwesomeIconView glyphName="FILE" size="16" />
+                              <FontAwesomeIconView glyphName="LAPTOP" size="16" />
                            </graphic>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="button-d" />
+                              <String fx:value="text-style" />
+                           </styleClass>
                         </Button>
-                        <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Profiles">
+                        <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Profiles">
                            <graphic>
                               <FontAwesomeIconView glyphName="USER" size="16" />
                            </graphic>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="button-d" />
+                              <String fx:value="text-style" />
+                           </styleClass>
                         </Button>
-                        <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Settings">
+                        <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Settings">
                            <graphic>
                               <FontAwesomeIconView glyphName="GEAR" size="16" />
                            </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="button-d" />
+                              <String fx:value="text-style" />
+                           </styleClass>
                         </Button>
                      </children>
                   </VBox>
-                  <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="573.0" size="30" text="" />
-                   <Label fx:id="userFullName" layoutX="56.0" layoutY="554.0" />
+                  <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="18.0" layoutY="22.0" text="UNITY BANK" textFill="#5daff2">
+                     <font>
+                        <Font name="Baskerville Old Face" size="18.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#5daff2" glyphName="BANK" size="20" tabSize="11" text="" />
+                     </graphic>
+                  </Label>
                </children>
             </AnchorPane>
             </children>
+         <BorderPane.margin>
+            <Insets bottom="12.0" />
+         </BorderPane.margin>
         </AnchorPane>
     </left>
     <center>
         <AnchorPane prefHeight="600.0" prefWidth="683.0" BorderPane.alignment="CENTER">
             <children>
-                <VBox alignment="BOTTOM_CENTER" prefHeight="265.0" prefWidth="644.0" spacing="20">
-                    <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="644.0" style="-fx-font-size: 23px;" text="Withdraw Money From" />
+                <VBox alignment="CENTER" layoutX="-9.0" layoutY="6.0" prefHeight="447.0" prefWidth="644.0" spacing="20">
                     <HBox alignment="CENTER" spacing="10">
                         <Label text="Select Card:">
                      <font>
                         <Font size="16.0" />
                      </font></Label>
-                        <ComboBox fx:id="cardSelection" onAction="#handleSelection" prefWidth="202.0" promptText="Select Card">
+                        <ComboBox fx:id="cardSelection" onAction="#handleSelection" prefHeight="26.0" prefWidth="163.0" promptText="Select Card" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="Checking" />
@@ -98,54 +166,98 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
+                  <VBox.margin>
+                     <Insets bottom="20.0" />
+                  </VBox.margin>
                     </HBox>
                     <HBox alignment="CENTER" spacing="10">
-                        <Label text="Bank:">
+                        <Label contentDisplay="TOP" text="Bank:">
                      <font>
                         <Font size="16.0" />
-                     </font></Label>
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="50.0" />
+                     </HBox.margin></Label>
                   <TextField fx:id="bankField" prefHeight="35.0" prefWidth="173.0" promptText="Enter Bank">
                      <font>
                         <Font size="16.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </TextField>
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
                     </HBox>
                     <HBox alignment="CENTER" spacing="10">
                         <Label text="Account:">
                      <font>
                         <Font size="16.0" />
-                     </font></Label>
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="50.0" />
+                     </HBox.margin></Label>
                         <TextField fx:id="amountField" promptText="Enter Amount">
                      <font>
                         <Font size="16.0" />
                      </font></TextField>
+                  <VBox.margin>
+                     <Insets bottom="10.0" />
+                  </VBox.margin>
                     </HBox>
-                    <HBox alignment="CENTER" spacing="10">
-                        <Button onAction="#setAmount10" text="\$10">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Button>
-                        <Button onAction="#setAmount50" text="\$50">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Button>
-                        <Button onAction="#setAmount100" text="\$100">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Button>
-                        <Button onAction="#setAmount150" text="\$150">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-                        <Button onAction="#setAmount200" text="\$200">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
+                    <HBox alignment="CENTER" prefHeight="138.0" prefWidth="644.0" spacing="10">
+                  <children>
+                     <VBox prefHeight="136.0" prefWidth="254.0">
+                        <children>
+                           <HBox prefHeight="78.0" prefWidth="250.0">
+                              <children>
+                                       <Button onAction="#setAmount10" prefHeight="55.0" prefWidth="74.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="\$10">
+                                    <font>
+                                       <Font size="15.0" />
+                                    </font>
+                                 </Button>
+                                 <Button onAction="#setAmount50" prefHeight="55.0" prefWidth="74.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="\$50">
+                                    <font>
+                                       <Font size="15.0" />
+                                    </font>
+                                    <HBox.margin>
+                                       <Insets left="10.0" />
+                                    </HBox.margin>
+                                 </Button>
+                                 <Button onAction="#setAmount100" prefHeight="55.0" prefWidth="74.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="\$100">
+                                    <font>
+                                       <Font size="15.0" />
+                                    </font>
+                                    <HBox.margin>
+                                       <Insets left="10.0" />
+                                    </HBox.margin>
+                                 </Button>
+                              </children>
+                           </HBox>
+                           <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="78.0" prefWidth="250.0">
+                              <children>
+                                 <Button onAction="#setAmount150" prefHeight="55.0" prefWidth="74.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="\$150">
+                                    <font>
+                                       <Font size="15.0" />
+                                    </font>
+                                 </Button>
+                                 <Button onAction="#setAmount200" prefHeight="55.0" prefWidth="74.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="\$200">
+                                    <font>
+                                       <Font size="15.0" />
+                                    </font>
+                                    <HBox.margin>
+                                       <Insets left="10.0" />
+                                    </HBox.margin>
+                                 </Button>
+                              </children>
+                           </HBox>
+                        </children>
+                     </VBox>
+                  </children>
                     </HBox>
                 </VBox>
-                 <Button fx:id="withdrawalButton" alignment="CENTER" layoutX="258.0" layoutY="542.0" onAction="#handleWithdraw" text="Withdraw Funds">
+                 <Button fx:id="withdrawalButton" alignment="CENTER" layoutX="245.0" layoutY="481.0" onAction="#handleWithdraw" styleClass="button-d" stylesheets="@Stylesheet.css" text="Withdraw Funds">
                <font>
                   <Font size="16.0" />
                </font>
@@ -156,4 +268,15 @@
     <opaqueInsets>
         <Insets />
     </opaqueInsets>
+   <top>
+      <Pane prefHeight="30.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="338.0" layoutY="8.0" prefHeight="21.0" prefWidth="157.0" text="WITHDRAWL MONEY">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </top>
 </BorderPane>
