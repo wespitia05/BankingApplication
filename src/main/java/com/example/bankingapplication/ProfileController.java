@@ -46,31 +46,6 @@ public class ProfileController {
     @FXML
     private TextField zipCode_tf;
 
-    @FXML
-    private TextField newAddress_tf1;
-
-    @FXML
-    private TextField newBirthDate_tf1;
-
-    @FXML
-    private TextField newEmail_tf1;
-
-    @FXML
-    private TextField newName_tf1;
-
-    @FXML
-    private TextField newNumber_tf1;
-
-    @FXML
-    private TextField newUserName_tf1;
-
-    @FXML
-    private TextField newZipCode_tf1;
-    @FXML
-    private Button save_btn;
-
-    @FXML
-    private DialogPane updateDialog;
 
 
 

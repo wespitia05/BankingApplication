@@ -116,7 +116,7 @@
                   </TextField>
                </children>
             </VBox>
-            <Button fx:id="updateProfile_btn" layoutX="286.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleUpdateProfile_btn" prefHeight="33.0" prefWidth="129.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="Update Profile" />
+            <Button fx:id="updateProfile_btn" layoutX="289.0" layoutY="272.0" mnemonicParsing="false" onAction="#handleUpdateProfile_btn" prefHeight="33.0" prefWidth="129.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="Update Profile" />
             <Circle fill="DODGERBLUE" layoutX="37.0" layoutY="34.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
       </AnchorPane>

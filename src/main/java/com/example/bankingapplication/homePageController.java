@@ -238,6 +238,8 @@ public class homePageController extends loginController{
         Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
         myCardController controller = loader.getController();
 
+
+
         // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
         controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
