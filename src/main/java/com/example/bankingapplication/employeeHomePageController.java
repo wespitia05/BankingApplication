@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -179,7 +180,7 @@ public class employeeHomePageController extends employeeLoginController {
                         Platform.runLater(() -> setEmployeeName(storedFirstName, storedLastName));
                     }
                 } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace(); // or more sophisticated error handling
+                    e.printStackTrace();
                 }
             }, Executors.newSingleThreadExecutor());
         }
@@ -261,7 +262,6 @@ public class employeeHomePageController extends employeeLoginController {
         TextField cardNumField = new TextField(selectedUser.getCardNum());
         TextField cardExpField = new TextField(selectedUser.getCardExp());
         TextField cardCVVField = new TextField(selectedUser.getCardCVV());
-        // Add fields for other userInfo properties as needed
 
         grid.add(new Label("First Name:"), 0, 0);
         grid.add(firstNameField, 1, 0);
@@ -287,7 +287,6 @@ public class employeeHomePageController extends employeeLoginController {
         grid.add(cardExpField, 1, 10);
         grid.add(new Label("Card CVV:"), 0, 11);
         grid.add(cardCVVField, 1, 11);
-        // Add other fields to the grid
 
         dialog.getDialogPane().setContent(grid);
         Platform.runLater(firstNameField::requestFocus);
@@ -318,15 +317,7 @@ public class employeeHomePageController extends employeeLoginController {
             updateCustomerTV(newUserInfo);
             updateCustomerInFirestore(newUserInfo);
         });
-
     }
-    // merge test
-    // merge test 2
-    // williams branch test 1
-    // lets see if it works
-
-
-    //it works lets try pushing it
 
     private void updateCustomerTV(userInfoDisplay updatedUser) {
         int index = userInfoTV.getItems().indexOf(userInfoTV.getSelectionModel().getSelectedItem());
@@ -377,7 +368,6 @@ public class employeeHomePageController extends employeeLoginController {
         }
     }
 
-
     private void deleteCustomerFromFirestore(String id) {
         if (id == null || id.isEmpty()) {
             System.out.println("Invalid document ID");
@@ -413,7 +403,7 @@ public class employeeHomePageController extends employeeLoginController {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
+        grid.setPadding(new Insets(20, 100, 10, 10));
 
         Label firstName = new Label(selectedUser.getFirstName());
         Label lastName = new Label(selectedUser.getLastName());
@@ -442,35 +432,126 @@ public class employeeHomePageController extends employeeLoginController {
         grid.add(username,1,5);
         grid.add(new Label("Password:"),0,6);
         grid.add(password,1,6);
-        grid.add(new Label("Checking:"),0,7);
-        grid.add(checking,1,7);
-        grid.add(new Label("Savings:"),0,8);
-        grid.add(savings,1,8);
-        grid.add(new Label("Card Number:"), 0, 9);
-        grid.add(cardNum, 1, 9);
-        grid.add(new Label("Card Expiration Date:"), 0, 10);
-        grid.add(cardExp, 1, 10);
-        grid.add(new Label("Card CVV:"), 0, 11);
-        grid.add(cardCVV, 1, 11);
+        grid.add(new Label("Checking:"),2,0);
+        grid.add(checking,3,0);
+        grid.add(new Label("Savings:"),2,1);
+        grid.add(savings,3,1);
+        grid.add(new Label("Card Number:"), 2, 2);
+        grid.add(cardNum, 3, 2);
+        grid.add(new Label("Card Expiration Date:"), 2, 3);
+        grid.add(cardExp, 3, 3);
+        grid.add(new Label("Card CVV:"), 2, 4);
+        grid.add(cardCVV, 3, 4);
 
         dialog.getDialogPane().setContent(grid);
 
         ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-        ButtonType editButton = new ButtonType("Edit", ButtonBar.ButtonData.OTHER);
+        ButtonType editButton = new ButtonType("Edit Customer", ButtonBar.ButtonData.OTHER);
+        ButtonType addTransactionButton = new ButtonType("Add Transaction", ButtonBar.ButtonData.OTHER);
         ButtonType exitButton = new ButtonType("Exit", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        dialog.getDialogPane().getButtonTypes().addAll(okButton, editButton, exitButton);
+        dialog.getDialogPane().getButtonTypes().addAll(okButton, editButton);
+        dialog.getDialogPane().getButtonTypes().addAll(addTransactionButton, exitButton);
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == editButton) {
                 handleEditCustomerButton();
             } else if (dialogButton == exitButton) {
                 dialog.close();
+            } else if (dialogButton == addTransactionButton) {
+                handleAddTransactionButton();
             }
             return null;
         });
 
         dialog.showAndWait();
+    }
+
+    public void handleAddTransactionButton () {
+        System.out.println("handleAddTransactionButton");
+
+        userInfoDisplay selectedUser = userInfoTV.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            System.out.println("no user selected to add transaction to");
+            return;
+        }
+
+        Dialog<transactionInfoDisplay> dialog = new Dialog<>();
+        dialog.setTitle("Add New Transaction");
+        dialog.setHeaderText("Enter the details of the new transaction");
+
+        ButtonType addButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField nameField = new TextField();
+        ComboBox<String> categoryComboBox = new ComboBox<>();
+        categoryComboBox.getItems().addAll("Food", "Bills", "Entertainment", "Health", "Streaming", "Retail", "Groceries", "Transportation");
+        TextField amountField = new TextField();
+        DatePicker datePicker = new DatePicker();
+
+        grid.add(new Label("Name:"), 0, 0);
+        grid.add(nameField, 1, 0);
+        grid.add(new Label("Category:"), 0, 1);
+        grid.add(categoryComboBox, 1, 1);
+        grid.add(new Label("Amount:"), 0, 2);
+        grid.add(amountField, 1, 2);
+        grid.add(new Label("Date:"), 0, 3);
+        grid.add(datePicker, 1, 3);
+
+        dialog.getDialogPane().setContent(grid);
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == addButtonType) {
+                String formattedDate = datePicker.getValue().format(dateFormatter);
+                return new transactionInfoDisplay(
+                        nameField.getText(),
+                        categoryComboBox.getValue(),
+                        amountField.getText(),
+                        formattedDate
+                );
+            }
+            return null;
+        });
+
+        Optional<transactionInfoDisplay> result = dialog.showAndWait();
+        result.ifPresent(newTransaction -> {
+            updateTransactionTV(newTransaction);
+            addTransactionToFirestore(newTransaction, selectedUser.getUsername());
+        });
+    }
+
+    private void updateTransactionTV(transactionInfoDisplay newTransaction) {
+        ObservableList<transactionInfoDisplay> currentData = transactionTV.getItems();
+        currentData.add(newTransaction);
+        transactionTV.setItems(currentData);
+    }
+
+    private void addTransactionToFirestore(transactionInfoDisplay newTransaction, String username) {
+        DocumentReference userDocRef = main.fstore.collection("userinfo").document(username);
+        CollectionReference transactionsRef = userDocRef.collection("transactions");
+
+        Map<String, Object> transactionData = new HashMap<>();
+        transactionData.put("Name", newTransaction.getName());
+        transactionData.put("Category", newTransaction.getCategory());
+        transactionData.put("Amount", newTransaction.getAmount());
+        transactionData.put("Date", newTransaction.getDate()); // Ensure the date format is consistent with your database
+
+        ApiFuture<DocumentReference> future = transactionsRef.add(transactionData);
+        future.addListener(() -> {
+            try {
+                DocumentReference docRef = future.get();
+                System.out.println("Transaction added with ID: " + docRef.getId());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
     }
 
     public void handleViewTransactionsButton() {
@@ -581,7 +662,7 @@ public class employeeHomePageController extends employeeLoginController {
 
         future.addListener(() -> {
             try {
-                QuerySnapshot querySnapshot = future.get(); // Retrieve the query results
+                QuerySnapshot querySnapshot = future.get();
                 Map<String, Double> categoryTotals = new HashMap<>();
                 double totalSpent = 0;
 
@@ -611,18 +692,15 @@ public class employeeHomePageController extends employeeLoginController {
         PieChart pieChart = new PieChart(pieChartData);
         pieChart.setTitle("Spending Percentage");
 
-        // Create a Dialog
         Dialog<Void> dialog = new Dialog<>();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(stg); // Make sure 'stg' is your primary stage, passed or accessible here
+        dialog.initOwner(stg);
         dialog.setTitle("Spending Pie Chart");
 
-        // Set the Pie Chart as the content of the dialog
         DialogPane dialogPane = new DialogPane();
         dialogPane.setContent(pieChart);
         dialog.setDialogPane(dialogPane);
 
-        // Add a close button
         ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialogPane.getButtonTypes().add(closeButton);
 
