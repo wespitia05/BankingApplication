@@ -27,9 +27,13 @@ public class myCardController extends homePageController{
     @FXML
     private TextField name_TF;
     @FXML
-    private Label userFullName;
+    private Label userFullName;  //label next ot the circle
+    @FXML
+    private Label cardNumLabel;  //in card one
+    @FXML
+    private Label cardExpLabel; //in card one
 
-    // Event Handlers for the Sidebar Buttons
+    /////////////////////////// Event Handlers for the Sidebar Buttons/////////////////////////
     @FXML
     private void handledashBoard_btn(ActionEvent event) throws IOException {
         System.out.println("Dashboard clicked");
@@ -43,6 +47,8 @@ public class myCardController extends homePageController{
 
         // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName(), userInfo.getLastName());
+        controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        controller.setCardExp(userInfo.getCardExp());
         controller.updateCheckingBalanceInFirestore(Double.parseDouble(userInfo.getChecking()));
         controller.updateSavingsBalanceInFirestore(Double.parseDouble(userInfo.getSavings()));
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
@@ -93,9 +99,6 @@ public class myCardController extends homePageController{
     @FXML
     private void handleAddCard_btn(ActionEvent event) throws IOException {
         System.out.println("Add Card clicked");
-
-        System.out.println("Dashboard clicked");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addAccount.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -110,9 +113,19 @@ public class myCardController extends homePageController{
     }
 
     @FXML
-    private void handleWithdrawl_btn(ActionEvent event) {
+    private void handleWithdrawl_btn(ActionEvent event)throws IOException {
         System.out.println("Withdrawal clicked");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("withdrawal.fxml"));
+
+
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
+
+
 
     @FXML
     private void handleTransfer_btn(ActionEvent event) {
@@ -124,8 +137,13 @@ public class myCardController extends homePageController{
         System.out.println("History clicked");
     }
 
+    /////////////////////////// Event Handlers for the Sidebar Buttons/////////////////////////
+
+
     // Initialization method
     public void initialize() {
         userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
+        cardNumLabel.setText("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        cardExpLabel.setText(userInfo.getCardExp());
     }
 }
