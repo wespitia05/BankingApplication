@@ -101,7 +101,7 @@
     -fx-font-size: 8rem;
 }
 
-/*for the menu button-- helps show side bar*/
+
 .button-menu{
     -fx-padding: 10px;
     -fx-border-radius: 10px;
@@ -118,7 +118,7 @@
 
 
 
-/*this is for text fields in the homePage giving it a pop-up style*/
+/*this is for text fields*/
 
 .text-fieldlook {
     -fx-effect: dropshadow(gaussian, rgba(255, 255, 224, 0.5), 15, 0.0, 0, 4); /* Bright white-yellow shadow with medium opacity */
@@ -140,7 +140,7 @@
 
 
 
-/*experimenting with cool text field style, gives it a jumpy effect, looks nice*/
+/*experimenting with cool text field style*/
 .text-field-jumpy {
     -fx-background-color: linear-gradient(to bottom, #ffffff, #e0e0e0); /* Gradient for background */
     -fx-background-radius: 5px; /* Rounded corners */
@@ -158,6 +158,7 @@
 }
 
 /*experimenting with my card pane*/
+
 .myCard_pane_coolBorder {
     -fx-background-color: #E4B16D, linear-gradient(to bottom, #FFFFFF 10%, rgba(0, 0, 0, 0.1) 90%); /* Background color with light dark shadows */
     -fx-border-color: #C1C1C1, #A8DFF2; /* Border color with light effect */
