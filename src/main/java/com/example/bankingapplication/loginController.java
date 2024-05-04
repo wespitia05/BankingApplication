@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -30,6 +32,9 @@ public class loginController {
     private Button showPasswordButton;
     @FXML
     private Label showPassword;
+    @FXML
+    private Label userFullName;
+
     private boolean passwordVisible = false;
     String firstName;
     String lastName;
@@ -88,6 +93,10 @@ public class loginController {
                 userInfo.setCardNum(document.getString("Card Number"));
                 userInfo.setCardExp(document.getString("Card Expiration Date"));
                 userInfo.setCardCVV(document.getString("Card CVV"));
+                transactionsInfo.setName(document.getString("Name"));
+                transactionsInfo.setCategory(document.getString("Category"));
+                transactionsInfo.setAmount(document.getString("Amount"));
+                transactionsInfo.setDate(document.getString("Date"));
 
                 // Retrieve the first name associated with the username
 
@@ -99,6 +108,8 @@ public class loginController {
                 homeController.setCardNum(cardNum);
                 homeController.setCardExp(cardExp);
                 stg.getScene().setRoot(root);
+
+
             } else {
                 System.out.println("Password Incorrect");
                 incorrectPasswordAlert();
