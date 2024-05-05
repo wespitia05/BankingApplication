@@ -9,15 +9,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.transactionController">
     <left>
@@ -141,71 +136,21 @@
     <center>
         <AnchorPane prefHeight="600.0" prefWidth="683.0" BorderPane.alignment="CENTER">
             <children>
-            <HBox layoutX="12.0" layoutY="163.0" prefHeight="49.0" prefWidth="612.0">
-               <children>
-                  <Pane prefHeight="64.0" prefWidth="186.0">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <children>
-                        <Text layoutX="67.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payments" textAlignment="CENTER" />
-                        <Label layoutX="67.0" layoutY="22.0" text="\$7,600.00">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="46.0" fitWidth="66.0" layoutX="7.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Wallet.png" />
-                           </image></ImageView>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </Pane>
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="186.0">
-                     <children>
-                        <ImageView fitHeight="42.0" fitWidth="50.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Request.png" />
-                           </image></ImageView>
-                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Requests" textAlignment="CENTER" />
-                        <Label layoutX="48.0" layoutY="22.0" text="\$500.00">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="64.0" prefWidth="186.0">
-                     <children>
-                        <ImageView fitHeight="36.0" fitWidth="53.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Subscription.png" />
-                           </image></ImageView>
-                        <Text layoutX="58.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriptions" textAlignment="CENTER" />
-                        <Label layoutX="58.0" layoutY="22.0" text="\$458.00">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </children></HBox>
-                <TableView layoutX="12.0" layoutY="223.0" prefHeight="331.0" prefWidth="613.0">
-                    <columns>
-                        <TableColumn fx:id="nameCol" prefWidth="190.0" text="Name" />
-                        <TableColumn fx:id="categoryCol" prefWidth="177.0" text="Category" />
-                  <TableColumn fx:id="costCol" prefWidth="135.0" text="Cost" />
-                  <TableColumn fx:id="dateCol" prefWidth="110.0" text="Date" />
-                    </columns>
-                </TableView>
             <Label layoutX="26.0" layoutY="40.0" text="Transaction Summary">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
             <ChoiceBox fx:id="myChoiceBox" layoutX="26.0" layoutY="77.0" prefHeight="27.0" prefWidth="185.0" />
+                <TableView fx:id="transactionTable" layoutY="236.0" prefHeight="331.0" prefWidth="651.0">
+                    <columns>
+                        <TableColumn fx:id="itemName_COL" prefWidth="190.0" text="Name" />
+                        <TableColumn fx:id="categoryCol" prefWidth="177.0" text="Category" />
+                  <TableColumn fx:id="costCol" prefWidth="135.0" text="Cost" />
+                  <TableColumn fx:id="dateCol" prefWidth="110.0" text="Date" />
+                    </columns>
+                </TableView>
+            <Button fx:id="addTranactions_btn" layoutX="389.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleAddTranactions_btn" text="Add Tranactions" />
             </children>
         </AnchorPane>
     </center>
