@@ -141,7 +141,7 @@ public class createAcct2Controller extends createAcctController {
     }
 
     private boolean isValidPhoneNumber(String phoneNumber) {
-        if (!phoneNumber.matches("\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d") || phoneNumber.isEmpty()) {
+        if (!phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}") || phoneNumber.isEmpty()) {
             return false;
         }
         return true;
