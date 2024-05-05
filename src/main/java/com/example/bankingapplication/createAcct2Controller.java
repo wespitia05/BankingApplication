@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Random;
 
 import static com.example.bankingapplication.main.addDataToDB;
@@ -133,13 +134,17 @@ public class createAcct2Controller extends createAcctController {
     }
 
     private boolean isValidEmail(String email) {
-        String expectedEmail = lastName.toLowerCase() + firstName.substring(0, 1).toLowerCase() + "@unitybank.com";
-        return email.equalsIgnoreCase(expectedEmail);
+        if (!email.matches(lastName.toLowerCase() + firstName.substring(0, 1).toLowerCase() + "@unitybank.com") || email.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     private boolean isValidPhoneNumber(String phoneNumber) {
-        String regex = "^\\d{3}-\\d{3}-\\d{4}$";
-        return phoneNumber.matches(regex);
+        if (!phoneNumber.matches("\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d") || phoneNumber.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     private String generateCardNumber() {

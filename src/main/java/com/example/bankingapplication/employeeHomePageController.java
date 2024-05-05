@@ -733,7 +733,6 @@ public class employeeHomePageController extends employeeLoginController {
         ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialogPane.getButtonTypes().add(closeButton);
 
-        // Show dialog
         dialog.showAndWait();
     }
 
