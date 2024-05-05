@@ -2,21 +2,27 @@ package com.example.bankingapplication;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import com.google.firebase.cloud.FirestoreClient;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
@@ -91,15 +97,82 @@ public class transactionController {
 
 
     @FXML
-    void handleAddTranactions_btn(ActionEvent event) throws IOException {
-        System.out.println("Add Transaction clicked");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addingTranactions.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+    void handleAddTranactions_btn(ActionEvent event) {
+        Dialog<transactionInfoDisplay> dialog = new Dialog<>();
+        dialog.setTitle("Add New Transaction");
+        dialog.setHeaderText("Enter the details of the new transaction");
 
+        ButtonType addButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField nameField = new TextField();
+        ComboBox<String> categoryComboBox = new ComboBox<>();
+        categoryComboBox.getItems().addAll("Food", "Bills", "Entertainment", "Health", "Streaming", "Retail", "Groceries", "Transportation");
+        TextField amountField = new TextField();
+        DatePicker datePicker = new DatePicker();
+
+        grid.add(new Label("Name:"), 0, 0);
+        grid.add(nameField, 1, 0);
+        grid.add(new Label("Category:"), 0, 1);
+        grid.add(categoryComboBox, 1, 1);
+        grid.add(new Label("Amount:"), 0, 2);
+        grid.add(amountField, 1, 2);
+        grid.add(new Label("Date:"), 0, 3);
+        grid.add(datePicker, 1, 3);
+
+        dialog.getDialogPane().setContent(grid);
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == addButtonType) {
+                String formattedDate = datePicker.getValue().format(dateFormatter);
+                transactionInfoDisplay newTransaction = new transactionInfoDisplay(
+                        nameField.getText(),
+                        categoryComboBox.getValue(),
+                        amountField.getText(),
+                        formattedDate
+                );
+                addTransactionToDatabase(newTransaction);  // Method to add transaction to Firestore and update the TableView
+                return newTransaction;
+            }
+            return null;
+        });
+
+        dialog.showAndWait();
+    }
+
+    private void addTransactionToDatabase(transactionInfoDisplay transaction) {
+        // Create a new transaction map to store the data
+        Map<String, Object> transactionData = new HashMap<>();
+        transactionData.put("Name", transaction.getName());
+        transactionData.put("Category", transaction.getCategory());
+        transactionData.put("Amount", transaction.getAmount());
+        transactionData.put("Date", transaction.getDate());
+
+        // Get the Firestore instance and prepare to add a new document
+        Firestore db = FirestoreClient.getFirestore(); // Ensure Firestore is correctly initialized
+        ApiFuture<DocumentReference> future = db.collection("userinfo").document(username)
+                .collection("transactions").add(transactionData);
+
+        // Asynchronously handle the completion of the transaction addition
+        future.addListener(() -> {
+            try {
+                DocumentReference docRef = future.get(); // This blocks on the response
+                Platform.runLater(() -> {
+                    transactionTable.getItems().add(transaction); // Update the TableView
+                    System.out.println("Transaction added with ID: " + docRef.getId());
+                });
+            } catch (InterruptedException | ExecutionException e) {
+                System.err.println("Error adding transaction: " + e.getMessage());
+                Thread.currentThread().interrupt(); // Handle interrupted exception
+            }
+        }, Executors.newSingleThreadExecutor()); // Executor service to handle the future resolution
     }
 
     @FXML

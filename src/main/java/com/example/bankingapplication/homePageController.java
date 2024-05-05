@@ -190,7 +190,7 @@ public class homePageController extends loginController{
                         String dob = document.getString("Date of Birth");
                         String zipCode = document.getString("Zip Code");
                         String address = document.getString("Address");
-                        String number = document.getString("number");
+                        String number = document.getString("Number");
                         String firstName = document.getString("First Name");
                         String lastName = document.getString("Last Name");
 
