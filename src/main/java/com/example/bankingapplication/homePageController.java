@@ -273,8 +273,18 @@ public class homePageController extends loginController{
 
 
     @FXML
-    private void handlepayment_btn(ActionEvent event) {
-        System.out.println("Payments clicked");
+    private void handlepayment_btn(ActionEvent event) throws IOException {
+        System.out.println("Payment clicked");
+
+        // Load the FXML file and get the root and controller for the transactions view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("paymentDeposit.fxml"));
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+
+        // Set the scene on the current stage
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

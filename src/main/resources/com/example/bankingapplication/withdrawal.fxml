@@ -191,7 +191,7 @@
                   </VBox.margin>
                     </HBox>
                     <HBox alignment="CENTER" spacing="10">
-                        <Label text="Account:">
+                        <Label text="Amount:">
                      <font>
                         <Font size="16.0" />
                      </font>
