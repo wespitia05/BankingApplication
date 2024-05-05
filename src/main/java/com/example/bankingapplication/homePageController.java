@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+
 public class homePageController extends loginController{
 
     //btn = button--- // TF = text Field
@@ -104,6 +105,19 @@ public class homePageController extends loginController{
 
         sideBar.setTranslateX(-176);
 
+        savings_TF.setText(userInfo.getSavings());
+
+        //sliding menu bar
+        slider();
+
+//
+
+    }
+
+    //method to make the menu slide
+    public void slider(){
+        sideBar.setTranslateX(-176);
+
         menu.setOnMouseClicked(event -> {
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.4));
@@ -139,6 +153,8 @@ public class homePageController extends loginController{
 
             slide.play();
         });
+
+
     }
 
     // Method to add animation to a TextField
@@ -302,7 +318,7 @@ public class homePageController extends loginController{
         System.out.println("Settings clicked");
     }
 
-    // this code is for the Checking button
+    // this code is for the Checking button///////////////////////////////handlers
     @FXML
     public void handleSave_btn(ActionEvent event) {   ///updates your checking balance
 
@@ -540,6 +556,15 @@ public class homePageController extends loginController{
         scaleTransition.play();
     }
 
+
+
+
+
+
+
+
+    ///////////////////////////// pie chart /////////////////////////////
+
     public void fetchAndDisplaySpendingPercentage() {
         DocumentReference userDocRef = main.fstore.collection("userinfo").document(username);
         ApiFuture<QuerySnapshot> future = userDocRef.collection("transactions").get();
@@ -556,11 +581,11 @@ public class homePageController extends loginController{
                     categoryTotals.put(category, categoryTotals.getOrDefault(category, 0.0) + amount);
                     totalSpent += amount;
                 }
-
+//////use for the transactions page
                 double finalTotalSpent = totalSpent;
                 Platform.runLater(() -> {
-                    Color[] colors = generateSmoothColors(categoryTotals.size());
-                    displayPieChart(categoryTotals, finalTotalSpent, colors);
+                    displayPieChart(categoryTotals, finalTotalSpent);
+                    addLegend(categoryTotals); // Call addLegend method after displaying the pie chart
                     Map<String, Double> spendingPercentage = calculateSpendingPercentage(categoryTotals, finalTotalSpent);
                     displaySpendingPercentage(spendingPercentage);
                 });
@@ -571,7 +596,7 @@ public class homePageController extends loginController{
         }, Executors.newSingleThreadExecutor());
     }
 
-    public void displayPieChart(Map<String, Double> categoryTotals, double totalSpent, Color[] colors) {
+    public void displayPieChart(Map<String, Double> categoryTotals, double totalSpent) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         int colorIndex = 0;
@@ -580,7 +605,7 @@ public class homePageController extends loginController{
             double sum = entry.getValue();
             double percentage = (sum / totalSpent) * 100;
             PieChart.Data data = new PieChart.Data(category + String.format(" (%.1f%%)", percentage), sum);
-            //data.setFill(colors[colorIndex % colors.length]); // Set the fill color
+            Node node = data.getNode();
             pieChartData.add(data);
             colorIndex++;
         }
@@ -589,9 +614,11 @@ public class homePageController extends loginController{
         pieChart.setTitle("Spending Percentage");
     }
 
+
+
     // Method to add legend to the pie chart
     // Method to add legend to the pie chart
-    private void addLegend(Map<String, Double> categoryTotals, Color[] colors) {
+    private void addLegend(Map<String, Double> categoryTotals) {
         // Clear existing legend items
         legend1.setText("");
         legend2.setText("");
@@ -601,30 +628,30 @@ public class homePageController extends loginController{
         // Create legend items for each category
         int labelIndex = 1;
         int colorIndex = 0;
-        for (String category : categoryTotals.keySet()) {
+        double totalSpent = categoryTotals.values().stream().mapToDouble(Double::doubleValue).sum();
+
+        for (Map.Entry<String, Double> entry : categoryTotals.entrySet()) {
             if (labelIndex > 4) {
                 // You can add additional handling here if you have more categories
                 break;
             }
-            Color color = colors[colorIndex % colors.length]; // Use a consistent color for each category
+            String category = entry.getKey();
+            double sum = entry.getValue();
+            double percentage = (sum/ totalSpent) * 100;
 
             // Set category as text for the label
             switch (labelIndex) {
                 case 1:
                     legend1.setText(category);
-                    legend1.setTextFill(color);
                     break;
                 case 2:
                     legend2.setText(category);
-                    legend2.setTextFill(color);
                     break;
                 case 3:
                     legend3.setText(category);
-                    legend3.setTextFill(color);
                     break;
                 case 4:
                     legend4.setText(category);
-                    legend4.setTextFill(color);
                     break;
             }
             labelIndex++;
@@ -632,14 +659,7 @@ public class homePageController extends loginController{
         }
     }
 
-    // Method to generate smooth colors
-    private Color[] generateSmoothColors(int numColors) {
-        Color[] colors = new Color[numColors];
-        for (int i = 0; i < numColors; i++) {
-            colors[i] = Color.hsb(0, 1, (double) i / numColors);
-        }
-        return colors;
-    }
+
 //calculatingSpendingPercentage
     private Map<String, Double> calculateSpendingPercentage(Map<String, Double> categoryTotals, double totalSpent) {
         Map<String, Double> spendingPercentage = new HashMap<>();
@@ -669,6 +689,7 @@ public class homePageController extends loginController{
             }
             String category = entry.getKey();
             double percentage = entry.getValue();
+
 
             // Set category and percentage as text for the label
             switch (labelIndex) {

@@ -319,9 +319,9 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                            <children>
-                              <TextField fx:id="savings_TF" alignment="CENTER" layoutX="17.0" layoutY="21.0" opacity="0.0" prefHeight="69.0" prefWidth="111.0" promptText="Savings">
+                              <TextField fx:id="savings_TF" alignment="CENTER" editable="false" layoutX="17.0" layoutY="21.0" prefHeight="69.0" prefWidth="111.0" style="-fx-border-color: transparent; -fx-background-color: transparent;" text="savings">
                                  <font>
-                                    <Font size="8.0" />
+                                    <Font size="38.0" />
                                  </font>
                               </TextField>
                               <Label layoutX="44.0" layoutY="8.0" text="Savings" textFill="#454545">
@@ -389,7 +389,7 @@
             </VBox>
             <AnchorPane layoutX="8.0" layoutY="360.0" prefHeight="206.0" prefWidth="360.0">
                <children>
-                  <VBox prefHeight="148.0" prefWidth="219.0">
+                  <VBox prefHeight="150.0" prefWidth="298.0">
                      <children>
                         <PieChart fx:id="pieChart" prefHeight="166.0" prefWidth="243.0" stylesheets="@Stylesheet.css" title="PieChart" />
                      </children>
@@ -403,31 +403,31 @@
                                     <Insets left="20.0" top="10.0" />
                                  </padding>
                                  <font>
-                                    <Font size="15.0" />
+                                    <Font size="11.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="legend2" layoutX="84.0" layoutY="-4.0" prefHeight="42.0" prefWidth="100.0" text="Label" textFill="#f7ebeb">
+                              <Label fx:id="legend2" layoutX="84.0" layoutY="-4.0" prefHeight="42.0" prefWidth="142.0" text="Label" textFill="#f7ebeb">
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                                  <font>
-                                    <Font size="15.0" />
+                                    <Font size="11.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="legend3" layoutX="172.0" layoutY="-4.0" prefHeight="42.0" prefWidth="97.0" text="Label" textFill="#f7ebeb">
+                              <Label fx:id="legend3" layoutX="200.0" layoutY="-4.0" prefHeight="42.0" prefWidth="97.0" text="Label" textFill="#f7ebeb">
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                                  <font>
-                                    <Font size="15.0" />
+                                    <Font size="11.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="legend4" layoutX="267.0" layoutY="-4.0" prefHeight="42.0" prefWidth="109.0" text="Label" textFill="#f7ebeb">
+                              <Label fx:id="legend4" layoutX="278.0" layoutY="-4.0" prefHeight="42.0" prefWidth="109.0" text="Label" textFill="#f7ebeb">
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                                  <font>
-                                    <Font size="15.0" />
+                                    <Font size="11.0" />
                                  </font>
                               </Label>
                            </children>

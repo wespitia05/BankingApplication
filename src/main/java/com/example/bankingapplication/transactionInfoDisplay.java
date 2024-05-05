@@ -15,8 +15,8 @@ public class transactionInfoDisplay {
     }
 
     public transactionInfoDisplay(String category, String amount) {
-        transactionsInfo.category = category;
-        transactionsInfo.amount = amount;
+        this.category = category;
+        this.amount = amount;
     }
 
     public String getName() {

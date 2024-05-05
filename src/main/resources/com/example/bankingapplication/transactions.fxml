@@ -150,6 +150,7 @@
                   <TableColumn fx:id="dateCol" prefWidth="110.0" text="Date" />
                     </columns>
                 </TableView>
+            <Button fx:id="addTranactions_btn" layoutX="389.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleAddTranactions_btn" text="Add Tranactions" />
             </children>
         </AnchorPane>
     </center>
