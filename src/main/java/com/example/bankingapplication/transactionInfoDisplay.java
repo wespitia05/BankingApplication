@@ -6,11 +6,17 @@ public class transactionInfoDisplay {
     private String amount;
     private String date;
 
+
     public transactionInfoDisplay(String name, String category, String amount, String date) {
         this.name = name;
         this.category = category;
         this.amount = amount;
         this.date = date;
+    }
+
+    public transactionInfoDisplay(String category, String amount) {
+        transactionsInfo.category = category;
+        transactionsInfo.amount = amount;
     }
 
     public String getName() {

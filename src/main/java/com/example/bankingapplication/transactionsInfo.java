@@ -7,7 +7,12 @@ public class transactionsInfo {
     static String amount;
     static String date;
 
-    private transactionsInfo () {}
+    //working on transactionController
+
+    private transactionsInfo () {
+
+    }
+
 
     public static synchronized transactionsInfo getInstance() {
         if (instance == null) {
@@ -22,6 +27,7 @@ public class transactionsInfo {
         transactionsInfo.amount = amount;
         transactionsInfo.date = date;
     }
+
 
     public static String getName() {
         return name;
