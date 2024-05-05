@@ -13,11 +13,14 @@ public class userInfoDisplay {
     private String cardNum;
     private String cardExp;
     private String cardCVV;
+    private String email;
+    private String number;
     private String id;
 
 
     public userInfoDisplay(String firstName, String lastName, String dob, String username, String password, String checking,
-                           String savings, String address, String zipCode, String cardNum, String cardExp, String cardCVV, String id) {
+                           String savings, String address, String zipCode, String cardNum, String cardExp, String cardCVV,
+                           String email, String number, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
@@ -30,6 +33,8 @@ public class userInfoDisplay {
         this.cardNum = cardNum;
         this.cardExp = cardExp;
         this.cardCVV = cardCVV;
+        this.email = email;
+        this.number = number;
         this.id = id;
     }
 
@@ -135,5 +140,21 @@ public class userInfoDisplay {
 
     public void setCardCVV(String cardCVV) {
         this.cardCVV = cardCVV;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }
