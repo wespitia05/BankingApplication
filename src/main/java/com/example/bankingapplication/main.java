@@ -35,33 +35,32 @@ public class main extends Application {
         stage.show();
         //Branch test 1 is it working
 
-        //addDataToDB("John", "Wick", "23 Dog Ave", "45674", "12/25/86", "wickj", "dog86", "5000", "6000", "2233445566777098", "08/26", "546");
+       //addDataToDB("John", "Wick", "23 Dog Ave", "45674", "12/25/86", "wickj", "dog86", "5000", "6000", "2233445566777098", "08/26", "546", "wickj@unitybank.com", "631-234-4567");
             //addTransactionToUser("wickj", "Netflix", "Streaming", "15", "04/15/24");
             //addTransactionToUser("wickj", "Hulu", "Streaming", "13", "04/15/24");
             //addTransactionToUser("wickj", "Taco Bell", "Food", "12", "04/13/24");
             //addTransactionToUser("wickj", "Gucci", "Retail", "400", "04/02/24");
             //addTransactionToUser("wickj", "Mortgage", "Bills", "2400", "04/01/24");
             //addTransactionToUser("wickj", "Uber", "Transportation", "25", "04/23/24");
-        //addDataToDB("Jason", "Bourne", "45 Memory Ave", "23145", "04/14/85", "bournej", "identity85", "4500", "2300", "2233445566773297", "09/26", "921");
+        //addDataToDB("Jason", "Bourne", "45 Memory Ave", "23145", "04/14/85", "bournej", "identity85", "4500", "2300", "2233445566773297", "09/26", "921", "bournej@unitybank.com", "631-895-9340");
             //addTransactionToUser("bournej", "Paramount+", "Streaming", "15", "04/12/24");
             //addTransactionToUser("bournej", "Target", "Retail", "55", "04/20/24");
             //addTransactionToUser("bournej", "Texas Roadhouse", "Food", "35", "03/24/24");
             //addTransactionToUser("bournej", "Costco", "Groceries", "200", "03/29/24");
             //addTransactionToUser("bournej", "Rent", "Bills", "1400", "04/01/24");
             //addTransactionToUser("bournej", "Verizon", "Bills", "50", "04/01/24");
-        //addDataToDB("Jack", "Sparrow", "1 Black Pearl Ave", "79405", "05/06/79", "sparrowj", "rum79", "1250", "1000", "2233445566770546", "04/26", "567");
+        //addDataToDB("Jack", "Sparrow", "1 Black Pearl Ave", "79405", "05/06/79", "sparrowj", "rum79", "1250", "1000", "2233445566770546", "04/26", "567", "sparrowj@unitybank.com", "631-243-4564");
             //addTransactionToUser("sparrowj", "Liquor Store", "Food", "90", "03/20/24");
             //addTransactionToUser("sparrowj", "Walmart", "Retail", "100", "03/20/24");
             //addTransactionToUser("sparrowj", "AT&T", "Bills", "60", "04/01/24");
             //addTransactionToUser("sparrowj", "Applebees", "Food", "60", "04/12/24");
             //addTransactionToUser("sparrowj", "Regal Cinemas", "Entertainment", "40", "04/09/24");
-        //addDataToDB("Joe", "Santagato", "55 Basement Ave", "11256", "04/18/91", "santagatoj", "basement91", "3000", "1700", "2233445566771907", "02/26", "435");
-            //addTransactionToUser("santagatoj", "AMC", "Entertainment", "40", "03/30/24");
-            //addTransactionToUser("santagatoj", "Skyzone", "Entertainment", "30", "04/25/24");
+        //addDataToDB("Joe", "Santagato", "55 Basement Ave", "11256", "04/18/91", "santagatoj", "basement91", "3000", "1700", "2233445566771907", "02/26", "435", "santagatoj@unitybank.com", "631-386-2987");
+            //addTransactionToUser("santagatoj", "AMC", "Entertainment", "40", "03/30/24");addTransactionToUser("santagatoj", "Skyzone", "Entertainment", "30", "04/25/24");
             //addTransactionToUser("santagatoj", "HBO MAX", "Streaming", "15", "04/01/24");
             //addTransactionToUser("santagatoj", "Bowling", "Entertainment", "40", "03/15/24");
             //addTransactionToUser("santagatoj", "BJ's", "Groceries", "200", "04/05/24");
-        //addDataToDB("Mickey", "Mouse", "123 Disney Ave", "11111", "01/01/39", "mousem", "minnie39", "7690", "5680", "2233445566771207", "11/26", "223");
+        //addDataToDB("Mickey", "Mouse", "123 Disney Ave", "11111", "01/01/39", "mousem", "minnie39", "7690", "5680", "2233445566771207", "11/26", "223", "mousem@unitybank.com", "631-238-9386");
             //addTransactionToUser("mousem", "Sam's Club", "Groceries", "250", "04/05/24");
             //addTransactionToUser("mousem", "T-Mobile", "Bills", "50", "04/01/24");
             //addTransactionToUser("mousem", "Mortgage", "Bills", "3000", "04/01/24");
@@ -98,7 +97,7 @@ public class main extends Application {
     public static void addDataToDB(String firstName, String lastName, String address,
                                    String zipCode, String dob, String username, String password,
                                    String checking, String savings, String cardNum, String cardExp,
-                                   String cardCVV) {
+                                   String cardCVV, String email, String number) {
 
         // Create document reference
         DocumentReference docRef = main.fstore.collection("userinfo").document(username);
@@ -117,6 +116,8 @@ public class main extends Application {
         data.put("Card Number", cardNum);
         data.put("Card Expiration Date", cardExp);
         data.put("Card CVV", cardCVV);
+        data.put("Email", email);
+        data.put("Phone Number", number);
 
         // Add data to document
         ApiFuture<WriteResult> future = docRef.set(data, SetOptions.merge());

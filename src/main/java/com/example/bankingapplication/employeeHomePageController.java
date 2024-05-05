@@ -56,6 +56,10 @@ public class employeeHomePageController extends employeeLoginController {
     @FXML
     private TableColumn <userInfoDisplay, String> cardCVVCol;
     @FXML
+    private TableColumn <userInfoDisplay, String> emailCol;
+    @FXML
+    private TableColumn <userInfoDisplay, String> phoneNumberCol;
+    @FXML
     private TableView <transactionInfoDisplay> transactionTV;
     @FXML
     private TableColumn <transactionInfoDisplay, String> transactionNameCol;
@@ -121,6 +125,10 @@ public class employeeHomePageController extends employeeLoginController {
                 new PropertyValueFactory<userInfoDisplay, String>("cardExp"));
         cardCVVCol.setCellValueFactory(
                 new PropertyValueFactory<userInfoDisplay, String>("cardCVV"));
+        emailCol.setCellValueFactory(
+                new PropertyValueFactory<userInfoDisplay, String>("email"));
+        phoneNumberCol.setCellValueFactory(
+                new PropertyValueFactory<userInfoDisplay, String>("number"));
 
         transactionNameCol.setCellValueFactory(
                 new PropertyValueFactory<transactionInfoDisplay, String>("name"));
@@ -221,6 +229,8 @@ public class employeeHomePageController extends employeeLoginController {
                         document.getString("Card Number"),
                         document.getString("Card Expiration Date"),
                         document.getString("Card CVV"),
+                        document.getString("Email"),
+                        document.getString("Phone Number"),
                         document.getId()
                 ));
             }
@@ -262,6 +272,8 @@ public class employeeHomePageController extends employeeLoginController {
         TextField cardNumField = new TextField(selectedUser.getCardNum());
         TextField cardExpField = new TextField(selectedUser.getCardExp());
         TextField cardCVVField = new TextField(selectedUser.getCardCVV());
+        TextField emailField = new TextField(selectedUser.getEmail());
+        TextField numberField = new TextField(selectedUser.getNumber());
 
         grid.add(new Label("First Name:"), 0, 0);
         grid.add(firstNameField, 1, 0);
@@ -287,6 +299,10 @@ public class employeeHomePageController extends employeeLoginController {
         grid.add(cardExpField, 1, 10);
         grid.add(new Label("Card CVV:"), 0, 11);
         grid.add(cardCVVField, 1, 11);
+        grid.add(new Label("Email:"),0, 12);
+        grid.add(emailField,1,12);
+        grid.add(new Label("Phone Number:"), 0, 13);
+        grid.add(numberField, 1, 13);
 
         dialog.getDialogPane().setContent(grid);
         Platform.runLater(firstNameField::requestFocus);
@@ -306,6 +322,8 @@ public class employeeHomePageController extends employeeLoginController {
                         cardNumField.getText(),
                         cardExpField.getText(),
                         cardCVVField.getText(),
+                        emailField.getText(),
+                        numberField.getText(),
                         selectedUser.getId()
                 );
             }
@@ -341,6 +359,11 @@ public class employeeHomePageController extends employeeLoginController {
         updates.put("Savings", updatedUser.getSavings());
         updates.put("Address", updatedUser.getAddress());
         updates.put("Zip Code", updatedUser.getZipCode());
+        updates.put("Card Number", updatedUser.getCardNum());
+        updates.put("Card Expiration Date", updatedUser.getCardExp());
+        updates.put("Card CVV", updatedUser.getCardCVV());
+        updates.put("Email", updatedUser.getEmail());
+        updates.put("Phone Number", updatedUser.getNumber());
 
         docRef.set(updates, SetOptions.merge()).addListener(() -> {
             System.out.println("Database updated successfully.");
@@ -417,6 +440,8 @@ public class employeeHomePageController extends employeeLoginController {
         Label cardNum = new Label(selectedUser.getCardNum());
         Label cardExp = new Label(selectedUser.getCardExp());
         Label cardCVV = new Label(selectedUser.getCardCVV());
+        Label email = new Label(selectedUser.getEmail());
+        Label number = new Label(selectedUser.getNumber());
 
         grid.add(new Label("First Name:"), 0, 0);
         grid.add(firstName, 1, 0);
@@ -442,6 +467,10 @@ public class employeeHomePageController extends employeeLoginController {
         grid.add(cardExp, 3, 3);
         grid.add(new Label("Card CVV:"), 2, 4);
         grid.add(cardCVV, 3, 4);
+        grid.add(new Label("Email:"),2, 5);
+        grid.add(email, 3, 5);
+        grid.add(new Label("Phone Number"), 2, 6);
+        grid.add(number, 3, 6);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -704,7 +733,6 @@ public class employeeHomePageController extends employeeLoginController {
         ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialogPane.getButtonTypes().add(closeButton);
 
-        // Show dialog
         dialog.showAndWait();
     }
 

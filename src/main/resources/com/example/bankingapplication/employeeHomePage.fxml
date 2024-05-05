@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@employeeHomePageStylesheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.employeeHomePageController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@employeeHomePageStylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.employeeHomePageController">
    <children>
       <TableView fx:id="userInfoTV" layoutX="178.0" layoutY="35.0" prefHeight="293.0" prefWidth="694.0">
         <columns>
@@ -26,6 +26,8 @@
             <TableColumn fx:id="cardNumCol" prefWidth="75.0" text="Card Number" />
             <TableColumn fx:id="cardExpCol" prefWidth="75.0" text="Card Exp Date" />
             <TableColumn fx:id="cardCVVCol" prefWidth="75.0" text="Card CVV" />
+            <TableColumn fx:id="emailCol" prefWidth="75.0" text="Email" />
+            <TableColumn fx:id="phoneNumberCol" prefWidth="75.0" text="Phone Number" />
         </columns>
       </TableView>
       <Label layoutX="16.0" layoutY="15.0" text="Welcome Back!">
