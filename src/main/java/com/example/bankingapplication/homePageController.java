@@ -381,12 +381,12 @@ public class homePageController extends loginController{
         CollectionReference debitRef = db.collection("userinfo");
 
         // Query Firestore to retrieve debit card info based on entered debit card number
-        ApiFuture<QuerySnapshot> future = debitRef.whereEqualTo("Debit", debit_TF.getText().trim()).get();
+        ApiFuture<QuerySnapshot> future = debitRef.whereEqualTo("Card Number", debit_TF.getText().trim()).get();
         try {
             QuerySnapshot querySnapshot = future.get();
             if (!querySnapshot.isEmpty()) {
                 DocumentSnapshot document = querySnapshot.getDocuments().get(0);
-                return document.getString("Debit");
+                return document.getString("Card Number");
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
