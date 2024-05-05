@@ -30,7 +30,7 @@ public class TranactionsaddedController {
     @FXML
     public void initialize() {
         // Initialize the ChoiceBox with items of type String
-        category_CB.getItems().addAll("Food", "Bills", "Entertainment", "Health", "Streaming", "Retail", "Groceries", "Transportation");
+        //category_CB.getItems().addAll("Food", "Bills", "Entertainment", "Health", "Streaming", "Retail", "Groceries", "Transportation");
 
         // Set an event handler for when the date is picked
         date_Picker.valueProperty().addListener((obs, oldValue, newValue) -> {
