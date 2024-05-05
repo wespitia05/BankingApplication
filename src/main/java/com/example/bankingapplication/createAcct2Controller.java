@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Random;
 
 import static com.example.bankingapplication.main.addDataToDB;
@@ -23,6 +24,10 @@ public class createAcct2Controller extends createAcctController {
     private TextField createPasswordTextField;
     @FXML
     private TextField confirmPasswordTextField;
+    @FXML
+    private TextField createEmailTextField;
+    @FXML
+    private TextField enterPhoneNumberTextField;
     @FXML
     private Button createAcctButton;
     @FXML
@@ -53,6 +58,8 @@ public class createAcct2Controller extends createAcctController {
         String cardNum;
         String cardExp = generateExpirationDate();
         String cardCVV = generateCVV();
+        String email = createEmailTextField.getText();
+        String number = enterPhoneNumberTextField.getText();
 
         if (!password.equals(confirmPassword)) {
             Alert alert = new Alert (Alert.AlertType.WARNING);
@@ -84,15 +91,60 @@ public class createAcct2Controller extends createAcctController {
             return;
         }
 
+        if (!isValidEmail(email)) {
+            System.out.println("invalid email entry");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Invalid Email Entry");
+            alert.setContentText("Email needs to be lastname, first initial of first name, @unitybank.com." +
+                    "\nExample: riveraj@unitybank.com");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                System.out.println("User acknowledged incorrect input.");
+            }
+            else {
+                System.out.println("Invalid input please try again.");
+            }
+            return;
+        }
+
+        if(!isValidPhoneNumber(number)) {
+            System.out.println("invalid phone number entry");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Invalid Phone Number Entry");
+            alert.setContentText("Phone number must be formatted as: xxx-xxx-xxxx");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                System.out.println("User acknowledged incorrect input.");
+            }
+            else {
+                System.out.println("Invalid input please try again.");
+            }
+            return;
+        }
+
         do {
             cardNum = generateCardNumber();
         } while (cardNumExists(cardNum));
 
-        addDataToDB(firstName, lastName, address, zipCode, dob, username, password, checking, savings, cardNum, cardExp, cardCVV);
+        addDataToDB(firstName, lastName, address, zipCode, dob, username, password, checking, savings, cardNum, cardExp, cardCVV, email, number);
         System.out.println("Account created successfully");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent root = loader.load();
         stg.getScene().setRoot(root);
+    }
+
+    private boolean isValidEmail(String email) {
+        if (!email.matches(lastName.toLowerCase() + firstName.substring(0, 1).toLowerCase() + "@unitybank.com") || email.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        if (!phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}") || phoneNumber.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     private String generateCardNumber() {

@@ -101,10 +101,19 @@ public class myCardController extends homePageController{
     }
 
     @FXML
-    private void handletranaction_btn(ActionEvent event) {
+    private void handletranaction_btn(ActionEvent event) throws IOException {
         System.out.println("Transactions clicked");
-    }
 
+        // Load the FXML file and get the root and controller for the transactions view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactions.fxml"));
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+
+        // Set the scene on the current stage
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
     @FXML
     private void handlepayment_btn(ActionEvent event) throws IOException {
         System.out.println("Payment clicked");
@@ -200,15 +209,10 @@ public class myCardController extends homePageController{
         expDate_TF.setText(userInfo.getCardExp());
 
 
-//        transactions_COL.setCellValueFactory(new PropertyValueFactory<>("Category"));
-//        cost_COL.setCellValueFactory(new PropertyValueFactory<>("Amount"));
 
-
-        // Configure the TableView columns
         transactions_COL.setCellValueFactory(new PropertyValueFactory<>("Category"));
         cost_COL.setCellValueFactory(new PropertyValueFactory<>("Amount"));
 
-        // Fetch data from Firebase Firestore and populate the TableView
 
 
 
@@ -216,8 +220,12 @@ public class myCardController extends homePageController{
         fetchDataFromFirestore();
     }
 
-
     private void fetchDataFromFirestore() {
+
+
+        transactions_COL.setCellValueFactory(new PropertyValueFactory<>("Category"));
+        cost_COL.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+
         if (userInfo.getUsername() != null && !userInfo.getUsername().isEmpty()) {
             Firestore db = main.fstore;
 

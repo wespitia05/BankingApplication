@@ -30,7 +30,7 @@ public class userInfo {
 
     public userInfo(String firstName, String lastName, String dob, String username, String password,
                     String checking, String savings, String address, String zipCode, String cardNum,
-                    String cardExp, String cardCVV, String id, String email) {
+                    String cardExp, String cardCVV, String email, String number, String id) {
         userInfo.firstName = firstName;
         userInfo.lastName = lastName;
         userInfo.dob = dob;
@@ -43,8 +43,9 @@ public class userInfo {
         userInfo.cardNum = cardNum;
         userInfo.cardExp = cardExp;
         userInfo.cardCVV = cardCVV;
-        userInfo.id = id;
         userInfo.email = email;
+        userInfo.number = number;
+        userInfo.id = id;
     }
     public static String getFirstName() {
         return firstName;

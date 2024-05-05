@@ -10,7 +10,6 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.PasswordField?>
 <SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.createAcct2Controller">
     <items>
         <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -34,17 +33,17 @@
             </children></AnchorPane>
         <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
             <children>
-                  <TextField fx:id="createUsernameTextField" layoutX="85.0" layoutY="120.0" prefHeight="46.0" prefWidth="267.0" promptText="Create Username">
+                  <TextField fx:id="createUsernameTextField" layoutX="88.0" layoutY="188.0" prefHeight="46.0" prefWidth="267.0" promptText="Create Username">
                <font>
                   <Font size="18.0" />
                </font>
                   </TextField>
-                  <TextField fx:id="createPasswordTextField" layoutX="85.0" layoutY="200.0" prefHeight="46.0" prefWidth="267.0" promptText="Create Password">
+                  <TextField fx:id="createPasswordTextField" layoutX="88.0" layoutY="248.0" prefHeight="46.0" prefWidth="267.0" promptText="Create Password">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-                  <TextField fx:id="confirmPasswordTextField" layoutX="85.0" layoutY="280.0" prefHeight="46.0" prefWidth="267.0" promptText="Confirm Password">
+                  <TextField fx:id="confirmPasswordTextField" layoutX="88.0" layoutY="308.0" prefHeight="46.0" prefWidth="267.0" promptText="Confirm Password">
                <font>
                   <Font size="18.0" />
                </font>
@@ -59,6 +58,16 @@
                         <Font name="Kefa Regular" size="18.0" />
                     </font>
                 </Label>
+            <TextField fx:id="enterPhoneNumberTextField" layoutX="88.0" layoutY="128.0" prefHeight="46.0" prefWidth="267.0" promptText="Enter Phone Number">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="createEmailTextField" layoutX="88.0" layoutY="68.0" prefHeight="46.0" prefWidth="267.0" promptText="Create Email">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
             </children></AnchorPane>
     </items>
 </SplitPane>
