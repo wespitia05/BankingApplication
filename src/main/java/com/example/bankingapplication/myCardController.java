@@ -115,10 +115,15 @@ public class myCardController extends homePageController{
         stage.show();
     }
     @FXML
-    private void handlepayment_btn(ActionEvent event) {
-        System.out.println("Payments clicked");
+    private void handlepayment_btn(ActionEvent event) throws IOException {
+        System.out.println("Payment clicked");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("paymentDeposit.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
-
     @FXML
     private void handlereports_btn(ActionEvent event) {
         System.out.println("Reports clicked");
@@ -147,10 +152,17 @@ public class myCardController extends homePageController{
     }
 
     @FXML
-    private void handleDeposit_btn(ActionEvent event) {
+    private void handleDeposit_btn(ActionEvent event)throws IOException {
         System.out.println("Deposit clicked");
-    }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("paymentDeposit.fxml"));
 
+
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
     @FXML
     private void handleWithdrawl_btn(ActionEvent event)throws IOException {
         System.out.println("Withdrawal clicked");
