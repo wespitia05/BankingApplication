@@ -58,13 +58,10 @@ public class transactionController {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("Date"));
         itemName_COL.setCellValueFactory(new PropertyValueFactory<>("Name"));
 
-        // Set cell value factory for the new column
-        // Fetch user info to get the user's name
         Firestore db = main.fstore;
         DocumentReference userDocRef = db.collection("userinfo").document(username);
         ApiFuture<DocumentSnapshot> userFuture = userDocRef.get();
 
-        // Fetch data from Firestore and populate the table
         ApiFuture<QuerySnapshot> transactionFuture = db.collection("userinfo").document(username).collection("transactions").get();
 
         transactionFuture.addListener(() -> {
@@ -72,13 +69,11 @@ public class transactionController {
                 QuerySnapshot transactionSnapshot = transactionFuture.get();
                 ObservableList<transactionInfoDisplay> transactions = FXCollections.observableArrayList();
                 if (!transactionSnapshot.isEmpty()) {
-                    // Fetch user's info to get the user's name
                     DocumentSnapshot userSnapshot = userFuture.get();
                     String userName = userSnapshot.getString("firstName") + " " + userSnapshot.getString("lastName"); //display username in the name colum
 
-                    // Populate transaction details
                     transactionSnapshot.getDocuments().forEach(doc -> {
-                        String name = doc.getString("Name"); ///get name of item bought
+                        String name = doc.getString("Name");
                         String category = doc.getString("Category");
                         String amount = doc.getString("Amount");
                         String date = doc.getString("Date");
@@ -148,31 +143,29 @@ public class transactionController {
     }
 
     private void addTransactionToDatabase(transactionInfoDisplay transaction) {
-        // Create a new transaction map to store the data
+
         Map<String, Object> transactionData = new HashMap<>();
         transactionData.put("Name", transaction.getName());
         transactionData.put("Category", transaction.getCategory());
         transactionData.put("Amount", transaction.getAmount());
         transactionData.put("Date", transaction.getDate());
 
-        // Get the Firestore instance and prepare to add a new document
-        Firestore db = FirestoreClient.getFirestore(); // Ensure Firestore is correctly initialized
+        Firestore db = FirestoreClient.getFirestore();
         ApiFuture<DocumentReference> future = db.collection("userinfo").document(username)
                 .collection("transactions").add(transactionData);
 
-        // Asynchronously handle the completion of the transaction addition
         future.addListener(() -> {
             try {
-                DocumentReference docRef = future.get(); // This blocks on the response
+                DocumentReference docRef = future.get();
                 Platform.runLater(() -> {
-                    transactionTable.getItems().add(transaction); // Update the TableView
+                    transactionTable.getItems().add(transaction);
                     System.out.println("Transaction added with ID: " + docRef.getId());
                 });
             } catch (InterruptedException | ExecutionException e) {
                 System.err.println("Error adding transaction: " + e.getMessage());
-                Thread.currentThread().interrupt(); // Handle interrupted exception
+                Thread.currentThread().interrupt();
             }
-        }, Executors.newSingleThreadExecutor()); // Executor service to handle the future resolution
+        }, Executors.newSingleThreadExecutor());
     }
 
     @FXML
