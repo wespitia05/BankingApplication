@@ -128,10 +128,17 @@ public class myCardController extends homePageController{
 
 
     @FXML
-    private void handleTransfer_btn(ActionEvent event) {
-        System.out.println("Transfer clicked");
-    }
+    private void handleTransfer_btn(ActionEvent event)throws IOException {
+        System.out.println("Transfers clicked");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transfers.fxml"));
 
+
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
     @FXML
     private void handleHistory_btn(ActionEvent event) {
         System.out.println("History clicked");
