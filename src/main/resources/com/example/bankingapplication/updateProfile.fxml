@@ -14,16 +14,19 @@
 
 <BorderPane prefHeight="456.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.updateProfileController">
     <center>
-        <AnchorPane prefHeight="358.0" prefWidth="493.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="358.0" prefWidth="493.0" style="-fx-background-color: #008080;" BorderPane.alignment="CENTER">
             <children>
                 <VBox alignment="CENTER_LEFT" layoutX="132.0" layoutY="14.0" prefHeight="310.0" prefWidth="149.0">
                     <children>
-                  <Label text="First Name">
+                  <Label text="First Name" textFill="#333333">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                   </Label>
-                        <TextField fx:id="firstName_TF" style="-fx-border-color: black;" text="Your Name ">
+                        <TextField fx:id="firstName_TF" style="-fx-border-color: #DAA520;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                             <padding>
                                 <Insets bottom="10.0" />
                             </padding>
@@ -31,12 +34,15 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="Date of Birth">
+                        <Label text="Date of Birth" textFill="#333333">
                             <VBox.margin>
                                 <Insets bottom="10.0" />
                             </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="newBirthDate_tf" style="-fx-border-color: black;" text="date of birth">
+                        <TextField fx:id="newBirthDate_tf" style="-fx-border-color: #DAA520;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                             <padding>
                                 <Insets bottom="10.0" />
                             </padding>
@@ -44,12 +50,15 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="Number">
+                        <Label text="Number" textFill="#333333">
                             <VBox.margin>
                                 <Insets bottom="10.0" />
                             </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="newNumber_tf" style="-fx-border-color: black;" text="number">
+                        <TextField fx:id="newNumber_tf" style="-fx-border-color: #DAA520;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                             <padding>
                                 <Insets bottom="10.0" />
                             </padding>
@@ -57,12 +66,15 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="Postal Code">
+                        <Label text="Postal Code" textFill="#333333">
                             <VBox.margin>
                                 <Insets bottom="10.0" />
                             </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="newZipCode_tf" prefHeight="30.0" prefWidth="112.0" style="-fx-border-color: black;" text="Zip code">
+                        <TextField fx:id="newZipCode_tf" prefHeight="30.0" prefWidth="112.0" style="-fx-border-color: #DAA520;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                             <padding>
                                 <Insets bottom="10.0" />
                             </padding>
@@ -74,12 +86,15 @@
                 </VBox>
                 <VBox alignment="CENTER_LEFT" layoutX="397.0" layoutY="14.0" prefHeight="306.0" prefWidth="158.0">
                     <children>
-                        <Label text="Last Name">
+                        <Label text="Last Name" textFill="#333333">
                             <VBox.margin>
                                 <Insets bottom="10.0" />
                             </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                         </Label>
-                  <TextField fx:id="lastName_TF" style="-fx-border-color: black;" text="Your Name ">
+                  <TextField fx:id="lastName_TF" style="-fx-border-color: #DAA520;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                      <padding>
                         <Insets bottom="10.0" />
                      </padding>
@@ -87,12 +102,15 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                        <Label text="User Name">
+                        <Label text="User Name" textFill="#333333">
                             <VBox.margin>
                                 <Insets bottom="10.0" />
                             </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="newUserName_tf" style="-fx-border-color: black;" text="User Name">
+                        <TextField fx:id="newUserName_tf" style="-fx-border-color: #DAA520;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                             <padding>
                                 <Insets bottom="10.0" />
                             </padding>
@@ -100,12 +118,15 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="Email">
+                        <Label text="Email" textFill="#333333">
                             <VBox.margin>
                                 <Insets bottom="10.0" />
                             </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="newEmail_tf" style="-fx-border-color: black;" text="email ">
+                        <TextField fx:id="newEmail_tf" style="-fx-border-color: #DAA520;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                             <padding>
                                 <Insets bottom="10.0" />
                             </padding>
@@ -113,12 +134,15 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="Address">
+                        <Label text="Address" textFill="#333333">
                             <VBox.margin>
                                 <Insets bottom="10.0" />
                             </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="newAddress_tf" style="-fx-border-color: black;" text="address">
+                        <TextField fx:id="newAddress_tf" style="-fx-border-color: #DAA520;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                             <padding>
                                 <Insets bottom="10.0" />
                             </padding>
@@ -128,26 +152,27 @@
                         </TextField>
                     </children>
                 </VBox>
-                <Button fx:id="save_btn" layoutX="332.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleSaveProfile_btn" prefHeight="33.0" prefWidth="129.0" styleClass="button-d" stylesheets="@Stylesheet.css" text="Save" />
-                <Circle fill="DODGERBLUE" layoutX="76.0" layoutY="52.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+                <Button fx:id="save_btn" layoutX="445.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleSaveProfile_btn" prefHeight="33.0" prefWidth="129.0" style="-fx-background-color: #FF6F61;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Save" />
+                <Circle fill="SILVER" layoutX="55.0" layoutY="49.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+            <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="29.0" layoutY="67.0" size="51" />
             </children>
         </AnchorPane>
     </center>
     <top>
-        <Pane prefHeight="41.0" prefWidth="547.0" BorderPane.alignment="CENTER">
+        <Pane prefHeight="41.0" prefWidth="547.0" style="-fx-background-color: #C0C0C0;" BorderPane.alignment="CENTER">
             <children>
-                <Label contentDisplay="RIGHT" layoutX="269.0" layoutY="9.0" text="Unity Bank">
+                <Label contentDisplay="RIGHT" layoutX="269.0" layoutY="9.0" text="Unity Bank" textFill="#006666">
                     <font>
                         <Font name="Baskerville Old Face" size="20.0" />
                     </font>
                     <graphic>
-                        <FontAwesomeIconView glyphName="BANK" size="16" />
+                        <FontAwesomeIconView fill="#006666" glyphName="BANK" size="16" />
                     </graphic>
                 </Label>
-                <FontAwesomeIconView glyphName="BANK" layoutX="242.0" layoutY="26.0" size="16" />
-            <Button fx:id="goBack_btn" layoutX="563.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleGoBack_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Go Back">
+                <FontAwesomeIconView fill="#006666" glyphName="BANK" layoutX="242.0" layoutY="26.0" size="16" text="" />
+            <Button fx:id="goBack_btn" layoutX="563.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleGoBack_btn" style="-fx-background-color: transparent;" styleClass="button-d" stylesheets="@Stylesheet.css" text="Go Back" textFill="#006666">
                <graphic>
-                  <FontAwesomeIconView glyphName="ARROW_LEFT" />
+                  <FontAwesomeIconView fill="#006666" glyphName="ARROW_LEFT" />
                </graphic>
             </Button>
             </children>

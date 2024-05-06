@@ -321,7 +321,7 @@
                            <children>
                               <TextField fx:id="savings_TF" alignment="CENTER" editable="false" layoutX="17.0" layoutY="21.0" prefHeight="69.0" prefWidth="111.0" style="-fx-border-color: transparent; -fx-background-color: transparent;" text="savings">
                                  <font>
-                                    <Font size="38.0" />
+                                    <Font size="32.0" />
                                  </font>
                               </TextField>
                               <Label layoutX="44.0" layoutY="8.0" text="Savings" textFill="#454545">

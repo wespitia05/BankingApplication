@@ -126,22 +126,23 @@
                <children>
                   <AnchorPane prefHeight="305.0" prefWidth="570.0" style="-fx-border-color: linear-gradient(to bottom, #FFD700, #B8860B); -fx-border-style: solid; -fx-border-radius: 25px; -fx-background-color: #E0C9A4; -fx-background-radius: 25px; -fx-border-width: 2px;">
                      <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="Add New Account">
+                        <Label layoutX="14.0" layoutY="14.0" text="Add New Card">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="60.0" layoutY="83.0" prefHeight="26.0" prefWidth="236.0" promptText="Bank Name" style="-fx-background-color: #E6E6FA;" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
-                        <TextField layoutX="60.0" layoutY="147.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Name" style="-fx-background-color: #E6E6FA;" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
-                        <TextField layoutX="60.0" layoutY="204.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Number" style="-fx-background-color: #E6E6FA;" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css" />
-                        <Label layoutX="60.0" layoutY="53.0" text="Bank Name*" />
-                        <Label layoutX="60.0" layoutY="121.0" text="Accountn Name*" />
-                        <Label layoutX="60.0" layoutY="179.0" text="Accountn Number*" />
-                        <Button layoutX="394.0" layoutY="115.0" onAction="#handleSave_btn" prefHeight="72.0" prefWidth="146.0" style="-fx-background-color: #E4B16D;" stylesheets="@Stylesheet.css" text="SAVE">
+                        <TextField fx:id="enterName_TF" layoutX="60.0" layoutY="83.0" prefHeight="26.0" prefWidth="236.0" promptText="Name" style="-fx-background-color: #E6E6FA;" stylesheets="@Stylesheet.css" />
+                        <TextField fx:id="accountNumber_TF" layoutX="60.0" layoutY="147.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Number" style="-fx-background-color: #E6E6FA;" stylesheets="@Stylesheet.css" />
+                        <TextField fx:id="CVV_TF" layoutX="60.0" layoutY="204.0" prefHeight="26.0" prefWidth="236.0" promptText="Account Number" style="-fx-background-color: #E6E6FA;" stylesheets="@Stylesheet.css" />
+                        <Label layoutX="60.0" layoutY="53.0" text="Name*" />
+                        <Label layoutX="60.0" layoutY="121.0" text="Card Number*" />
+                        <Label layoutX="60.0" layoutY="179.0" text="CVV Number*" />
+                        <Button fx:id="save_btn" layoutX="394.0" layoutY="115.0" onAction="#handleSave_btn" prefHeight="72.0" prefWidth="146.0" style="-fx-background-color: #E4B16D;" stylesheets="@Stylesheet.css" text="SAVE">
                            <styleClass>
                               <String fx:value="plus_btn" />
                               <String fx:value="button-d" />
-                              <String fx:value="text-field-jumpy" />
+                              <String fx:value="bubble-button" />
+                              <String fx:value="text-styl_shh" />
                            </styleClass></Button>
                      </children>
                   </AnchorPane>

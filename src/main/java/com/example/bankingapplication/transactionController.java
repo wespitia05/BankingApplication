@@ -172,6 +172,7 @@ public class transactionController {
     private void handledashBoard_btn(ActionEvent event) throws IOException {
         System.out.println("Dashboard clicked");
 
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
         Parent root = loader.load();
         homePageController controller = loader.getController();
