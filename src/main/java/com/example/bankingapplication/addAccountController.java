@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -17,11 +18,29 @@ import java.io.IOException;
 public class addAccountController {
 
     @FXML
-    private TextField bankName;
+    private TextField CVV_TF;
+
     @FXML
-    private TextField accountName;
+    private TextField accountNumber_TF;
+
     @FXML
-    private TextField accountNum;
+    private TextField enterName_TF;
+
+    @FXML
+    private Button save_btn;
+
+
+    @FXML
+    private void handleSave_btn(ActionEvent event) {
+        System.out.println("Save clicked");
+    }
+
+    // Initialization method
+    @FXML
+    public void initialize() {
+        // Initialization logic here
+    }
+
 
     @FXML
     private void handledashBoard_btn(ActionEvent event) throws IOException {
@@ -91,16 +110,6 @@ public class addAccountController {
         System.out.println("Add Card clicked");
     }
 
-    @FXML
-    private void handleSave_btn(ActionEvent event) {
-        System.out.println("Save clicked");
-    }
-
-    // Initialization method
-    @FXML
-    public void initialize() {
-        // Initialization logic here
-    }
 
 
 }

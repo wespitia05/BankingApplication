@@ -109,13 +109,6 @@
     -fx-cursor: hand;
     -fx-font-size: 2rem;
 }
-/*OPTIONAL-- giving a weird effect might get rid of it in the future*/
-.button-menu:hover{
-     -fx-background-color: #544bdb; /* Set background color */
-     -fx-scale-x: 1.2; /* Scale horizontally */
-     -fx-scale-y: 1.2; /* Scale vertically */
-}
-
 
 
 /*this is for text fields*/
@@ -130,13 +123,13 @@
     -fx-border-width: 1; /* Border width */
     -fx-transition: font-size 0.3s, scale 0.3s; /* Transition for font size and scale */
 }
-
+/*
 .text-fieldlook:hover {
-    -fx-font-size: 14pt; /* Increased font size on hover */
-    -fx-scale-x: 1.05; /* Scale horizontally on hover */
-    -fx-scale-y: 1.05; /* Scale vertically on hover */
+    -fx-font-size: 14pt; /* Increased font size on hover
+    -fx-scale-x: 1.05; /* Scale horizontally on hover
+    -fx-scale-y: 1.05; /* Scale vertically on hover
 }
-
+*/
 
 
 
@@ -215,7 +208,101 @@
     -fx-font-weight: bold; /* Make the font bold */
 }
 /* CSS for creating a donut chart */
-/* Custom style for the PieChart */
+/* Withdrawal Page text field make it look clean */
+.text_field_WP{
+    -fx-background-color: transparent;
+    -fx-border-color: #0598ff;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-text-fill: #FFFFFF; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-family: "Arial"; /* Font family */
+   }
+
+   /*electric button*/
+   .button_Electric{
+       -fx-background-color: #7DF9FF; /* Electric Blue */
+       -fx-text-fill: white; /* White text on Electric Blue background */
+       -fx-font-size: 16px; /* Adjust font size as needed */
+       -fx-font-weight: bold; /* Adds emphasis and ensures readability */
+       -fx-padding: 10px 20px; /* Adjust padding as needed */
+       -fx-border-radius: 5px; /* Rounded corners */
+       -fx-border-color: transparent; /* No border */
+   }
+
+   /*insane background*/
+   .background_Nice{
+       -fx-background-color: linear-gradient(to bottom right, #7DF9FF, #FF007F); /* Electric Blue to Magenta gradient */
+   }
+
+/*professional color*/
+.background_Professional{
+    -fx-background-color: linear-gradient(to bottom right, #001F3F, #008080); /* Navy Blue to Teal gradient */
+}
+
+.text-style_ahww {
+    -fx-font-family: "Arial", sans-serif; /* Use a clean and widely available font */
+    -fx-font-size: 16px; /* A comfortable font size for readability */
+    -fx-font-weight: bold; /* Adds emphasis and ensures readability */
+    -fx-text-fill: #00FFFF; /* Electric blue text color */
+    -fx-effect: dropshadow(gaussian, #000000, 5, 0, 0, 0); /* Smooth drop shadow for depth */
+}
+
+/*back ground color to make a page come to life*/
+.background_itsAlive{
+    -fx-background-color: linear-gradient(to bottom right, #6A5ACD, #BA55D3); /* Vibrant gradient */
+    -fx-background-radius: 10px; /* Rounded corners for added visual appeal */
+}
+/*competing with the background above*/
+.background_imheretowin{
+    -fx-background-color: linear-gradient(to bottom right, #6A5ACD, #BA55D3), #FFFFFF; /* Vibrant gradient with overlay */
+    -fx-background-radius: 10px; /* Rounded corners for added visual appeal */
+}
+
+/*background sitdown*/
+.background_sitdown {
+    -fx-background-color: linear-gradient(to bottom right, #6A5ACD, #BA55D3); /* Vibrant gradient */
+    -fx-background-radius: 10px; /* Rounded corners for added visual appeal */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 0); /* Subtle drop shadow */
+}
+
+/*text style ima make you smile*/
+.text-styl_shh {
+    -fx-font-family: "Segoe UI", Arial, sans-serif; /* Smooth and widely available font */
+    -fx-font-weight: bold; /* Adds emphasis */
+    -fx-text-fill: #FFFFFF; /* White text color for contrast */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 0); /* Soft shadow effect */
+}
+
+/* Bubble Button Style */
+.bubble-button {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #E0E0E0); /* Soft gradient background */
+    -fx-background-radius: 30px; /* Rounded corners for a bubble-like shape */
+    -fx-border-radius: 30px; /* Match border radius to background */
+    -fx-padding: 10px 20px; /* Padding for text inside the button */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-weight: bold; /* Font weight */
+    -fx-text-fill: #333333; /* Text color */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 0); /* Soft shadow effect */
+}
+
+/* Hover effect */
+.bubble-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #D3D3D3); /* Lighten background on hover */
+
+        -fx-font-size: 8rem;
+
+}
+
+/* Starry Sky Style */
+.starry-sky {
+    -fx-background-color: linear-gradient(to bottom right, #191970, #000000, #4B0082); /* Vibrant gradient background */
+    -fx-background-radius: 10px; /* Rounded corners for visual appeal */
+    -fx-padding: 20px; /* Padding for content inside */
+    -fx-font-size: 16px; /* Font size */
+    -fx-font-weight: bold; /* Font weight */
+    -fx-text-fill: white; /* Text color */
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 5, 0, 0, 0); /* Soft shadow effect */
+}
 
 
 

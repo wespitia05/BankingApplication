@@ -173,7 +173,6 @@ public class transactionController {
         System.out.println("Dashboard clicked");
 
 
-
         // Load the FXML file and get the root and controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
         Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML

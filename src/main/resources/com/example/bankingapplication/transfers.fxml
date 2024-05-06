@@ -4,6 +4,7 @@
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -11,81 +12,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.transfersController">
-    <left>
-        <AnchorPane prefHeight="600.0" prefWidth="148.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label contentDisplay="TOP" layoutX="25.0" layoutY="20.0" text="Unity Bank">
-                    <font>
-                        <Font name="Baskerville Old Face" size="20.0" />
-                    </font>
-                    <graphic>
-                        <FontAwesomeIconView glyphName="BANK" size="16" />
-                    </graphic>
-                </Label>
-                <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="573.0" size="30" text="" />
-                <AnchorPane prefHeight="600.0" prefWidth="148.0">
-                    <children>
-                        <VBox layoutX="11.0" layoutY="85.0" spacing="10" style="-fx-padding: 10px;">
-                            <children>
-                                <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Dashboard">
-                                    <graphic>
-                                        <FontAwesomeIconView glyphName="HOME" size="16" />
-                                    </graphic>
-                                </Button>
-                                <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="My Cards">
-                                    <graphic>
-                                        <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
-                                    </graphic>
-                                </Button>
-                                <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Transactions">
-                                    <graphic>
-                                        <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
-                                    </graphic>
-                                </Button>
-                                <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Payments">
-                                    <graphic>
-                                        <FontAwesomeIconView glyphName="MONEY" size="16" />
-                                    </graphic>
-                                </Button>
-                                <Button onAction="#handlereports_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Reports">
-                                    <graphic>
-                                        <FontAwesomeIconView glyphName="FILE" size="16" />
-                                    </graphic>
-                                </Button>
-                                <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Profiles">
-                                    <graphic>
-                                        <FontAwesomeIconView glyphName="USER" size="16" />
-                                    </graphic>
-                                </Button>
-                                <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Settings">
-                                    <graphic>
-                                        <FontAwesomeIconView glyphName="GEAR" size="16" />
-                                    </graphic>
-                                </Button>
-                            </children>
-                        </VBox>
-                        <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="573.0" size="30" text="" />
-                        <Label fx:id="userFullName" layoutX="56.0" layoutY="554.0" />
-                    </children>
-                </AnchorPane>
-            </children>
-        </AnchorPane>
-    </left>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.transfersController">
     <center>
-        <AnchorPane prefHeight="600.0" prefWidth="683.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="600.0" prefWidth="683.0" styleClass="background_Professional" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
             <children>
-                <VBox alignment="BOTTOM_CENTER" prefHeight="265.0" prefWidth="644.0" spacing="20">
-                    <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="644.0" style="-fx-font-size: 23px;" text="Transfer Money From" />
+                <Button fx:id="transferButton" alignment="CENTER" layoutX="245.0" layoutY="424.0" onAction="#handleTransfer" prefWidth="121.0" style="-fx-background-color: #FFFF00; -fx-text-fill: #00ffff;" stylesheets="@Stylesheet.css" text="Transfer">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+               <styleClass>
+                  <String fx:value="button_Electric" />
+                  <String fx:value="button-d" />
+               </styleClass>
+                </Button>
+                <VBox alignment="BOTTOM_CENTER" layoutX="4.0" prefHeight="367.0" prefWidth="644.0" spacing="20">
                     <HBox alignment="CENTER" spacing="10">
-                        <Label text="Select Account:">
+                        <Label text="Select Account:" textFill="AQUA">
                             <font>
                                 <Font size="16.0" />
                             </font></Label>
-                        <ComboBox fx:id="accountSelection" onAction="#handleSelection" prefHeight="25.0" prefWidth="165.0" promptText="Select Account">
+                        <ComboBox fx:id="accountSelection" onAction="#handleSelection" prefHeight="25.0" prefWidth="165.0" promptText="Select Account" style="-fx-background-color: #FFFF00;">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="Checking" />
@@ -97,48 +47,181 @@
                      <font>
                         <Font size="16.0" />
                      </font></Label>
+                  <VBox.margin>
+                     <Insets bottom="35.0" />
+                  </VBox.margin>
                     </HBox>
                     <HBox alignment="CENTER" spacing="10">
-                        <Label text="Transfer to:">
+                        <Label text="Transfer to:" textFill="AQUA">
                             <font>
                                 <Font size="16.0" />
                             </font></Label>
-                        <TextField fx:id="recipientNo" prefHeight="35.0" prefWidth="189.0" promptText="Enter Phone Number">
+                        <TextField fx:id="recipientNo" prefHeight="35.0" prefWidth="189.0" promptText="Enter Phone Number" style="-fx-border-color: #FFFF00;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </TextField>
+                  <VBox.margin>
+                     <Insets bottom="30.0" />
+                  </VBox.margin>
                     </HBox>
                     <HBox alignment="CENTER" spacing="10">
-                        <Label text="Transfer Amount:">
+                        <Label text="Transfer Amount:" textFill="AQUA">
                             <font>
                                 <Font size="16.0" />
                             </font></Label>
-                        <TextField fx:id="transferAmountField" prefHeight="35.0" prefWidth="150.0" promptText="Enter Amount">
+                        <TextField fx:id="transferAmountField" prefHeight="35.0" prefWidth="150.0" promptText="Enter Amount" style="-fx-border-color: #FFFF00;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                             <font>
                                 <Font size="16.0" />
                             </font></TextField>
+                  <VBox.margin>
+                     <Insets bottom="25.0" />
+                  </VBox.margin>
                     </HBox>
                     <HBox alignment="CENTER" spacing="10">
-                        <Label text="Description:">
+                        <Label text="Description:" textFill="AQUA">
                             <font>
                                 <Font size="16.0" />
                             </font></Label>
-                        <TextField fx:id="descriptionField" promptText="Enter Description">
+                        <TextField fx:id="descriptionField" promptText="Enter Description" style="-fx-border-color: #FFFF00;" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                             <font>
                                 <Font size="16.0" />
                             </font></TextField>
+                  <VBox.margin>
+                     <Insets bottom="15.0" top="10.0" />
+                  </VBox.margin>
                     </HBox>
                 </VBox>
-                <Button fx:id="transferButton" alignment="CENTER" layoutX="258.0" layoutY="542.0" onAction="#handleTransfer" prefWidth="121.0" text="Transfer">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Button>
             </children>
         </AnchorPane>
     </center>
     <opaqueInsets>
         <Insets />
     </opaqueInsets>
+   <top>
+      <Pane prefHeight="44.0" prefWidth="800.0" style="-fx-background-color: #708090;" BorderPane.alignment="CENTER">
+         <children>
+                 <Label alignment="TOP_CENTER" layoutX="304.0" layoutY="5.0" prefHeight="34.0" prefWidth="246.0" style="-fx-font-size: 23px;" styleClass="text-style_ahww" stylesheets="@Stylesheet.css" text="Transfer Money From" />
+         </children>
+      </Pane>
+   </top>
+   <left>
+          <AnchorPane prefHeight="550.0" prefWidth="148.0" style="-fx-background-color: #FFF8E1;" BorderPane.alignment="CENTER">
+              <children>
+                  <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="540.0" size="30" text="" />
+                  <Label fx:id="userFullName" layoutX="63.0" layoutY="519.0" prefWidth="17.0" style="-fx-border-color: BLACK;" />
+            <VBox alignment="TOP_CENTER" layoutX="6.0" layoutY="107.0" prefHeight="370.0" prefWidth="130.0">
+               <children>
+                  <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: #800080;" stylesheets="@Stylesheet.css" text="Dashboard" textFill="#8ac2f7">
+                     <graphic>
+                        <FontAwesomeIconView fill="GOLDENROD" glyphName="HOME" size="16" text="" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
+                  </Button>
+                  <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent; -fx-text-fill: #800080;" stylesheets="@Stylesheet.css" text="My Cards">
+                     <graphic>
+                        <FontAwesomeIconView fill="GOLDENROD" glyphName="CREDIT_CARD" size="16" text="" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
+                  </Button>
+                  <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent; -fx-text-fill: #800080;" stylesheets="@Stylesheet.css" text="Transactions">
+                     <graphic>
+                        <FontAwesomeIconView fill="GOLDENROD" glyphName="ARROW_UP" size="16" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
+                  </Button>
+                  <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent; -fx-text-fill: #800080;" stylesheets="@Stylesheet.css" text="Payments">
+                     <graphic>
+                        <FontAwesomeIconView fill="GOLDENROD" glyphName="MONEY" size="16" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
+                  </Button>
+                  <Button onAction="#handlereports_btn" style="-fx-background-color: transparent; -fx-text-fill: #800080;" stylesheets="@Stylesheet.css" text="Reports">
+                     <graphic>
+                        <FontAwesomeIconView fill="GOLDENROD" glyphName="LAPTOP" size="16" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
+                  </Button>
+                  <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent; -fx-text-fill: #800080;" stylesheets="@Stylesheet.css" text="Profiles">
+                     <graphic>
+                        <FontAwesomeIconView fill="GOLDENROD" glyphName="USER" size="16" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
+                  </Button>
+                  <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent; -fx-text-fill: #800080;" stylesheets="@Stylesheet.css" text="Settings">
+                     <graphic>
+                        <FontAwesomeIconView fill="GOLDENROD" glyphName="GEAR" size="16" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="button-d" />
+                        <String fx:value="text-style" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </VBox>
+            <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="17.0" layoutY="29.0" text="UNITY BANK" textFill="#5daff2">
+               <font>
+                  <Font name="Baskerville Old Face" size="18.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="#5daff2" glyphName="BANK" size="20" tabSize="11" text="" />
+               </graphic>
+            </Label>
+              </children>
+          </AnchorPane>
+   </left>
 </BorderPane>
