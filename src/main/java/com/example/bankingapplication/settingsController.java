@@ -213,4 +213,6 @@ public class settingsController {
     }
 
 
+    public void setUsername(String username) {
+    }
 }

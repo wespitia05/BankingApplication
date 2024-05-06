@@ -69,7 +69,7 @@ public class transfersController {
         myCardController controller = loader.getController();
 
         controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
-        controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+        //controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

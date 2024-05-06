@@ -42,6 +42,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+import static com.example.bankingapplication.main.stg;
+
 
 public class homePageController extends loginController{
 
@@ -50,8 +52,6 @@ public class homePageController extends loginController{
     private Button save_btn; ///checking
     @FXML
     private Button saveDraft_btn; //savings
-    @FXML
-    private TextField addAccountNum_TF;
     @FXML
     private TextField enterAmount_TF;
     @FXML
@@ -73,89 +73,20 @@ public class homePageController extends loginController{
     @FXML
     private Label menuBack;
     @FXML
-    private AnchorPane legendContainer;
-    @FXML
-    private Label legend1;
-    @FXML
-    private Label legend2;
-    @FXML
-    private Label legend3;
-    @FXML
-    private Label legend4;
-    @FXML
     private Label userFullName;
     @FXML
     private Label cardNumLabel;
     @FXML
     private Label cardExpLabel;
-    @FXML
-    private TableView<?> Table_View;
-
-    @FXML
-    private TableColumn<?, ?> cost_COL;
-
-    @FXML
-    private TableColumn<?, ?> transactions_COL;
-
-
     public String username;
-
-    private Firestore firestore;
-
-
-    public void setFirestore(Firestore firestore) {
-        this.firestore = firestore;
-    }
-
-
-
-    private void fetchDataFromFirestore() {
-        if (userInfo.getUsername() != null && !userInfo.getUsername().isEmpty()) {
-            Firestore db = main.fstore;
-
-            DocumentReference userDocRef = db.collection("userinfo").document(userInfo.getUsername());
-            CollectionReference transactionsRef = userDocRef.collection("transactions");
-            Query query = transactionsRef.orderBy("Amount", Query.Direction.DESCENDING);
-
-            ApiFuture<QuerySnapshot> future = query.get();
-            future.addListener(() -> {
-                try {
-                    QuerySnapshot querySnapshot = future.get();
-                    List<transactionInfoDisplay> transactions = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : querySnapshot) {
-                        String category = document.getString("Category");
-                        String amount = document.getString("Amount");
-                        transactions.add(new transactionInfoDisplay(category, amount));
-                    }
-                    Platform.runLater(() -> {
-                        Table_View.getItems().clear();
-                        //Table_View.getItems().addAll(transactions); creating issues
-                    });
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }, Platform::runLater);
-        } else {
-            // Handle the case where username is empty or null
-            // You can show a message to the user or perform any other action
-        }
-    }
-
-
 
     @FXML
     public void initialize() {
         System.out.println ("initialize called");
 
-        transactions_COL.setCellValueFactory(new PropertyValueFactory<>("Category"));
-        cost_COL.setCellValueFactory(new PropertyValueFactory<>("Amount"));
-
-        fetchDataFromFirestore();
-
         userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
         cardNumLabel.setText("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
         cardExpLabel.setText(userInfo.getCardExp());
-        saveDraft_btn.setOnAction(this::handleSaveDraft_btn);
 
         sideBar.setTranslateX(-176);
 
@@ -289,15 +220,12 @@ public class homePageController extends loginController{
     }
 
     @FXML
-    private void handledashBoard_btn() {
+    void handledashBoard_btn() {
         System.out.println("Stop Clicking me, you are on my page");
     }
 
-
-
-
     //switching the scenes should be smoother
-    private void switchScene(String fxmlFile, ActionEvent event) throws IOException {
+    void switchScene(String fxmlFile, ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         Parent root = loader.load();
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), root);
@@ -328,29 +256,6 @@ public class homePageController extends loginController{
         switchScene("myCards.fxml", event);
     }
 
-//    @FXML
-//    private void handlemyCard_btn(ActionEvent event) throws IOException {
-//        System.out.println("My Cards clicked");
-//
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("myCards.fxml"));
-//        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
-//        myCardController controller = loader.getController();
-//
-//        controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
-//        controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
-//        controller.setCardExp(userInfo.getCardExp());
-//        controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
-//        controller.setUsername(userInfo.getUsername());
-//
-//        Scene scene = new Scene(root);
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        stage.setScene(scene);
-//        stage.show();
-//
-//    }
-
-
-
 
     @FXML
     private void handletranaction_btn(ActionEvent event) throws IOException {
@@ -362,10 +267,6 @@ public class homePageController extends loginController{
 
         controller.setUsername(userInfo.getUsername());
 
-//        Scene scene = new Scene(root);
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        stage.setScene(scene);
-//        stage.show();
         switchScene("transactions.fxml", event);
     }
 
@@ -379,13 +280,8 @@ public class homePageController extends loginController{
 
         controller.setUsername(userInfo.getUsername());
 
-//        Scene scene = new Scene(root);
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        stage.setScene(scene);
-//        stage.show();
         switchScene("paymentDeposit.fxml", event);
     }
-
 
     @FXML
     private void handleprofile_btn(ActionEvent event) throws IOException {
@@ -396,13 +292,7 @@ public class homePageController extends loginController{
         ProfileController controller = loader.getController();
 
         controller.setUsername(userInfo.getUsername());
-
-//        Scene scene = new Scene(root);
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        stage.setScene(scene);
-//        stage.show();
         switchScene("profile.fxml", event);
-
     }
 
     @FXML
@@ -411,7 +301,7 @@ public class homePageController extends loginController{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("settings.fxml"));
         Parent root = loader.load();
-        transactionController controller = loader.getController();
+        settingsController controller = loader.getController();
 
         controller.setUsername(userInfo.getUsername());
 
@@ -557,17 +447,6 @@ public class homePageController extends loginController{
     }
 
     @FXML
-    private void handleDraft_btn() {
-        // Handle save as draft button action
-    }
-
-    //expense report for pie chart
-    // Method to generate and display the pie chart
-    public void generatePieChart() {
-
-    }
-
-    @FXML
     private void popupShow() {
         try {
             Stage popupStage = new Stage();
@@ -627,8 +506,6 @@ public class homePageController extends loginController{
         scaleTransition.play();
     }
 
-    ///////////////////////////// pie chart /////////////////////////////
-
     public void fetchAndDisplaySpendingPercentage() {
         DocumentReference userDocRef = main.fstore.collection("userinfo").document(username);
         ApiFuture<QuerySnapshot> future = userDocRef.collection("transactions").get();
@@ -649,9 +526,7 @@ public class homePageController extends loginController{
                 double finalTotalSpent = totalSpent;
                 Platform.runLater(() -> {
                     displayPieChart(categoryTotals, finalTotalSpent);
-                    addLegend(categoryTotals); // Call addLegend method after displaying the pie chart
                     Map<String, Double> spendingPercentage = calculateSpendingPercentage(categoryTotals, finalTotalSpent);
-                    displaySpendingPercentage(spendingPercentage);
                 });
 
             } catch (InterruptedException | ExecutionException e) {
@@ -678,50 +553,7 @@ public class homePageController extends loginController{
         pieChart.setTitle("Spending Percentage");
     }
 
-    // Method to add legend to the pie chart
-    // Method to add legend to the pie chart
-    private void addLegend(Map<String, Double> categoryTotals) {
-        // Clear existing legend items
-        legend1.setText("");
-        legend2.setText("");
-        legend3.setText("");
-        legend4.setText("");
-
-        // Create legend items for each category
-        int labelIndex = 1;
-        int colorIndex = 0;
-        double totalSpent = categoryTotals.values().stream().mapToDouble(Double::doubleValue).sum();
-
-        for (Map.Entry<String, Double> entry : categoryTotals.entrySet()) {
-            if (labelIndex > 4) {
-                // You can add additional handling here if you have more categories
-                break;
-            }
-            String category = entry.getKey();
-            double sum = entry.getValue();
-            double percentage = (sum/ totalSpent) * 100;
-
-            // Set category as text for the label
-            switch (labelIndex) {
-                case 1:
-                    legend1.setText(category);
-                    break;
-                case 2:
-                    legend2.setText(category);
-                    break;
-                case 3:
-                    legend3.setText(category);
-                    break;
-                case 4:
-                    legend4.setText(category);
-                    break;
-            }
-            labelIndex++;
-            colorIndex++;
-        }
-    }
-
-//calculatingSpendingPercentage
+    //calculatingSpendingPercentage
     private Map<String, Double> calculateSpendingPercentage(Map<String, Double> categoryTotals, double totalSpent) {
         Map<String, Double> spendingPercentage = new HashMap<>();
         for (Map.Entry<String, Double> entry : categoryTotals.entrySet()) {
@@ -733,54 +565,12 @@ public class homePageController extends loginController{
         return spendingPercentage;
     }
 
-    //display percentage
-    private void displaySpendingPercentage(Map<String, Double> spendingPercentage) {
-        // Clear existing legend items
-        legend1.setText("");
-        legend2.setText("");
-        legend3.setText("");
-        legend4.setText("");
+    public void handleSignOutOnMouseClicked () throws IOException {
+        System.out.println("handleSignOutOnMouseClicked called");
 
-        // Create legend items for each category
-        int labelIndex = 1;
-        for (Map.Entry<String, Double> entry : spendingPercentage.entrySet()) {
-            if (labelIndex > 4) {
-                // You can add additional handling here if you have more categories
-                break;
-            }
-            String category = entry.getKey();
-            double percentage = entry.getValue();
-
-
-            // Set category and percentage as text for the label
-            switch (labelIndex) {
-                case 1:
-                    legend1.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
-                    break;
-                case 2:
-                    legend2.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
-                    break;
-                case 3:
-                    legend3.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
-                    break;
-                case 4:
-                    legend4.setText(category + " (" + String.format("%.1f%%", percentage) + ")");
-                    break;
-            }
-            labelIndex++;
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("employeeLogin.fxml"));
+        Parent root = loader.load();
+        stg.getScene().setRoot(root);
     }
-
-    ////////////////////////////////////////////////////// Pie chart //////////////////////////////
-
-    // Helper method to generate a consistent hash code for a string
-    private int hash(String s) {
-        int hash = 0;
-        for (int i = 0; i < s.length(); i++) {
-            hash = (hash * 31) + s.charAt(i);
-        }
-        return hash;
-    }
-
 
 }
