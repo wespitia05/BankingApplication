@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.myCardController">
+    <left>
+        <AnchorPane prefHeight="600.0" prefWidth="148.0" BorderPane.alignment="CENTER">
+            <children>
+                <!-- Sidebar -->
+                <VBox layoutX="11.0" layoutY="85.0" spacing="10" style="-fx-padding: 10px;">
+                    <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Dashboard">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="HOME" size="16" />
+                        </graphic>
+                    </Button>
+                    <Button onAction="#handlemyCard_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="My Cards">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="CREDIT_CARD" size="16" text="" />
+                        </graphic></Button>
+                    <Button onAction="#handletranaction_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Transactions">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
+                        </graphic></Button>
+                    <Button onAction="#handlepayment_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Payments">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="MONEY" size="16" />
+                        </graphic></Button>
+                    <Button onAction="#handlereports_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Reports">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="FILE" size="16" />
+                        </graphic></Button>
+                    <Button onAction="#handleprofile_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Profiles">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="USER" size="16" />
+                        </graphic></Button>
+                    <Button onAction="#handlesettings_btn" style="-fx-background-color: transparent; -fx-text-fill: #333333;" text="Settings">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="GEAR" size="16" />
+                        </graphic></Button>
+                </VBox>
+                <Label contentDisplay="TOP" layoutX="25.0" layoutY="20.0" text="Unity Bank">
+                    <font>
+                        <Font name="Baskerville Old Face" size="20.0" />
+                    </font>
+                    <graphic>
+                        <FontAwesomeIconView glyphName="BANK" size="16" />
+                    </graphic>
+                </Label>
+                <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="573.0" size="30" text="" />
+            </children>
+        </AnchorPane>
+    </left>
+    <center>
+        <AnchorPane prefHeight="600.0" prefWidth="683.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="14.0" layoutY="14.0" prefHeight="512.0" prefWidth="172.0" spacing="15.0">
+               <children>
+                  <Label prefHeight="31.0" prefWidth="68.0" text="Edit Profile" textFill="#0400ff" />
+                  <Label text="Change Password">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="Current Password" />
+                  <TextField />
+                  <Label text="New Password" />
+                  <TextField />
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Submit" textAlignment="RIGHT" textFill="#0e1863">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Label text="Alerts">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <CheckBox mnemonicParsing="false" text="Text Alerts" />
+                  <CheckBox mnemonicParsing="false" text="Email Alerts" />
+                  <CheckBox mnemonicParsing="false" text="Paperless Billing" />
+                  <Label text="Personal Info">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="Email: espitiaw@unitybank.com" />
+                  <Label text="Phone: 631-827-6068" />
+               </children></VBox>
+         </children></AnchorPane>
+    </center>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+</BorderPane>

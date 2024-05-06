@@ -250,6 +250,21 @@ public class homePageController extends loginController{
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    private void handlesettings_btn(ActionEvent event) throws IOException {
+        System.out.println("settings clicked");
+
+        // Load the FXML file and get the root and controller
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("settings.fxml"));
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        settingsController controller = loader.getController();
+
+        // Set the scene on the current stage
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
 
@@ -293,11 +308,6 @@ public class homePageController extends loginController{
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-    }
-
-    @FXML
-    private void handlesettings_btn(ActionEvent event) {
-        System.out.println("Settings clicked");
     }
 
     // this code is for the Checking button

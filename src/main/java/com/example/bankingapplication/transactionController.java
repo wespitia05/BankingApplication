@@ -1,6 +1,7 @@
 package com.example.bankingapplication;
 
 import com.google.firebase.auth.UserInfo;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,8 @@ import java.io.IOException;
 
 public class transactionController {
 
+
+
         @FXML
         private TableColumn<?, ?> categoryCol;
 
@@ -30,6 +33,7 @@ public class transactionController {
 
         @FXML
         private ChoiceBox<?> myChoiceBox;
+
 
         @FXML
         private TableColumn<?, ?> nameCol;
