@@ -172,43 +172,73 @@ public class transactionController {
     private void handledashBoard_btn(ActionEvent event) throws IOException {
         System.out.println("Dashboard clicked");
 
-
-
-        // Load the FXML file and get the root and controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        Parent root = loader.load();
         homePageController controller = loader.getController();
 
-        // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName(), userInfo.getLastName());
         controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
         controller.setCardExp(userInfo.getCardExp());
         controller.updateCheckingBalanceInFirestore(Double.parseDouble(userInfo.getChecking()));
         controller.updateSavingsBalanceInFirestore(Double.parseDouble(userInfo.getSavings()));
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+        controller.setUsername(userInfo.getUsername());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+    @FXML
+    void handlemyCard_btn(ActionEvent event) throws IOException {
+        System.out.println("My Cards clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("myCards.fxml"));
+        Parent root = loader.load();
+        myCardController controller = loader.getController();
+        
+        controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
+        controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        controller.setCardExp(userInfo.getCardExp());
+        controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+        controller.setUsername(userInfo.getUsername());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void handlepayment_btn(ActionEvent event) throws IOException {
+        System.out.println("Payment clicked");
+
+        // Load the FXML file and get the root and controller for the transactions view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("paymentDeposit.fxml"));
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
 
         // Set the scene on the current stage
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-
-    }
-
-
-    @FXML
-    void handlemyCard_btn(ActionEvent event) {
-
     }
 
     @FXML
-    void handlepayment_btn(ActionEvent event) {
+    void handleprofile_btn(ActionEvent event) throws IOException {
+        System.out.println("Profiles clicked");
 
-    }
+        // Load the FXML file and get the root and controller for the transactions view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
 
-    @FXML
-    void handleprofile_btn(ActionEvent event) {
-
+        // Set the scene on the current stage
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -226,4 +256,6 @@ public class transactionController {
 
     }
 
+    public void setUsername(String username) {
+    }
 }
