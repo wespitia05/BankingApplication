@@ -28,6 +28,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+import static com.example.bankingapplication.userInfo.getUsername;
 import static com.example.bankingapplication.userInfo.username;
 
 public class myCardController extends homePageController{
@@ -62,28 +63,22 @@ public class myCardController extends homePageController{
         this.firestore = firestore;
     }
 
-
-    /////////////////////////// Event Handlers for the Sidebar Buttons/////////////////////////
     @FXML
     private void handledashBoard_btn(ActionEvent event) throws IOException {
         System.out.println("Dashboard clicked");
 
-
-
-        // Load the FXML file and get the root and controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        Parent root = loader.load();
         homePageController controller = loader.getController();
 
-        // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName(), userInfo.getLastName());
         controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
         controller.setCardExp(userInfo.getCardExp());
         controller.updateCheckingBalanceInFirestore(Double.parseDouble(userInfo.getChecking()));
         controller.updateSavingsBalanceInFirestore(Double.parseDouble(userInfo.getSavings()));
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+        controller.setUsername(userInfo.getUsername());
 
-        // Set the scene on the current stage
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -104,11 +99,12 @@ public class myCardController extends homePageController{
     private void handletranaction_btn(ActionEvent event) throws IOException {
         System.out.println("Transactions clicked");
 
-        // Load the FXML file and get the root and controller for the transactions view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("transactions.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        Parent root = loader.load();
+        transactionController controller = loader.getController();
 
-        // Set the scene on the current stage
+        controller.setUsername(getUsername());
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -119,6 +115,10 @@ public class myCardController extends homePageController{
         System.out.println("Payment clicked");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("paymentDeposit.fxml"));
         Parent root = loader.load();
+        paymentDepositController controller = loader.getController();
+
+        controller.setUsername(userInfo.getUsername());
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -130,8 +130,19 @@ public class myCardController extends homePageController{
     }
 
     @FXML
-    private void handleprofile_btn(ActionEvent event) {
+    private void handleprofile_btn(ActionEvent event) throws IOException {
         System.out.println("Profiles clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
+        Parent root = loader.load();
+        updateProfileController controller = loader.getController();
+
+        controller.setUsername(userInfo.getUsername());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -208,14 +219,8 @@ public class myCardController extends homePageController{
         CVV_TF.setText(userInfo.getCardCVV());
         expDate_TF.setText(userInfo.getCardExp());
 
-
-
         transactions_COL.setCellValueFactory(new PropertyValueFactory<>("Category"));
         cost_COL.setCellValueFactory(new PropertyValueFactory<>("Amount"));
-
-
-
-
 
         fetchDataFromFirestore();
     }

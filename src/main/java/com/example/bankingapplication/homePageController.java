@@ -75,14 +75,10 @@ public class homePageController extends loginController{
     private Label legend1;
     @FXML
     private Label legend2;
-
     @FXML
     private Label legend3;
-
     @FXML
     private Label legend4;
-
-
     @FXML
     private Label userFullName;
     @FXML
@@ -95,23 +91,16 @@ public class homePageController extends loginController{
     public void initialize() {
         System.out.println ("initialize called");
 
-        //code for sliding the menu
-
         userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
         cardNumLabel.setText("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
         cardExpLabel.setText(userInfo.getCardExp());
-        // Manually set the onAction event handler for the saveDraft_btn button
         saveDraft_btn.setOnAction(this::handleSaveDraft_btn);
 
         sideBar.setTranslateX(-176);
 
         savings_TF.setText(userInfo.getSavings());
 
-        //sliding menu bar
         slider();
-
-//
-
     }
 
     //method to make the menu slide
@@ -141,10 +130,10 @@ public class homePageController extends loginController{
 
             double finalTranslateX = -sideBar.getWidth();
 
-            slide.setInterpolator(Interpolator.EASE_BOTH); //apply a smooth easing function
+            slide.setInterpolator(Interpolator.EASE_BOTH);
 
-            slide.setFromX(0); // start from the current position
-            slide.setToX(finalTranslateX); //Move to the final position
+            slide.setFromX(0);
+            slide.setToX(finalTranslateX);
 
             slide.setOnFinished((ActionEvent e)-> {
                 menu.setVisible(true);
@@ -249,54 +238,48 @@ public class homePageController extends loginController{
     private void handlemyCard_btn(ActionEvent event) throws IOException {
         System.out.println("My Cards clicked");
 
-        // Load the FXML file and get the root and controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("myCards.fxml"));
         Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
         myCardController controller = loader.getController();
 
-
-
-        // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
         controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
         controller.setCardExp(userInfo.getCardExp());
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+        controller.setUsername(userInfo.getUsername());
 
-        // Set the scene on the current stage
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
-
-
-
 
     @FXML
     private void handletranaction_btn(ActionEvent event) throws IOException {
         System.out.println("Transactions clicked");
 
-        // Load the FXML file and get the root and controller for the transactions view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("transactions.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        Parent root = loader.load();
+        transactionController controller = loader.getController();
 
-        // Set the scene on the current stage
+        controller.setUsername(userInfo.getUsername());
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
 
-
     @FXML
     private void handlepayment_btn(ActionEvent event) throws IOException {
         System.out.println("Payment clicked");
 
-        // Load the FXML file and get the root and controller for the transactions view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("paymentDeposit.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        Parent root = loader.load();
+        paymentDepositController controller = loader.getController();
 
-        // Set the scene on the current stage
+        controller.setUsername(userInfo.getUsername());
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -312,11 +295,12 @@ public class homePageController extends loginController{
     private void handleprofile_btn(ActionEvent event) throws IOException {
         System.out.println("Profiles clicked");
 
-        // Load the FXML file and get the root and controller for the transactions view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
 
-        // Set the scene on the current stage
+        controller.setUsername(userInfo.getUsername());
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -328,23 +312,18 @@ public class homePageController extends loginController{
         System.out.println("Settings clicked");
     }
 
-    // this code is for the Checking button///////////////////////////////handlers
     @FXML
-    public void handleSave_btn(ActionEvent event) {   ///updates your checking balance
+    public void handleSave_btn(ActionEvent event) {
 
-        // These fields are for Debit card info
         String enteredDebit = debit_TF.getText().trim();
-        String firebaseDebit = getDebitInfoFromFirestore(); // Retrieve debit info from Firestore
+        String firebaseDebit = getDebitInfoFromFirestore();
 
-        // Get the entered amount from the enterAmount_TF TextField
         String enteredAmount = enterAmount_TF.getText().trim();
 
-        // Check if the entered amount is a valid number
         if (!enteredAmount.isEmpty() && enteredAmount.matches("\\d*\\.?\\d+")) {
-            // Convert the entered amount to double
+
             double amount = Double.parseDouble(enteredAmount);
 
-            // Update the checking balance if the debit card is found
             if (enteredDebit.equals(firebaseDebit)) {
                 String checkingBalance = checkingBalanceTF.getText().trim();
                 if (!checkingBalance.isEmpty() && checkingBalance.matches("\\d*\\.?\\d+")) {
@@ -353,31 +332,22 @@ public class homePageController extends loginController{
                     checkingBalanceTF.setText(String.valueOf(checking));
                     userInfo.setChecking(String.valueOf(checking));
 
-                    // Call the method to update the checking balance in Firestore
-
                     updateCheckingBalanceInFirestore(checking);
 
                 } else {
-                    // Display an error message if the checking balance is empty or not valid
                     System.out.println("Invalid checking balance");
                 }
             } else {
-                // Print message if debit card is not found
                 System.out.println("Debit card not found");
             }
         } else {
-            // Display an error message if the entered amount is not valid
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Amount");
             alert.setHeaderText(null);
             alert.setContentText("Please enter a valid amount.");
             alert.showAndWait();
         }
-
-        // Add animation to checkingBalanceTF
         addAnimation(checkingBalanceTF);
-
-        // Add animation to savingsBalanceTF
         addAnimation(savingsBalanceTF);
     }
 
@@ -393,7 +363,6 @@ public class homePageController extends loginController{
                     DocumentSnapshot document = querySnapshot.getDocuments().get(0);
                     String documentId = document.getId();
 
-                    // Update the Checking balance field in Firestore
                     usersRef.document(documentId).update("Checking", String.valueOf(checkingBalance));
                 }
             } catch (InterruptedException | ExecutionException e) {
@@ -406,7 +375,6 @@ public class homePageController extends loginController{
         Firestore db = main.fstore;
         CollectionReference debitRef = db.collection("userinfo");
 
-        // Query Firestore to retrieve debit card info based on entered debit card number
         ApiFuture<QuerySnapshot> future = debitRef.whereEqualTo("Card Number", debit_TF.getText().trim()).get();
         try {
             QuerySnapshot querySnapshot = future.get();
@@ -420,24 +388,18 @@ public class homePageController extends loginController{
         return null;
     }
 
-
-    // this code is for the save button
     @FXML
     public void handleSaveDraft_btn(ActionEvent event) {
 
-        // These fields are for Debit card info
         String enteredDebit = debit_TF.getText().trim();
-        String firebaseDebit = getDebitInfoFromFirestore(); // Retrieve debit info from Firestore
+        String firebaseDebit = getDebitInfoFromFirestore();
 
-        // Get the entered amount from the enterAmount_TF TextField
         String enteredAmount = enterAmount_TF.getText().trim();
 
-        // Check if the entered amount is a valid number
         if (!enteredAmount.isEmpty() && enteredAmount.matches("\\d*\\.?\\d+")) {
-            // Convert the entered amount to double
+
             double amount = Double.parseDouble(enteredAmount);
 
-            // Update the savings balance if the debit card is found
             if (enteredDebit.equals(firebaseDebit)) {
                 String savingsBalance = savingsBalanceTF.getText().trim();
                 if (!savingsBalance.isEmpty() && savingsBalance.matches("\\d*\\.?\\d+")) {
@@ -446,32 +408,23 @@ public class homePageController extends loginController{
                     savingsBalanceTF.setText(String.valueOf(savings));
                     userInfo.setSavings(String.valueOf(savings));
 
-                    // Call the method to update the savings balance in Firestore
                     updateSavingsBalanceInFirestore(savings);
 
                 } else {
-                    // Display an error message if the savings balance is empty or not valid
                     System.out.println("Invalid savings balance");
                 }
             } else {
-                // Print message if debit card is not found
                 System.out.println("Debit card not found");
             }
         } else {
-            // Display an error message if the entered amount is not valid
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Amount");
             alert.setHeaderText(null);
             alert.setContentText("Please enter a valid amount.");
             alert.showAndWait();
         }
-        // Add animation to checkingBalanceTF
         addAnimation(checkingBalanceTF);
-
-        // Add animation to savingsBalanceTF
         addAnimation(savingsBalanceTF);
-
-
     }
 
     public void updateSavingsBalanceInFirestore(Double savingsBalance) {
@@ -486,7 +439,6 @@ public class homePageController extends loginController{
                     DocumentSnapshot document = querySnapshot.getDocuments().get(0);
                     String documentId = document.getId();
 
-                    // Update the Savings balance field in Firestore
                     usersRef.document(documentId).update("Savings", String.valueOf(savingsBalance));
                 }
             } catch (InterruptedException | ExecutionException e) {
@@ -566,13 +518,6 @@ public class homePageController extends loginController{
         scaleTransition.play();
     }
 
-
-
-
-
-
-
-
     ///////////////////////////// pie chart /////////////////////////////
 
     public void fetchAndDisplaySpendingPercentage() {
@@ -624,8 +569,6 @@ public class homePageController extends loginController{
         pieChart.setTitle("Spending Percentage");
     }
 
-
-
     // Method to add legend to the pie chart
     // Method to add legend to the pie chart
     private void addLegend(Map<String, Double> categoryTotals) {
@@ -668,7 +611,6 @@ public class homePageController extends loginController{
             colorIndex++;
         }
     }
-
 
 //calculatingSpendingPercentage
     private Map<String, Double> calculateSpendingPercentage(Map<String, Double> categoryTotals, double totalSpent) {

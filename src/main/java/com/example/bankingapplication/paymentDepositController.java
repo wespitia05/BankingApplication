@@ -70,6 +70,7 @@ public class paymentDepositController {
         controller.updateCheckingBalanceInFirestore(Double.parseDouble(userInfo.getChecking()));
         controller.updateSavingsBalanceInFirestore(Double.parseDouble(userInfo.getSavings()));
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+        controller.setUsername(userInfo.getUsername());
 
         // Set the scene on the current stage
         Scene scene = new Scene(root);
@@ -92,6 +93,7 @@ public class paymentDepositController {
         // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+        controller.setUsername(userInfo.getUsername());
 
         // Set the scene on the current stage
         Scene scene = new Scene(root);
@@ -101,8 +103,20 @@ public class paymentDepositController {
     }
 
     @FXML
-    private void handletranaction_btn(ActionEvent event) {
+    private void handletranaction_btn(ActionEvent event) throws IOException {
         System.out.println("Transactions clicked");
+
+        // Load the FXML file and get the root and controller for the transactions view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactions.fxml"));
+        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        transactionController controller = loader.getController();
+
+        controller.setUsername(userInfo.getUsername());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -112,8 +126,10 @@ public class paymentDepositController {
         // Load the FXML file and get the root and controller for the transactions view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("paymentDeposit.fxml"));
         Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        paymentDepositController controller = loader.getController();
 
-        // Set the scene on the current stage
+        controller.setUsername(userInfo.getUsername());
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -132,8 +148,10 @@ public class paymentDepositController {
         // Load the FXML file and get the root and controller for the transactions view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
         Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        updateProfileController controller = loader.getController();
 
-        // Set the scene on the current stage
+        controller.setUsername(userInfo.getUsername());
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -320,5 +338,7 @@ public class paymentDepositController {
     }
 
 
+    public void setUsername(String username) {
     }
+}
 
