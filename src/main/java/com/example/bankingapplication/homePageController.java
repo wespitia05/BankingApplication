@@ -1,7 +1,11 @@
 package com.example.bankingapplication;
 
 import com.google.api.core.ApiFuture;
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
 import com.google.cloud.firestore.*;
+import com.google.common.util.concurrent.MoreExecutors;
+import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -16,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,7 +35,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -51,10 +58,6 @@ public class homePageController extends loginController{
     private PieChart pieChart;
     @FXML
     private TextField income_TF;
-    @FXML
-    private TextField expenses_TF;
-    @FXML
-    private TextField savings_TF;
     @FXML
     public TextField checkingBalanceTF;
     @FXML
@@ -85,11 +88,69 @@ public class homePageController extends loginController{
     private Label cardNumLabel;
     @FXML
     private Label cardExpLabel;
+    @FXML
+    private TableView<?> Table_View;
+
+    @FXML
+    private TableColumn<?, ?> cost_COL;
+
+    @FXML
+    private TableColumn<?, ?> transactions_COL;
+
+
     public String username;
+
+    private Firestore firestore;
+
+
+    public void setFirestore(Firestore firestore) {
+        this.firestore = firestore;
+    }
+
+
+
+    private void fetchDataFromFirestore() {
+        if (userInfo.getUsername() != null && !userInfo.getUsername().isEmpty()) {
+            Firestore db = main.fstore;
+
+            DocumentReference userDocRef = db.collection("userinfo").document(userInfo.getUsername());
+            CollectionReference transactionsRef = userDocRef.collection("transactions");
+            Query query = transactionsRef.orderBy("Amount", Query.Direction.DESCENDING);
+
+            ApiFuture<QuerySnapshot> future = query.get();
+            future.addListener(() -> {
+                try {
+                    QuerySnapshot querySnapshot = future.get();
+                    List<transactionInfoDisplay> transactions = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : querySnapshot) {
+                        String category = document.getString("Category");
+                        String amount = document.getString("Amount");
+                        transactions.add(new transactionInfoDisplay(category, amount));
+                    }
+                    Platform.runLater(() -> {
+                        Table_View.getItems().clear();
+                        //Table_View.getItems().addAll(transactions); creating issues
+                    });
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }, Platform::runLater);
+        } else {
+            // Handle the case where username is empty or null
+            // You can show a message to the user or perform any other action
+        }
+    }
+
+
 
     @FXML
     public void initialize() {
         System.out.println ("initialize called");
+
+        transactions_COL.setCellValueFactory(new PropertyValueFactory<>("Category"));
+        cost_COL.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+
+        fetchDataFromFirestore();
 
         userFullName.setText(userInfo.getFirstName() + " " + userInfo.getLastName());
         cardNumLabel.setText("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
@@ -97,8 +158,6 @@ public class homePageController extends loginController{
         saveDraft_btn.setOnAction(this::handleSaveDraft_btn);
 
         sideBar.setTranslateX(-176);
-
-        savings_TF.setText(userInfo.getSavings());
 
         slider();
     }
@@ -234,12 +293,30 @@ public class homePageController extends loginController{
         System.out.println("Stop Clicking me, you are on my page");
     }
 
+
+
+
+    //switching the scenes should be smoother
+    private void switchScene(String fxmlFile, ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+        Parent root = loader.load();
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), root);
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.play();
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
     @FXML
     private void handlemyCard_btn(ActionEvent event) throws IOException {
         System.out.println("My Cards clicked");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("myCards.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        Parent root = loader.load();
         myCardController controller = loader.getController();
 
         controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
@@ -248,11 +325,32 @@ public class homePageController extends loginController{
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
         controller.setUsername(userInfo.getUsername());
 
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        switchScene("myCards.fxml", event);
     }
+
+//    @FXML
+//    private void handlemyCard_btn(ActionEvent event) throws IOException {
+//        System.out.println("My Cards clicked");
+//
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("myCards.fxml"));
+//        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+//        myCardController controller = loader.getController();
+//
+//        controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
+//        controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+//        controller.setCardExp(userInfo.getCardExp());
+//        controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+//        controller.setUsername(userInfo.getUsername());
+//
+//        Scene scene = new Scene(root);
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        stage.setScene(scene);
+//        stage.show();
+//
+//    }
+
+
+
 
     @FXML
     private void handletranaction_btn(ActionEvent event) throws IOException {
@@ -264,10 +362,11 @@ public class homePageController extends loginController{
 
         controller.setUsername(userInfo.getUsername());
 
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+//        Scene scene = new Scene(root);
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        stage.setScene(scene);
+//        stage.show();
+        switchScene("transactions.fxml", event);
     }
 
     @FXML
@@ -280,16 +379,13 @@ public class homePageController extends loginController{
 
         controller.setUsername(userInfo.getUsername());
 
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+//        Scene scene = new Scene(root);
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        stage.setScene(scene);
+//        stage.show();
+        switchScene("paymentDeposit.fxml", event);
     }
 
-    @FXML
-    private void handlereports_btn(ActionEvent event) {
-        System.out.println("Reports clicked");
-    }
 
     @FXML
     private void handleprofile_btn(ActionEvent event) throws IOException {
@@ -301,15 +397,28 @@ public class homePageController extends loginController{
 
         controller.setUsername(userInfo.getUsername());
 
+//        Scene scene = new Scene(root);
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        stage.setScene(scene);
+//        stage.show();
+        switchScene("profile.fxml", event);
+
+    }
+
+    @FXML
+    private void handlesettings_btn(ActionEvent event) throws IOException {
+        System.out.println("Settings clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("settings.fxml"));
+        Parent root = loader.load();
+        transactionController controller = loader.getController();
+
+        controller.setUsername(userInfo.getUsername());
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-    }
-
-    @FXML
-    private void handlesettings_btn(ActionEvent event) {
-        System.out.println("Settings clicked");
     }
 
     @FXML

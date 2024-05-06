@@ -13,9 +13,11 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +28,7 @@ import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+import static com.example.bankingapplication.main.stg;
 import static com.example.bankingapplication.userInfo.username;
 
 public class transactionController {
@@ -42,6 +45,8 @@ public class transactionController {
     private TableColumn<Transaction, String> itemName_COL;
     @FXML
     private TableView<transactionInfoDisplay> transactionTable;
+    @FXML
+    private TextField checking_tf;
 
     private Firestore firestore;
 
@@ -53,6 +58,7 @@ public class transactionController {
 
     @FXML
     private void initialize() {
+        checking_tf.setText(userInfo.getChecking());
         categoryCol.setCellValueFactory(new PropertyValueFactory<>("Category"));
         costCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("Date"));
@@ -242,10 +248,6 @@ public class transactionController {
         stage.show();
     }
 
-    @FXML
-    void handlereports_btn(ActionEvent event) {
-
-    }
 
     @FXML
     void handlesettings_btn(ActionEvent event) {
@@ -254,7 +256,75 @@ public class transactionController {
 
     @FXML
     void handletranaction_btn(ActionEvent event) {
+        System.out.println("stop clicking me");
 
+    }
+//
+//    public void setUsername(String username) {
+//    }
+
+    @FXML
+    public void handleViewPieChart(ActionEvent event) {
+        System.out.println("handleViewPieChart called");
+
+        String username = userInfo.getUsername();
+        if (username == null || username.isEmpty()) {
+            System.out.println("No user selected.");
+            return;
+        }
+
+        fetchAndDisplaySpendingPercentage(username);
+    }
+
+    private void fetchAndDisplaySpendingPercentage(String username) {
+        DocumentReference userDocRef = main.fstore.collection("userinfo").document(username);
+        ApiFuture<QuerySnapshot> future = userDocRef.collection("transactions").get();
+
+        future.addListener(() -> {
+            try {
+                QuerySnapshot querySnapshot = future.get();
+                Map<String, Double> categoryTotals = new HashMap<>();
+                double totalSpent = 0;
+
+                for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                    String category = doc.getString("Category");
+                    double amount = Double.parseDouble(doc.getString("Amount"));
+                    categoryTotals.put(category, categoryTotals.getOrDefault(category, 0.0) + amount);
+                    totalSpent += amount;
+                }
+
+                double finalTotalSpent = totalSpent;
+                Platform.runLater(() -> displayPieChart(categoryTotals, finalTotalSpent));
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
+    }
+
+    private void displayPieChart(Map<String, Double> categoryTotals, double totalSpent) {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        categoryTotals.forEach((category, sum) -> {
+            double percentage = (sum / totalSpent) * 100;
+            pieChartData.add(new PieChart.Data(category + String.format(" (%.1f%%)", percentage), sum));
+        });
+
+        PieChart pieChart = new PieChart(pieChartData);
+        pieChart.setTitle("Spending Percentage");
+
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(stg);
+        dialog.setTitle("Spending Pie Chart");
+
+        DialogPane dialogPane = new DialogPane();
+        dialogPane.setContent(pieChart);
+        dialog.setDialogPane(dialogPane);
+
+        ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialogPane.getButtonTypes().add(closeButton);
+
+        dialog.showAndWait();
     }
 
     public void setUsername(String username) {

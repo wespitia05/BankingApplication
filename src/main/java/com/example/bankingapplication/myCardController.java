@@ -41,6 +41,8 @@ public class myCardController extends homePageController{
     private TextField CVV_TF;
     @FXML
     private TextField name_TF;
+
+
     @FXML
     private Label userFullName;  //label next ot the circle
     @FXML
@@ -103,7 +105,7 @@ public class myCardController extends homePageController{
         Parent root = loader.load();
         transactionController controller = loader.getController();
 
-        controller.setUsername(getUsername());
+       controller.setUsername(getUsername());
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -124,10 +126,7 @@ public class myCardController extends homePageController{
         stage.setScene(scene);
         stage.show();
     }
-    @FXML
-    private void handlereports_btn(ActionEvent event) {
-        System.out.println("Reports clicked");
-    }
+
 
     @FXML
     private void handleprofile_btn(ActionEvent event) throws IOException {
@@ -153,6 +152,7 @@ public class myCardController extends homePageController{
     // Event Handlers for the Card Operations Buttons
     @FXML
     private void handleAddCard_btn(ActionEvent event) throws IOException {
+        System.out.println("Add Card clicked");
         System.out.println("Add Card clicked");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addAccount.fxml"));
         Parent root = loader.load();
@@ -201,10 +201,7 @@ public class myCardController extends homePageController{
         stage.setScene(scene);
         stage.show();
     }
-    @FXML
-    private void handleHistory_btn(ActionEvent event) {
-        System.out.println("History clicked");
-    }
+
 
     /////////////////////////// Event Handlers for the Sidebar Buttons/////////////////////////
 

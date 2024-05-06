@@ -114,7 +114,7 @@
                                     <Font size="16.0" />
                                 </font>
                             </Label>
-                            <TextField fx:id="paymentAmountField" prefHeight="35.0" prefWidth="150.0" promptText="Enter Amount" style="-fx-background-color: #FFE5B4;" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css">
+                            <TextField fx:id="paymentAmountField" prefHeight="35.0" prefWidth="150.0" promptText="Enter Amount" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                                 <font>
                                     <Font size="13.0" />
                                 </font>
@@ -184,7 +184,7 @@
                         <padding>
                            <Insets left="10.0" />
                         </padding></Label>
-                            <TextField fx:id="depositAmountField" prefHeight="35.0" prefWidth="150.0" promptText="Enter Amount" style="-fx-background-color: #FFE5B4;" styleClass="text-field-jumpy" stylesheets="@Stylesheet.css">
+                            <TextField fx:id="depositAmountField" prefHeight="35.0" prefWidth="150.0" promptText="Enter Amount" styleClass="text_field_WP" stylesheets="@Stylesheet.css">
                                 <font>
                                     <Font size="13.0" />
                                 </font></TextField>
@@ -236,7 +236,7 @@
                                   <Cursor fx:constant="HAND" />
                               </cursor>
                               <VBox.margin>
-                                  <Insets bottom="15.0" />
+                                  <Insets bottom="23.0" />
                               </VBox.margin>
                               <font>
                                   <Font size="15.0" />
@@ -254,7 +254,7 @@
                                   <Cursor fx:constant="HAND" />
                               </cursor>
                               <VBox.margin>
-                                  <Insets bottom="15.0" />
+                                  <Insets bottom="23.0" />
                               </VBox.margin>
                               <font>
                                   <Font size="15.0" />
@@ -269,7 +269,7 @@
                                   <FontAwesomeIconView glyphName="ARROW_UP" size="16" />
                               </graphic>
                               <VBox.margin>
-                                  <Insets bottom="15.0" />
+                                  <Insets bottom="23.0" />
                               </VBox.margin>
                               <font>
                                   <Font name="System Bold" size="15.0" />
@@ -284,19 +284,7 @@
                                   <FontAwesomeIconView glyphName="MONEY" size="16" />
                               </graphic>
                               <VBox.margin>
-                                  <Insets bottom="15.0" />
-                              </VBox.margin>
-                              <styleClass>
-                                  <String fx:value="button-d" />
-                                  <String fx:value="text-style" />
-                              </styleClass>
-                          </Button>
-                          <Button onAction="#handlereports_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Reports">
-                              <graphic>
-                                  <FontAwesomeIconView glyphName="LAPTOP" size="16" />
-                              </graphic>
-                              <VBox.margin>
-                                  <Insets bottom="15.0" />
+                                  <Insets bottom="23.0" />
                               </VBox.margin>
                               <styleClass>
                                   <String fx:value="button-d" />
@@ -308,7 +296,7 @@
                                   <FontAwesomeIconView glyphName="USER" size="16" />
                               </graphic>
                               <VBox.margin>
-                                  <Insets bottom="15.0" />
+                                  <Insets bottom="23.0" />
                               </VBox.margin>
                               <styleClass>
                                   <String fx:value="button-d" />
@@ -320,7 +308,7 @@
                                   <FontAwesomeIconView glyphName="GEAR" size="16" />
                               </graphic>
                               <VBox.margin>
-                                  <Insets bottom="15.0" />
+                                  <Insets bottom="23.0" />
                               </VBox.margin>
                               <styleClass>
                                   <String fx:value="button-d" />

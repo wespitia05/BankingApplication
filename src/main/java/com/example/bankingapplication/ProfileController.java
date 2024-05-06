@@ -95,29 +95,50 @@ public class ProfileController {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    private void handletranaction_btn(ActionEvent event) throws IOException {
+        System.out.println("Transactions clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactions.fxml"));
+        Parent root = loader.load();
+        transactionController controller = loader.getController();
+
+        controller.setUsername(userInfo.getUsername());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
-    void handlepayment_btn(ActionEvent event) {
+    private void handlepayment_btn(ActionEvent event) throws IOException {
+        System.out.println("Payment clicked");
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("paymentDeposit.fxml"));
+        Parent root = loader.load();
+        paymentDepositController controller = loader.getController();
+
+        controller.setUsername(userInfo.getUsername());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
+
+
+
 
     @FXML
     void handleprofile_btn(ActionEvent event) {
+        System.out.println("What's up need anything?");
 
     }
 
-    @FXML
-    void handlereports_btn(ActionEvent event) {
-
-    }
 
     @FXML
     void handlesettings_btn(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handletranaction_btn(ActionEvent event) {
 
     }
 

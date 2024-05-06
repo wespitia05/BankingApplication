@@ -78,18 +78,35 @@ public class transfersController {
     }
 
     @FXML
-    private void handletranaction_btn(ActionEvent event) {
+    private void handletranaction_btn(ActionEvent event) throws IOException {
         System.out.println("Transactions clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transactions.fxml"));
+        Parent root = loader.load();
+        transactionController controller = loader.getController();
+
+        controller.setUsername(userInfo.getUsername());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
-    private void handlepayment_btn(ActionEvent event) {
-        System.out.println("Payments clicked");
-    }
+    private void handlepayment_btn(ActionEvent event) throws IOException {
+        System.out.println("Payment clicked");
 
-    @FXML
-    private void handlereports_btn(ActionEvent event) {
-        System.out.println("Reports clicked");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("paymentDeposit.fxml"));
+        Parent root = loader.load();
+        paymentDepositController controller = loader.getController();
+
+        controller.setUsername(userInfo.getUsername());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -109,6 +126,9 @@ public class transfersController {
     private void handlesettings_btn(ActionEvent event) {
         System.out.println("Settings clicked");
     }
+
+    //////////////////End of Settinghandlers //////////////////////////
+
 
     @FXML
     public void handleSelection(ActionEvent event) {
@@ -245,6 +265,11 @@ public class transfersController {
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
         alert.showAndWait();
+    }
+
+    @FXML
+    void handleViewPieChart(ActionEvent event) {
+
     }
 
 

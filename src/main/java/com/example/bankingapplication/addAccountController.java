@@ -3,6 +3,12 @@ package com.example.bankingapplication;
 ///this controller takes you to another scene in which you can add another account
 
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
+import com.google.firebase.cloud.FirestoreClient;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +20,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class addAccountController {
 
@@ -30,10 +39,6 @@ public class addAccountController {
     private Button save_btn;
 
 
-    @FXML
-    private void handleSave_btn(ActionEvent event) {
-        System.out.println("Save clicked");
-    }
 
     // Initialization method
     @FXML
@@ -41,25 +46,40 @@ public class addAccountController {
         // Initialization logic here
     }
 
-
     @FXML
-    private void handledashBoard_btn(ActionEvent event) throws IOException {
-        System.out.println("Dashboard clicked");
+    private void handleSave_btn(ActionEvent event) {
+        System.out.println("Save clicked");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
-        Parent root = loader.load();
+        // Get the data from the text fields
+        String CVV = CVV_TF.getText();
+        String accountNumber = accountNumber_TF.getText();
+        String enterName = enterName_TF.getText();
 
-        // Create a new scene
-        Scene scene = new Scene(root);
+        // Access Firestore
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference accountsRef = db.collection("userinfo");
 
-        // Get the stage information
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // Prepare the document data
+        Map<String, Object> accountData = new HashMap<>();
+        accountData.put("CVV", CVV);
+        accountData.put("Account Number", accountNumber);
+        accountData.put("Holder Name", enterName);
 
-        // Set the new scene on the stage
-        stage.setScene(scene);
-        stage.show();
+        // Asynchronously add the document to Firestore
+        ApiFuture<WriteResult> future = accountsRef.document().create(accountData);
+        future.addListener(() -> {
+            try {
+                WriteResult result = future.get();
+                Platform.runLater(() -> {
+                    System.out.println("Account added successfully at: " + result.getUpdateTime());
+                });
+            } catch (InterruptedException | ExecutionException e) {
+                Platform.runLater(() -> {
+                    System.err.println("Error adding account: " + e.getMessage());
+                });
+            }
+        }, Runnable::run);
     }
-
     @FXML
     private void handlemyCard_btn(ActionEvent event) throws IOException {
         System.out.println("My Cards clicked");
@@ -106,7 +126,7 @@ public class addAccountController {
 
     // Event Handlers for the Card Operations Buttons
     @FXML
-    private void handleAddCard_btn(ActionEvent event) {
+    private void handledashBoard_btn(ActionEvent event) {
         System.out.println("Add Card clicked");
     }
 

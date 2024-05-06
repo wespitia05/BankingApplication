@@ -6,9 +6,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,12 +14,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bankingapplication.transactionController">
-    <left>
-        <AnchorPane prefHeight="600.0" prefWidth="148.0" style="-fx-background-color: #d8e8e2;" BorderPane.alignment="CENTER">
-            <children>
-                <FontAwesomeIconView glyphName="USER_CIRCLE" layoutX="14.0" layoutY="551.0" size="30" text="" />
-            <VBox alignment="TOP_CENTER" layoutX="9.0" layoutY="112.0" prefHeight="370.0" prefWidth="130.0">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="610.0" style="-fx-background-color: Gray;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Pane prefHeight="46.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#f4f1f1" layoutX="263.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </top>
+   <left>
+      <AnchorPane prefHeight="300.0" prefWidth="148.0" style="-fx-background-color: lightblue;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="TOP_CENTER" layoutX="15.0" layoutY="82.0" prefHeight="308.0" prefWidth="118.0">
                <children>
                   <Button onAction="#handledashBoard_btn" style="-fx-background-color: transparent;" stylesheets="@Stylesheet.css" text="Dashboard" textFill="#8ac2f7">
                      <graphic>
@@ -32,6 +40,8 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <VBox.margin>
+
+
                         <Insets bottom="10.0" />
                      </VBox.margin>
                      <font>
@@ -104,7 +114,7 @@
                         <FontAwesomeIconView glyphName="GEAR" size="16" />
                      </graphic>
                      <VBox.margin>
-                        <Insets />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
                      <styleClass>
                         <String fx:value="button-d" />
@@ -113,7 +123,7 @@
                   </Button>
                </children>
             </VBox>
-            <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="13.0" layoutY="26.0" text="UNITY BANK" textFill="#5daff2">
+            <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="17.0" layoutY="14.0" text="UNITY BANK" textFill="#5daff2">
                <font>
                   <Font name="Baskerville Old Face" size="18.0" />
                </font>
@@ -121,46 +131,24 @@
                   <FontAwesomeIconView fill="#5daff2" glyphName="BANK" size="20" tabSize="11" text="" />
                </graphic>
             </Label>
-            </children>
-        </AnchorPane>
-    </left>
-    <center>
-        <AnchorPane prefHeight="600.0" prefWidth="683.0" style="-fx-background-color: #d13c3a;" BorderPane.alignment="CENTER">
-            <children>
-                <TableView fx:id="transactionTable" layoutX="11.0" layoutY="221.0" prefHeight="331.0" prefWidth="630.0" style="-fx-background-color: #d8e8e2;" styleClass="roundCorner_Pane" stylesheets="@Stylesheet.css">
-                    <columns>
-                        <TableColumn fx:id="itemName_COL" prefWidth="176.800048828125" text="Name" />
-                        <TableColumn fx:id="categoryCol" prefWidth="191.199951171875" text="Category" />
-                  <TableColumn fx:id="costCol" prefWidth="135.0" text="Cost" />
-                  <TableColumn fx:id="dateCol" prefWidth="110.0" text="Date" />
-                    </columns>
-                </TableView>
-            <Button fx:id="addTranactions_btn" layoutX="76.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleAddTranactions_btn" prefHeight="34.0" prefWidth="122.0" style="-fx-background-color: #d8e8e2;" text="Add Tranactions" />
-            <FontAwesomeIconView fill="#13b10a" glyphName="DOLLAR" layoutX="54.0" layoutY="47.0" size="20" text="" />
-            <FontAwesomeIconView fill="#13b10a" glyphName="DOLLAR" layoutX="207.0" layoutY="48.0" size="20" text="" />
-            <Button fx:id="viewPieChart_btn" layoutX="82.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleViewPieChart" prefHeight="32.0" prefWidth="109.0" style="-fx-background-color: #d8e8e2;" text="View Pie-Chart" />
-            <TextArea layoutX="284.0" layoutY="6.0" prefHeight="210.0" prefWidth="298.0" style="-fx-background-color: #d8e8e2;" text="On this page, you'll effortlessly manage your &#10;transactions, both viewing and adding them &#10;with ease. Dive into a comprehensive overview&#10; of your spending habits through an intuitive &#10;pie chart, offering a visual snapshot of where &#10;your money goes. This feature simplifies &#10;budget tracking, empowering you to stay &#10;informed about your expenses and identify &#10;areas where you're spending the most. &#10;It's your go-to tool for budget management, &#10;designed for simplicity and effectiveness.&#10;&#10;&#10;&#10;&#10;&#10;" />
-            <TextField fx:id="checking_tf" layoutX="63.0" layoutY="143.0" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #d8e8e2;" />
-            <Text layoutX="65.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checking:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            </children>
-        </AnchorPane>
-    </center>
-    <opaqueInsets>
-        <Insets />
-    </opaqueInsets>
-   <top>
-      <Pane prefHeight="43.0" prefWidth="800.0" style="-fx-background-color: #34495e;" BorderPane.alignment="CENTER">
-         <children>
-            <Label layoutX="289.0" layoutY="8.0" text="Transaction Summary" textFill="#f4e9e9">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
          </children>
-      </Pane>
-   </top>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="newPassword_tf" layoutX="73.0" layoutY="113.0" styleClass="text_field_WP" stylesheets="@Stylesheet.css" />
+            <Text layoutX="78.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter in New Pasword" />
+            <TextField fx:id="newUserName_Tf" layoutX="73.0" layoutY="190.0" styleClass="text_field_WP" stylesheets="@Stylesheet.css" />
+            <Text layoutX="78.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter in New UserName" />
+            <FontAwesomeIconView fill="#5194ec" glyphName="USER" layoutX="50.0" layoutY="206.0" selectionFill="#4380ea" size="15" text="" />
+            <FontAwesomeIconView fill="#3bace4" glyphName="KEY" layoutX="255.0" layoutY="132.0" selectionFill="#4380ea" size="15" text="" />
+            <Button fx:id="save_btn" layoutX="263.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleSave_btn" prefHeight="43.0" prefWidth="88.0" style="-fx-background-color: black;" text="Save" textFill="#faf0f0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>
