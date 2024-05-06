@@ -1,7 +1,7 @@
 
 /*Pane for the homepage center, holds income, expense, and savings text-fields*/
 .pane {
-    -fx-background-color: linear-gradient(to left bottom, #ADD8E6, #FFFFFF); /* Light blue and white gradient */
+    -fx-background-color: linear-gradient(to left bottom, lightgreen, #FFFFFF); /* Light blue and white gradient */
     -fx-border-color: #C1C1C1;
     -fx-background-radius: 0px 0px 30px 30px;
     -fx-border-radius: 0px 0px 30px 30px;
@@ -178,7 +178,7 @@
 
 /*HomePage side bar color*/
 .sideBar_HomePage{
-    -fx-background-color: #ffd700; /* Vibrant yellow color */
+    -fx-background-color: #bebdbd; /* Vibrant yellow color */
     -fx-background-radius: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0); /* Dark shadow effect */
 }
@@ -206,6 +206,10 @@
     -fx-text-fill: #4b0082;
     -fx-font-size: 15px; /* Font size (14 pixels in this example) */
     -fx-font-weight: bold; /* Make the font bold */
+}
+
+.chart-pie-label {
+    -fx-text-fill: white;
 }
 /* CSS for creating a donut chart */
 /* Withdrawal Page text field make it look clean */
@@ -303,6 +307,7 @@
     -fx-text-fill: white; /* Text color */
     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 5, 0, 0, 0); /* Soft shadow effect */
 }
+
 
 
 

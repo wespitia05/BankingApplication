@@ -45,42 +45,32 @@ public class transfersController {
     private void handledashBoard_btn(ActionEvent event) throws IOException {
         System.out.println("Dashboard clicked");
 
-
-        // Load the FXML file and get the root and controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("homePagedemo.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        Parent root = loader.load();
         homePageController controller = loader.getController();
 
-        // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName(), userInfo.getLastName());
         controller.updateCheckingBalanceInFirestore(Double.parseDouble(userInfo.getChecking()));
         controller.updateSavingsBalanceInFirestore(Double.parseDouble(userInfo.getSavings()));
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
 
-        // Set the scene on the current stage
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-
     }
-
-
 
     @FXML
     private void handlemyCard_btn(ActionEvent event) throws IOException {
         System.out.println("My Cards clicked");
 
-        // Load the FXML file and get the root and controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("myCards.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
+        Parent root = loader.load();
         myCardController controller = loader.getController();
 
-        // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
         controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
 
-        // Set the scene on the current stage
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -106,7 +96,6 @@ public class transfersController {
     private void handleprofile_btn(ActionEvent event)throws IOException {
         System.out.println("Profiles clicked");
 
-        // Load the FXML file and get the root and controller for the transactions view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
         Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
 
@@ -201,10 +190,6 @@ public class transfersController {
                     "Please enter a valid numerical amount.");
         }
     }
-
-
-
-
 
     private String getUserIdFromPhone(String phone) {
         Firestore db = FirestoreClient.getFirestore();

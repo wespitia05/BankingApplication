@@ -536,7 +536,7 @@ public class homePageController extends loginController{
                     categoryTotals.put(category, categoryTotals.getOrDefault(category, 0.0) + amount);
                     totalSpent += amount;
                 }
-//////use for the transactions page
+
                 double finalTotalSpent = totalSpent;
                 Platform.runLater(() -> {
                     displayPieChart(categoryTotals, finalTotalSpent);
