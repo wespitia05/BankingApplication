@@ -2,6 +2,7 @@ package com.example.bankingapplication;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,9 +15,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -808,11 +812,16 @@ public class employeeHomePageController extends employeeLoginController {
         dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
 
         dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == addButtonType && validatePhoneNumber(numberField.getText()) && validateDob(dobField.getText())) {
+            if (dialogButton == addButtonType) {
+                // Format the date of birth to mm/dd/yy
+                String formattedDob = formatDob(dobField.getText());
+                // Format the phone number to xxx-xxx-xxxx
+                String formattedPhoneNumber = formatPhoneNumber(numberField.getText());
+
                 return new userInfoDisplay(
                         firstNameField.getText(),
                         lastNameField.getText(),
-                        dobField.getText(),
+                        formattedDob,
                         usernameField.getText(),
                         passwordField.getText(),
                         checkingField.getText(),
@@ -823,7 +832,7 @@ public class employeeHomePageController extends employeeLoginController {
                         cardExpField.getText(),
                         cardCVVField.getText(),
                         emailField.getText(),
-                        numberField.getText(),
+                        formattedPhoneNumber,
                         null
                 );
             }
@@ -831,9 +840,7 @@ public class employeeHomePageController extends employeeLoginController {
         });
 
         Optional<userInfoDisplay> result = dialog.showAndWait();
-        result.ifPresent(newCustomer -> {
-            addNewCustomer(newCustomer);
-        });
+        result.ifPresent(this::addNewCustomer);
     }
 
     private void addNewCustomer(userInfoDisplay newCustomer) {
@@ -932,12 +939,32 @@ public class employeeHomePageController extends employeeLoginController {
         return lastName.toLowerCase() + firstName.substring(0, 1).toLowerCase();
     }
 
-    private boolean validateDob(String dob) {
-        return dob.matches("\\d{2}/\\d{2}/\\d{2}");
+    private String formatDob(String dob) {
+        try {
+            // Assume the input could be in a variety of formats, try to parse it
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("[MM/dd/yyyy][M/d/yyyy][yyyy-MM-dd][MMddyy][MMddyyyy][MMdyy][Mdyy][Mdyyyy][Mddyy][Mddyyy]");
+            LocalDate date = LocalDate.parse(dob, inputFormatter);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+            return date.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            // If parsing fails, return the original input or handle the case appropriately
+            System.err.println("Invalid date format, please enter date in MM/dd/yyyy or M/d/yyyy format.");
+            return dob;
+        }
     }
 
-    private boolean validatePhoneNumber(String number) {
-        return number.matches("\\d{3}-\\d{3}-\\d{4}");
+    // Method to format the phone number to xxx-xxx-xxxx
+    private String formatPhoneNumber(String number) {
+        // Remove all non-digit characters from the string
+        String digits = number.replaceAll("\\D+", "");
+        if (digits.length() == 10) { // Ensure the number has exactly 10 digits
+            // Reformat to the desired style
+            return String.format("%s-%s-%s", digits.substring(0, 3), digits.substring(3, 6), digits.substring(6));
+        } else {
+            // If the number of digits is incorrect, return the original or handle the case appropriately
+            System.err.println("Invalid phone number, ensure it has exactly 10 digits.");
+            return number;
+        }
     }
 }
 
