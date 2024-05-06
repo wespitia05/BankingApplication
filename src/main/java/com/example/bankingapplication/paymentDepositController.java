@@ -92,8 +92,8 @@ public class paymentDepositController {
 
         // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
-        controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
-        controller.setUsername(userInfo.getUsername());
+        //controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+        //controller.setUsername(userInfo.getUsername());
 
         // Set the scene on the current stage
         Scene scene = new Scene(root);
@@ -145,12 +145,11 @@ public class paymentDepositController {
     private void handleprofile_btn(ActionEvent event) throws IOException {
         System.out.println("Profiles clicked");
 
-        // Load the FXML file and get the root and controller for the transactions view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
-        Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
-        updateProfileController controller = loader.getController();
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
 
-        controller.setUsername(userInfo.getUsername());
+        //controller.setUsername(userInfo.getUsername());
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -159,8 +158,19 @@ public class paymentDepositController {
     }
 
     @FXML
-    private void handlesettings_btn(ActionEvent event) {
+    private void handlesettings_btn(ActionEvent event) throws IOException {
         System.out.println("Settings clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("settings.fxml"));
+        Parent root = loader.load();
+        settingsController controller = loader.getController();
+
+        controller.setUsername(userInfo.getUsername());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

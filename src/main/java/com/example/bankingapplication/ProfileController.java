@@ -85,9 +85,9 @@ public class ProfileController {
 
         // Set data using methods in your controller
         controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
-        controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
-        controller.setCardExp(userInfo.getCardExp());
-        controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+        //controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        //controller.setCardExp(userInfo.getCardExp());
+        //controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
 
         // Set the scene on the current stage
         Scene scene = new Scene(root);

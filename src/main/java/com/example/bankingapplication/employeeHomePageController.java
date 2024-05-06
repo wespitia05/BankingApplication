@@ -17,13 +17,11 @@ import javafx.stage.Modality;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+import static com.example.bankingapplication.main.addDataToDB;
 import static com.example.bankingapplication.main.stg;
 
 public class employeeHomePageController extends employeeLoginController {
@@ -742,6 +740,204 @@ public class employeeHomePageController extends employeeLoginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("employeeLogin.fxml"));
         Parent root = loader.load();
         stg.getScene().setRoot(root);
+    }
+
+    public void handleAddNewCustomerButton() {
+        Dialog<userInfoDisplay> dialog = new Dialog<>();
+        dialog.setTitle("Add New Customer");
+        dialog.setHeaderText("Enter new customer details:");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField firstNameField = new TextField();
+        TextField lastNameField = new TextField();
+        TextField emailField = new TextField();
+        emailField.setEditable(false);
+        TextField usernameField = new TextField();
+        usernameField.setEditable(false);
+        lastNameField.textProperty().addListener((obs, oldVal, newVal) -> {
+            emailField.setText(generateEmail(firstNameField.getText(), newVal));
+        });
+        lastNameField.textProperty().addListener((obs, oldVal, newVal) -> {
+            usernameField.setText(generateUsername(firstNameField.getText(), newVal));
+        });
+        TextField passwordField = new TextField();
+        passwordField.setText("temporarypassword");
+        passwordField.setEditable(false);
+        TextField checkingField = new TextField();
+        checkingField.setText("0");
+        checkingField.setEditable(false);
+        TextField savingsField = new TextField();
+        savingsField.setText("0");
+        savingsField.setEditable(false);
+        TextField addressField = new TextField();
+        TextField zipCodeField = new TextField();
+        String cardNum;
+        do {
+            cardNum = generateCardNumber();
+        } while (cardNumExists(cardNum));
+        TextField cardNumField = new TextField(cardNum);
+        cardNumField.setEditable(false);
+        TextField cardExpField = new TextField(generateExpirationDate());
+        cardExpField.setEditable(false);
+        TextField cardCVVField = new TextField(generateCVV());
+        cardCVVField.setEditable(false);
+        TextField numberField = new TextField();
+        TextField dobField = new TextField();
+
+        grid.addRow(0, new Label("First Name:"), firstNameField);
+        grid.addRow(1, new Label("Last Name:"), lastNameField);
+        grid.addRow(2, new Label("Address:"), addressField);
+        grid.addRow(3, new Label("Zip Code:"), zipCodeField);
+        grid.addRow(4, new Label("Date of Birth:"), dobField);
+        grid.addRow(5, new Label("Username:"), usernameField);
+        grid.addRow(6, new Label("Password:"), passwordField);
+        grid.addRow(7, new Label("Checking:"), checkingField);
+        grid.addRow(8, new Label("Savings:"), savingsField);
+        grid.addRow(9, new Label("Card Number:"), cardNumField);
+        grid.addRow(10, new Label("Card Expiration Date:"), cardExpField);
+        grid.addRow(11, new Label("Card CVV:"), cardCVVField);
+        grid.addRow(12, new Label("Email:"), emailField);
+        grid.addRow(13, new Label("Phone Number:"), numberField);
+
+        dialog.getDialogPane().setContent(grid);
+        ButtonType addButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == addButtonType && validatePhoneNumber(numberField.getText()) && validateDob(dobField.getText())) {
+                return new userInfoDisplay(
+                        firstNameField.getText(),
+                        lastNameField.getText(),
+                        dobField.getText(),
+                        usernameField.getText(),
+                        passwordField.getText(),
+                        checkingField.getText(),
+                        savingsField.getText(),
+                        addressField.getText(),
+                        zipCodeField.getText(),
+                        cardNumField.getText(),
+                        cardExpField.getText(),
+                        cardCVVField.getText(),
+                        emailField.getText(),
+                        numberField.getText(),
+                        null
+                );
+            }
+            return null;
+        });
+
+        Optional<userInfoDisplay> result = dialog.showAndWait();
+        result.ifPresent(newCustomer -> {
+            addNewCustomer(newCustomer);
+        });
+    }
+
+    private void addNewCustomer(userInfoDisplay newCustomer) {
+        ObservableList<userInfoDisplay> currentData = userInfoTV.getItems();
+        currentData.add(newCustomer);
+        userInfoTV.setItems(currentData);
+        addDataToDB(newCustomer.getFirstName(), newCustomer.getLastName(), newCustomer.getAddress(),
+                newCustomer.getZipCode(), newCustomer.getDob(), newCustomer.getUsername(), newCustomer.getPassword(),
+                newCustomer.getChecking(), newCustomer.getSavings(), newCustomer.getCardNum(), newCustomer.getCardExp(),
+                newCustomer.getCardCVV(), newCustomer.getEmail(), newCustomer.getNumber());
+    }
+
+    public static void addDataToDB(String firstName, String lastName, String address,
+                                   String zipCode, String dob, String username, String password,
+                                   String checking, String savings, String cardNum, String cardExp,
+                                   String cardCVV, String email, String number) {
+
+        // Create document reference
+        DocumentReference docRef = main.fstore.collection("userinfo").document(username);
+
+        // Create data object
+        Map<String, Object> data = new HashMap<>();
+        data.put("First Name", firstName);
+        data.put("Last Name", lastName);
+        data.put("Address", address);
+        data.put("Zip Code", zipCode);
+        data.put("Date of Birth", dob);
+        data.put("Username", username);
+        data.put("Password", password);
+        data.put("Checking", checking);
+        data.put("Savings", savings);
+        data.put("Card Number", cardNum);
+        data.put("Card Expiration Date", cardExp);
+        data.put("Card CVV", cardCVV);
+        data.put("Email", email);
+        data.put("Phone Number", number);
+
+        // Add data to document
+        ApiFuture<WriteResult> future = docRef.set(data, SetOptions.merge());
+
+        try {
+            // Wait for the result
+            WriteResult result = future.get();
+            System.out.println("Data added/updated at: " + result.getUpdateTime());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String generateCardNumber() {
+        String prefix = "223344556677";
+        Random random = new Random();
+        int lastFourDigits = random.nextInt(10000);
+        return prefix + String.format("%04d", lastFourDigits);
+    }
+
+    private boolean cardNumExists(String cardNum) {
+        try {
+            Firestore db = main.fstore;
+            Query query = db.collection("userinfo").whereEqualTo("Card Number", cardNum);
+            QuerySnapshot querySnapshot = query.get().get();
+            if (!querySnapshot.isEmpty()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private String generateExpirationDate() {
+        Random random = new Random();
+        int month = random.nextInt(12) + 1;
+        return String.format("%02d", month) + "/26";
+    }
+
+    private String generateCVV() {
+        Random random = new Random();
+        int cvv = random.nextInt(900) + 100;
+        return String.valueOf(cvv);
+    }
+
+    private String generateEmail(String firstName, String lastName) {
+        if (lastName.isEmpty() || firstName.isEmpty()) {
+            return "";
+        }
+        return lastName.toLowerCase() + firstName.substring(0, 1).toLowerCase() + "@unitybank.com";
+    }
+
+    private String generateUsername(String firstName, String lastName) {
+        if (lastName.isEmpty() || firstName.isEmpty()) {
+            return "";
+        }
+        return lastName.toLowerCase() + firstName.substring(0, 1).toLowerCase();
+    }
+
+    private boolean validateDob(String dob) {
+        return dob.matches("\\d{2}/\\d{2}/\\d{2}");
+    }
+
+    private boolean validatePhoneNumber(String number) {
+        return number.matches("\\d{3}-\\d{3}-\\d{4}");
     }
 }
 

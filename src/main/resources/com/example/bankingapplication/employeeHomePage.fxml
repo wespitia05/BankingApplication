@@ -40,11 +40,11 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="displayAllCustomersButton" layoutX="15.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleDisplayAllCustomersButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="Display All Customers" />
-      <Button fx:id="editCustomerButton" layoutX="35.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleEditCustomerButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="Edit Customer" />
-      <Button fx:id="deleteCustomerButton" layoutX="28.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleDeleteCustomerButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="Delete Customer" />
-      <Button fx:id="viewTransactionsButton" layoutX="27.0" layoutY="214.0" mnemonicParsing="false" onAction="#handleViewTransactionsButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="View Transactions" />
-      <Button fx:id="viewCustomerButton" layoutX="33.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleViewCustomerButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="View Customer" />
+      <Button fx:id="displayAllCustomersButton" layoutX="15.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleDisplayAllCustomersButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="Display All Customers" />
+      <Button fx:id="editCustomerButton" layoutX="35.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleEditCustomerButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="Edit Customer" />
+      <Button fx:id="deleteCustomerButton" layoutX="28.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleDeleteCustomerButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="Delete Customer" />
+      <Button fx:id="viewTransactionsButton" layoutX="27.0" layoutY="225.0" mnemonicParsing="false" onAction="#handleViewTransactionsButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="View Transactions" />
+      <Button fx:id="viewCustomerButton" layoutX="33.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleViewCustomerButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="View Customer" />
       <TableView fx:id="transactionTV" layoutX="285.0" layoutY="365.0" prefHeight="218.0" prefWidth="587.0">
         <columns>
           <TableColumn fx:id="transactionNameCol" prefWidth="172.0" text="Name" />
@@ -100,7 +100,8 @@
       </Label>
       <TextField fx:id="amountEnteredTF" layoutX="131.0" layoutY="460.0" prefHeight="26.0" prefWidth="125.0" />
       <Button fx:id="startTransferButton" layoutX="83.0" layoutY="513.0" mnemonicParsing="false" onAction="#handleStartTransferButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="Start Transfer" />
-      <Button fx:id="spendingPercentageButton" layoutX="18.0" layoutY="294.0" mnemonicParsing="false" onAction="#handleSpendingPercentageButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="Spending Percentage" />
+      <Button fx:id="spendingPercentageButton" layoutX="18.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleSpendingPercentageButton" styleClass="button-d" stylesheets="@Stylesheet.css" text="Spending Percentage" />
       <FontAwesomeIconView fx:id="signoutIcon" glyphName="SIGN_OUT" layoutX="21.0" layoutY="578.0" onMouseClicked="#handleSignOutOnMouseClicked" size="25" />
+      <Button fx:id="addNewCustomerButton" layoutX="13.0" layoutY="85.0" mnemonicParsing="false" onAction="#handleAddNewCustomerButton" text="Add New Customer" />
    </children>
 </AnchorPane>

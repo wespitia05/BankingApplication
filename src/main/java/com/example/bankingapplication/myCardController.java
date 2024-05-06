@@ -134,9 +134,9 @@ public class myCardController extends homePageController{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
         Parent root = loader.load();
-        updateProfileController controller = loader.getController();
+        //ProfileController controller = loader.getController();
 
-        controller.setUsername(userInfo.getUsername());
+        //controller.setUsername(userInfo.getUsername());
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -145,14 +145,24 @@ public class myCardController extends homePageController{
     }
 
     @FXML
-    private void handlesettings_btn(ActionEvent event) {
+    private void handlesettings_btn(ActionEvent event) throws IOException {
         System.out.println("Settings clicked");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("settings.fxml"));
+        Parent root = loader.load();
+        //settingsController controller = loader.getController();
+
+        //controller.setUsername(userInfo.getUsername());
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     // Event Handlers for the Card Operations Buttons
     @FXML
     private void handleAddCard_btn(ActionEvent event) throws IOException {
-        System.out.println("Add Card clicked");
         System.out.println("Add Card clicked");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addAccount.fxml"));
         Parent root = loader.load();
@@ -166,8 +176,6 @@ public class myCardController extends homePageController{
     private void handleDeposit_btn(ActionEvent event)throws IOException {
         System.out.println("Deposit clicked");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("paymentDeposit.fxml"));
-
-
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -178,8 +186,6 @@ public class myCardController extends homePageController{
     private void handleWithdrawl_btn(ActionEvent event)throws IOException {
         System.out.println("Withdrawal clicked");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("withdrawal.fxml"));
-
-
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -193,18 +199,12 @@ public class myCardController extends homePageController{
     private void handleTransfer_btn(ActionEvent event)throws IOException {
         System.out.println("Transfers clicked");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("transfers.fxml"));
-
-
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
-
-
-    /////////////////////////// Event Handlers for the Sidebar Buttons/////////////////////////
-
 
     // Initialization method
     public void initialize() {
@@ -273,5 +273,4 @@ public class myCardController extends homePageController{
             // You can show a message to the user or perform any other action
         }
     }
-
 }

@@ -152,4 +152,6 @@ public class updateProfileController extends homePageController{
          previousStage.show();
     }
 
+    public void setUsername(String username) {
+    }
 }

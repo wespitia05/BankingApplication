@@ -207,10 +207,10 @@ public class transactionController {
         myCardController controller = loader.getController();
         
         controller.setUserFullName(userInfo.getFirstName() + " " + userInfo.getLastName());
-        controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
-        controller.setCardExp(userInfo.getCardExp());
-        controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
-        controller.setUsername(userInfo.getUsername());
+        //controller.setCardNum("**** **** **** " + userInfo.getCardNum().substring(userInfo.getCardNum().length() - 4));
+        //controller.setCardExp(userInfo.getCardExp());
+        //controller.setBalances(userInfo.getChecking(), userInfo.getSavings());
+        //controller.setUsername(userInfo.getUsername());
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
