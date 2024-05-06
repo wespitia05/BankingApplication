@@ -18,6 +18,7 @@ public class userInfoDisplay {
     private String id;
 
 
+
     public userInfoDisplay(String firstName, String lastName, String dob, String username, String password, String checking,
                            String savings, String address, String zipCode, String cardNum, String cardExp, String cardCVV,
                            String email, String number, String id) {

@@ -111,7 +111,7 @@ public class paymentDepositController {
         Parent root = loader.load(); // This is the root node of your new scene, loaded from FXML
         transactionController controller = loader.getController();
 
-        controller.setUsername(userInfo.getUsername());
+        //controller.setUsername(userInfo.getUsername());
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
